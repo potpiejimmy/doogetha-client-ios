@@ -28,6 +28,7 @@
 		A591DAE9149A6DB20077DF83 /* DGApp.m in Sources */ = {isa = PBXBuildFile; fileRef = A591DAE8149A6DB20077DF83 /* DGApp.m */; };
 		A591DAEC149A6DB20077DF83 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A591DAEA149A6DB20077DF83 /* MainStoryboard.storyboard */; };
 		A591DAEF149A6DB20077DF83 /* DGMainController.m in Sources */ = {isa = PBXBuildFile; fileRef = A591DAEE149A6DB20077DF83 /* DGMainController.m */; };
+		A592B732149BEEB300627259 /* DGUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = A592B731149BEEB300627259 /* DGUtils.m */; };
 		A5C7812B149A6F5000BA93F3 /* TLWebRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = A5C7812A149A6F5000BA93F3 /* TLWebRequest.m */; };
 		A5C7812E149A6FB100BA93F3 /* DGRegisterController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5C7812D149A6FB100BA93F3 /* DGRegisterController.m */; };
 		A5C78130149A713F00BA93F3 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = A5C7812F149A713F00BA93F3 /* icon.png */; };
@@ -74,6 +75,8 @@
 		A591DAEB149A6DB20077DF83 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
 		A591DAED149A6DB20077DF83 /* DGMainController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DGMainController.h; sourceTree = "<group>"; };
 		A591DAEE149A6DB20077DF83 /* DGMainController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DGMainController.m; sourceTree = "<group>"; };
+		A592B730149BEEB300627259 /* DGUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DGUtils.h; sourceTree = "<group>"; };
+		A592B731149BEEB300627259 /* DGUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DGUtils.m; sourceTree = "<group>"; };
 		A5C78129149A6F5000BA93F3 /* TLWebRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLWebRequest.h; sourceTree = "<group>"; };
 		A5C7812A149A6F5000BA93F3 /* TLWebRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLWebRequest.m; sourceTree = "<group>"; };
 		A5C7812C149A6FB100BA93F3 /* DGRegisterController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DGRegisterController.h; sourceTree = "<group>"; };
@@ -168,6 +171,8 @@
 				A5C7812A149A6F5000BA93F3 /* TLWebRequest.m */,
 				A58CF812149A90710072C3F5 /* TLUtils.h */,
 				A58CF813149A90710072C3F5 /* TLUtils.m */,
+				A592B730149BEEB300627259 /* DGUtils.h */,
+				A592B731149BEEB300627259 /* DGUtils.m */,
 				A58CF811149A8EBF0072C3F5 /* JSON */,
 				A591DADF149A6DB20077DF83 /* Supporting Files */,
 			);
@@ -267,6 +272,7 @@
 				A58CF80F149A8EB20072C3F5 /* SBJsonUTF8Stream.m in Sources */,
 				A58CF810149A8EB20072C3F5 /* SBJsonWriter.m in Sources */,
 				A58CF814149A90710072C3F5 /* TLUtils.m in Sources */,
+				A592B732149BEEB300627259 /* DGUtils.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

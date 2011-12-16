@@ -13,12 +13,13 @@
 @synthesize resultData = _resultData;
 @synthesize currentName = _currentName;
 @synthesize authorization = _authorization;
+@synthesize delegate = _delegate;
 
--(TLWebRequest*)initWithObserver:(id)observer
+-(TLWebRequest*)initWithDelegate:(id)delegate
 {
     self = [super init];
     if (self) {
-        [[NSNotificationCenter defaultCenter] addObserver:observer selector:@selector(webRequestDone:) name:nil object:self];
+        self.delegate = delegate;
     }
     return self;
 }
@@ -83,7 +84,7 @@
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
     NSLog(@"Succeeded! Received %d bytes of data",[self.resultData length]);
-    [[NSNotificationCenter defaultCenter] postNotificationName:self.currentName object:self];
+    [self.delegate webRequestDone:self.currentName];
 }
 
 -(NSString*)resultString

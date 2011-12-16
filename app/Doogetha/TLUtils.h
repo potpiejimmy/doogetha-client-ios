@@ -10,9 +10,9 @@
 
 @interface TLUtils : NSObject
 
-+(NSString*) bytesToHex:   (NSData*)data;
-+(NSData*)   hexToBytes:   (NSString*)hexString;
-+(NSString*) xorHexString: (NSString*)a with:(NSString*)b;
++ (NSString*) bytesToHex:   (NSData*)data;
++ (NSData*)   hexToBytes:   (NSString*)hexString;
++ (NSString*) xorHexString: (NSString*)a with:(NSString*)b;
 + (NSString *)encodeBase64WithString:(NSString *)strData;
 + (NSString *)encodeBase64WithData:(NSData *)objData;
 

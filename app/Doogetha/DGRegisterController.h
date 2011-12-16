@@ -15,8 +15,6 @@
 - (IBAction)register:(id)sender;
 - (IBAction)login:(id)sender;
 
-@property (strong, nonatomic) TLWebRequest *webRequester;
-
 @property (weak, nonatomic) IBOutlet UITextField *mailTextField;
 @property (weak, nonatomic) IBOutlet UILabel *resultLabel;
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;

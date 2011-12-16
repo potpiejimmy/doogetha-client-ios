@@ -14,21 +14,20 @@ NSString* const DOOGETHA_URL = @"http://www.potpiejimmy.de/doogetha/res/";
 @implementation DGApp
 
 @synthesize window = _window;
-@synthesize mainController = _mainController;
 @synthesize loginToken = _loginToken;
 @synthesize webRequester = _webRequester;
 @synthesize sessionKey = _sessionKey;
+@synthesize sessionCallback = _sessionCallback;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
     UIStoryboard *board = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    self.mainController = [board instantiateViewControllerWithIdentifier:@"mainController"];
+    self.webRequester = [[TLWebRequest alloc] initWithDelegate:self];
     if ([self authToken]) {
         NSLog(@"Got auth token: %@", [self authToken]);
         self.window.rootViewController = [board instantiateViewControllerWithIdentifier:@"navigationController"];
-        [self startSession];
     } else {
         self.window.rootViewController = [board instantiateViewControllerWithIdentifier:@"registerController"];
     }
@@ -37,20 +36,20 @@ NSString* const DOOGETHA_URL = @"http://www.potpiejimmy.de/doogetha/res/";
     return YES;
 }
 
-- (void)webRequestDone:(NSNotification*)notification 
+- (void)webRequestDone:(NSString*)name 
 {
     NSString* sessionKey = [self.webRequester resultString];
     sessionKey = [sessionKey substringWithRange:NSMakeRange(1, [sessionKey length]-2)];
     NSLog(@"Session key: Basic %@",sessionKey);
     self.sessionKey = [TLUtils encodeBase64WithString:sessionKey];
-    
-    [self.mainController reload];
+    [self.sessionCallback sessionCreated];
 }
 
--(void)startSession
+-(void)startSession:(id)sessionCallback
 {
     // start session:
-    self.webRequester = [[TLWebRequest alloc] initWithObserver:self];
+    self.sessionCallback = sessionCallback;
+    self.webRequester.delegate = self;
     [self.webRequester post:[NSString stringWithFormat:@"%@login",DOOGETHA_URL] msg:[self authToken] name:@"session"];
 }
 

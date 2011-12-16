@@ -9,10 +9,10 @@
 #import "DGRegisterController.h"
 #import "DGApp.h"
 #import "TLUtils.h"
+#import "DGUtils.h"
 
 @implementation DGRegisterController
 @synthesize mailTextField=_mailTextField;
-@synthesize webRequester=_webRequester;
 @synthesize resultLabel = _resultLabel;
 @synthesize loginButton = _loginButton;
 
@@ -22,7 +22,6 @@
     self = [super initWithCoder:aDecoder];
     if (self) {
         // Custom initialization
-        self.webRequester = [[TLWebRequest alloc] initWithObserver:self];
     }
     return self;
 }
@@ -82,20 +81,18 @@
     [self.mailTextField resignFirstResponder];
     NSLog(@"Registering...assdf");
     
-    if (!self.webRequester)
-        self.webRequester = [[TLWebRequest alloc] initWithObserver:self];
-    
-    [self.webRequester post:[NSString stringWithFormat:@"%@register",DOOGETHA_URL] msg:self.mailTextField.text name:@"register"];
+    [DGUtils app].webRequester.delegate = self;
+    [[DGUtils app].webRequester post:[NSString stringWithFormat:@"%@register",DOOGETHA_URL] msg:self.mailTextField.text name:@"register"];
 }
 
-- (void)webRequestDone:(NSNotification*)notification {
+- (void)webRequestDone:(NSString*)name {
 	//id notificationSender = [notification object];
-    NSLog(@"Received notfication: %@", [notification name]);
-    DGApp* app = [[UIApplication sharedApplication] delegate];
+    NSLog(@"Received notfication: %@", name);
+    DGApp* app = [DGUtils app];
     
-    if ([[notification name] isEqualToString:@"register"]) {
+    if ([name isEqualToString:@"register"]) {
     
-        NSString* loginToken = [self.webRequester resultString];
+        NSString* loginToken = [app.webRequester resultString];
         loginToken = [loginToken substringWithRange:NSMakeRange(1, [loginToken length]-2)];
         NSLog(@"Login Token: %@", loginToken);
     
@@ -106,9 +103,9 @@
         self.resultLabel.text = [NSString stringWithFormat:@"Login token is %@",[tok objectAtIndex:1]];
         self.loginButton.enabled = YES;
 
-    } else if ([[notification name] isEqualToString:@"login"]) {
+    } else if ([name isEqualToString:@"login"]) {
     
-        NSString* credentials = [self.webRequester resultString];
+        NSString* credentials = [app.webRequester resultString];
         credentials = [credentials substringWithRange:NSMakeRange(1, [credentials length]-2)];
         NSLog(@"Credentials: %@", credentials);
         
@@ -125,20 +122,16 @@
         NSLog(@"Real Credentials: %@", credentials);
 
         [app register:credentials];
-        [app startSession];
         [self performSegueWithIdentifier:@"startSegue" sender:self];
-        [app.mainController reload];
     }
 
 }
 
 - (IBAction)login:(id)sender {
-    DGApp* app = [[UIApplication sharedApplication] delegate];
+    DGApp* app = [DGUtils app];
     NSArray* tok = [app.loginToken componentsSeparatedByString:@":"];
     
-    if (!self.webRequester)
-        self.webRequester = [[TLWebRequest alloc] initWithObserver:self];
-    
-    [self.webRequester get:[NSString stringWithFormat:@"%@register/%@",DOOGETHA_URL,[tok objectAtIndex:0]] name:@"login"];
+    app.webRequester.delegate = self;
+    [app.webRequester get:[NSString stringWithFormat:@"%@register/%@",DOOGETHA_URL,[tok objectAtIndex:0]] name:@"login"];
 }
 @end

@@ -16,14 +16,19 @@ extern NSString* const DOOGETHA_URL;
 
 @property (strong, nonatomic) UIWindow *window;
 
-@property (strong, nonatomic) DGMainController *mainController;
-
 @property (strong, nonatomic) NSString *loginToken;
 @property (strong, nonatomic) TLWebRequest *webRequester;
 @property (strong, nonatomic) NSString *sessionKey;
 
+@property (strong, nonatomic) id sessionCallback;
+
 -(NSString*)authToken;
 -(void)register:(NSString*)authToken;
--(void)startSession;
+-(void)startSession:(id)sessionCallback;
 
+@end
+
+// Callback protocol:
+@interface NSObject(DGAppSessionCallback)
+- (void)sessionCreated;
 @end

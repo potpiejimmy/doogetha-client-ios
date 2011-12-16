@@ -8,19 +8,23 @@
 
 #import <Foundation/Foundation.h>
 
-@interface TLWebRequest : NSObject {
-    @private NSString *currentName;
-}
+@interface TLWebRequest : NSObject
 
--(TLWebRequest*)initWithObserver:(id)observer;
+-(TLWebRequest*)initWithDelegate:(id)delegate;
 
 -(void)post:(NSString*)url msg:(NSString*)msg name:(NSString*)name;
 -(void)get:(NSString*)url name:(NSString*)name;
 
 -(NSString*)resultString;
 
+@property (strong, nonatomic) id delegate;
 @property (strong, nonatomic) NSMutableData *resultData;
 @property (strong, nonatomic) NSString *currentName;
 @property (strong, nonatomic) NSString *authorization;
 
+@end
+
+// Callback protocol:
+@interface NSObject(TLWebRequestDelegateMethods)
+- (void)webRequestDone:(NSString*)name;
 @end
