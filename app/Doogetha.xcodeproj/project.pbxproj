@@ -32,6 +32,9 @@
 		A5C7812B149A6F5000BA93F3 /* TLWebRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = A5C7812A149A6F5000BA93F3 /* TLWebRequest.m */; };
 		A5C7812E149A6FB100BA93F3 /* DGRegisterController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5C7812D149A6FB100BA93F3 /* DGRegisterController.m */; };
 		A5C78130149A713F00BA93F3 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = A5C7812F149A713F00BA93F3 /* icon.png */; };
+		A5D12512149E3705007B5606 /* button_currentactivities.png in Resources */ = {isa = PBXBuildFile; fileRef = A5D12510149E3705007B5606 /* button_currentactivities.png */; };
+		A5D12513149E3705007B5606 /* button_myactivities.png in Resources */ = {isa = PBXBuildFile; fileRef = A5D12511149E3705007B5606 /* button_myactivities.png */; };
+		A5D12517149E545D007B5606 /* DGEventConfirmController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5D12516149E545D007B5606 /* DGEventConfirmController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -82,6 +85,10 @@
 		A5C7812C149A6FB100BA93F3 /* DGRegisterController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DGRegisterController.h; sourceTree = "<group>"; };
 		A5C7812D149A6FB100BA93F3 /* DGRegisterController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DGRegisterController.m; sourceTree = "<group>"; };
 		A5C7812F149A713F00BA93F3 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
+		A5D12510149E3705007B5606 /* button_currentactivities.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_currentactivities.png; sourceTree = "<group>"; };
+		A5D12511149E3705007B5606 /* button_myactivities.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_myactivities.png; sourceTree = "<group>"; };
+		A5D12515149E545D007B5606 /* DGEventConfirmController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DGEventConfirmController.h; sourceTree = "<group>"; };
+		A5D12516149E545D007B5606 /* DGEventConfirmController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DGEventConfirmController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -167,6 +174,8 @@
 				A591DAEE149A6DB20077DF83 /* DGMainController.m */,
 				A5C7812C149A6FB100BA93F3 /* DGRegisterController.h */,
 				A5C7812D149A6FB100BA93F3 /* DGRegisterController.m */,
+				A5D12515149E545D007B5606 /* DGEventConfirmController.h */,
+				A5D12516149E545D007B5606 /* DGEventConfirmController.m */,
 				A5C78129149A6F5000BA93F3 /* TLWebRequest.h */,
 				A5C7812A149A6F5000BA93F3 /* TLWebRequest.m */,
 				A58CF812149A90710072C3F5 /* TLUtils.h */,
@@ -182,6 +191,8 @@
 		A591DADF149A6DB20077DF83 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				A5D12510149E3705007B5606 /* button_currentactivities.png */,
+				A5D12511149E3705007B5606 /* button_myactivities.png */,
 				A591DAE0149A6DB20077DF83 /* Doogetha-Info.plist */,
 				A591DAE1149A6DB20077DF83 /* InfoPlist.strings */,
 				A5C7812F149A713F00BA93F3 /* icon.png */,
@@ -244,6 +255,8 @@
 				A591DAE3149A6DB20077DF83 /* InfoPlist.strings in Resources */,
 				A591DAEC149A6DB20077DF83 /* MainStoryboard.storyboard in Resources */,
 				A5C78130149A713F00BA93F3 /* icon.png in Resources */,
+				A5D12512149E3705007B5606 /* button_currentactivities.png in Resources */,
+				A5D12513149E3705007B5606 /* button_myactivities.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -273,6 +286,7 @@
 				A58CF810149A8EB20072C3F5 /* SBJsonWriter.m in Sources */,
 				A58CF814149A90710072C3F5 /* TLUtils.m in Sources */,
 				A592B732149BEEB300627259 /* DGUtils.m in Sources */,
+				A5D12517149E545D007B5606 /* DGEventConfirmController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -346,6 +360,7 @@
 		A591DAF3149A6DB20077DF83 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Doogetha/Doogetha-Prefix.pch";
 				INFOPLIST_FILE = "Doogetha/Doogetha-Info.plist";
@@ -357,6 +372,7 @@
 		A591DAF4149A6DB20077DF83 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Doogetha/Doogetha-Prefix.pch";
 				INFOPLIST_FILE = "Doogetha/Doogetha-Info.plist";

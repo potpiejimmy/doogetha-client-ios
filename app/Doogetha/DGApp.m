@@ -9,7 +9,7 @@
 #import "DGApp.h"
 #import "TLUtils.h"
 
-NSString* const DOOGETHA_URL = @"http://www.potpiejimmy.de/doogetha/res/";
+NSString* const DOOGETHA_URL = @"https://www.potpiejimmy.de/doogetha/res/";
 
 @implementation DGApp
 
@@ -27,7 +27,7 @@ NSString* const DOOGETHA_URL = @"http://www.potpiejimmy.de/doogetha/res/";
     self.webRequester = [[TLWebRequest alloc] initWithDelegate:self];
     if ([self authToken]) {
         NSLog(@"Got auth token: %@", [self authToken]);
-        self.window.rootViewController = [board instantiateViewControllerWithIdentifier:@"navigationController"];
+        self.window.rootViewController = [board instantiateViewControllerWithIdentifier:@"tabBarController"];
     } else {
         self.window.rootViewController = [board instantiateViewControllerWithIdentifier:@"registerController"];
     }

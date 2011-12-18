@@ -9,12 +9,14 @@
 #import <UIKit/UIKit.h>
 #import "TLWebRequest.h"
 
-@interface DGMainController : UIViewController<UITableViewDelegate,UITableViewDataSource>
+@interface DGMainController : UIViewController<UITableViewDelegate,UITableViewDataSource> {
+    @private id _currentDetail;
+}
 
 -(void)reload;
 
 @property (weak, nonatomic) IBOutlet UITableView *eventsTable;
-@property (weak, nonatomic) IBOutlet UITextField *resultTextfield;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 
 @property (strong, nonatomic) NSArray *events;
 

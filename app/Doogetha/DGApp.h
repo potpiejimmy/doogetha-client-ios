@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "TLWebRequest.h"
-#import "DGMainController.h"
 
 extern NSString* const DOOGETHA_URL;
 
