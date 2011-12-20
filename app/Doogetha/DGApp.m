@@ -18,6 +18,7 @@ NSString* const DOOGETHA_URL = @"https://www.potpiejimmy.de/doogetha/res/";
 @synthesize webRequester = _webRequester;
 @synthesize sessionKey = _sessionKey;
 @synthesize sessionCallback = _sessionCallback;
+@synthesize mainController = _mainController;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -32,6 +33,7 @@ NSString* const DOOGETHA_URL = @"https://www.potpiejimmy.de/doogetha/res/";
         self.window.rootViewController = [board instantiateViewControllerWithIdentifier:@"registerController"];
     }
     [self.window makeKeyAndVisible];
+    _inBackground = NO;
 
     return YES;
 }
@@ -67,6 +69,7 @@ NSString* const DOOGETHA_URL = @"https://www.potpiejimmy.de/doogetha/res/";
      Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
      If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
      */
+    _inBackground = YES;
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
@@ -81,6 +84,11 @@ NSString* const DOOGETHA_URL = @"https://www.potpiejimmy.de/doogetha/res/";
     /*
      Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
      */
+    if (_inBackground) {
+        if (self.mainController)
+            [self.mainController reload];
+        _inBackground = NO;
+    }
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application

@@ -8,16 +8,20 @@
 
 #import <UIKit/UIKit.h>
 #import "TLWebRequest.h"
+#import "DGMainController.h"
 
 extern NSString* const DOOGETHA_URL;
 
-@interface DGApp : UIResponder <UIApplicationDelegate>
+@interface DGApp : UIResponder <UIApplicationDelegate> {
+    @private BOOL _inBackground;
+}
 
 @property (strong, nonatomic) UIWindow *window;
 
 @property (strong, nonatomic) NSString *loginToken;
 @property (strong, nonatomic) TLWebRequest *webRequester;
 @property (strong, nonatomic) NSString *sessionKey;
+@property (weak, nonatomic) DGMainController *mainController;
 
 @property (strong, nonatomic) id sessionCallback;
 

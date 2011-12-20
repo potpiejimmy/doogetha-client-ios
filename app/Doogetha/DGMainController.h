@@ -10,14 +10,17 @@
 #import "TLWebRequest.h"
 
 @interface DGMainController : UIViewController<UITableViewDelegate,UITableViewDataSource> {
-    @private id _currentDetail;
+    @private BOOL _startingSession;
 }
 
 -(void)reload;
 
 @property (weak, nonatomic) IBOutlet UITableView *eventsTable;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *refreshButton;
 
 @property (strong, nonatomic) NSArray *events;
+
+- (IBAction)reload:(id)sender;
 
 @end

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A51E279E14A0FB3900F10CAB /* refresh.png in Resources */ = {isa = PBXBuildFile; fileRef = A51E279D14A0FB3900F10CAB /* refresh.png */; };
 		A58CF805149A8EB20072C3F5 /* NSObject+SBJson.m in Sources */ = {isa = PBXBuildFile; fileRef = A58CF7ED149A8EB10072C3F5 /* NSObject+SBJson.m */; };
 		A58CF806149A8EB20072C3F5 /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = A58CF7F0149A8EB10072C3F5 /* SBJsonParser.m */; };
 		A58CF807149A8EB20072C3F5 /* SBJsonStreamParser.m in Sources */ = {isa = PBXBuildFile; fileRef = A58CF7F2149A8EB10072C3F5 /* SBJsonStreamParser.m */; };
@@ -29,6 +30,7 @@
 		A591DAEC149A6DB20077DF83 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A591DAEA149A6DB20077DF83 /* MainStoryboard.storyboard */; };
 		A591DAEF149A6DB20077DF83 /* DGMainController.m in Sources */ = {isa = PBXBuildFile; fileRef = A591DAEE149A6DB20077DF83 /* DGMainController.m */; };
 		A592B732149BEEB300627259 /* DGUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = A592B731149BEEB300627259 /* DGUtils.m */; };
+		A5B2D0D514A0648400A4FD6D /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = A5B2D0D414A0648400A4FD6D /* iTunesArtwork */; };
 		A5C7812B149A6F5000BA93F3 /* TLWebRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = A5C7812A149A6F5000BA93F3 /* TLWebRequest.m */; };
 		A5C7812E149A6FB100BA93F3 /* DGRegisterController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5C7812D149A6FB100BA93F3 /* DGRegisterController.m */; };
 		A5C78130149A713F00BA93F3 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = A5C7812F149A713F00BA93F3 /* icon.png */; };
@@ -38,6 +40,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A51E279D14A0FB3900F10CAB /* refresh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = refresh.png; sourceTree = "<group>"; };
 		A58CF7EC149A8EB10072C3F5 /* NSObject+SBJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SBJson.h"; sourceTree = "<group>"; };
 		A58CF7ED149A8EB10072C3F5 /* NSObject+SBJson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SBJson.m"; sourceTree = "<group>"; };
 		A58CF7EE149A8EB10072C3F5 /* SBJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJson.h; sourceTree = "<group>"; };
@@ -80,6 +83,7 @@
 		A591DAEE149A6DB20077DF83 /* DGMainController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DGMainController.m; sourceTree = "<group>"; };
 		A592B730149BEEB300627259 /* DGUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DGUtils.h; sourceTree = "<group>"; };
 		A592B731149BEEB300627259 /* DGUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DGUtils.m; sourceTree = "<group>"; };
+		A5B2D0D414A0648400A4FD6D /* iTunesArtwork */ = {isa = PBXFileReference; lastKnownFileType = file; path = iTunesArtwork; sourceTree = "<group>"; };
 		A5C78129149A6F5000BA93F3 /* TLWebRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLWebRequest.h; sourceTree = "<group>"; };
 		A5C7812A149A6F5000BA93F3 /* TLWebRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLWebRequest.m; sourceTree = "<group>"; };
 		A5C7812C149A6FB100BA93F3 /* DGRegisterController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DGRegisterController.h; sourceTree = "<group>"; };
@@ -191,6 +195,8 @@
 		A591DADF149A6DB20077DF83 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				A51E279D14A0FB3900F10CAB /* refresh.png */,
+				A5B2D0D414A0648400A4FD6D /* iTunesArtwork */,
 				A5D12510149E3705007B5606 /* button_currentactivities.png */,
 				A5D12511149E3705007B5606 /* button_myactivities.png */,
 				A591DAE0149A6DB20077DF83 /* Doogetha-Info.plist */,
@@ -257,6 +263,8 @@
 				A5C78130149A713F00BA93F3 /* icon.png in Resources */,
 				A5D12512149E3705007B5606 /* button_currentactivities.png in Resources */,
 				A5D12513149E3705007B5606 /* button_myactivities.png in Resources */,
+				A5B2D0D514A0648400A4FD6D /* iTunesArtwork in Resources */,
+				A51E279E14A0FB3900F10CAB /* refresh.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -360,11 +368,12 @@
 		A591DAF3149A6DB20077DF83 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Thorsten Liese (JJ2442D955)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Doogetha/Doogetha-Prefix.pch";
 				INFOPLIST_FILE = "Doogetha/Doogetha-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "3A6282B1-35D8-47C7-BCE1-63B0D4A6C1BE";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -372,11 +381,12 @@
 		A591DAF4149A6DB20077DF83 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Thorsten Liese (JJ2442D955)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Doogetha/Doogetha-Prefix.pch";
 				INFOPLIST_FILE = "Doogetha/Doogetha-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "3A6282B1-35D8-47C7-BCE1-63B0D4A6C1BE";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

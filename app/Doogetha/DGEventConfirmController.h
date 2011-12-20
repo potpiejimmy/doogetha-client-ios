@@ -10,7 +10,8 @@
 
 @interface DGEventConfirmController : UIViewController
 @property (weak, nonatomic) IBOutlet UILabel *eventName;
-@property (weak, nonatomic) IBOutlet UITextView *eventDescription;
+@property (weak, nonatomic) IBOutlet UILabel *eventDescription;
+@property (weak, nonatomic) IBOutlet UIButton *okButton;
 
 @property (strong, nonatomic) NSDictionary *event;
 

@@ -17,6 +17,7 @@
 
 @synthesize eventsTable = _eventsTable;
 @synthesize activityIndicator = _activityIndicator;
+@synthesize refreshButton = _refreshButton;
 @synthesize events = _events;
 
 - (void)didReceiveMemoryWarning
@@ -30,13 +31,20 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+
+    NSLog(@"View did load: DGMainController");
+    [DGUtils app].mainController = self;
+
+    _startingSession = YES;
+    [self.activityIndicator startAnimating];
+    [[DGUtils app] startSession:self];
 }
 
 - (void)viewDidUnload
 {
     [self setEventsTable:nil];
     [self setActivityIndicator:nil];
+    [self setRefreshButton:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -51,15 +59,14 @@
 {
     [super viewDidAppear:animated];
     NSLog(@"View did appear: DGMainController");
-    
-    if (!_currentDetail) {
-        [self.activityIndicator startAnimating];
-        [[DGUtils app] startSession:self];
-    }
+
+    if (!_startingSession)
+        [self reload];
 }
 
 -(void)sessionCreated
 {
+    _startingSession = NO;
     [self.activityIndicator stopAnimating];
     [self reload];
 }
@@ -132,7 +139,19 @@
 
     NSUInteger row = [indexPath row];
     cell.textLabel.text = [[self.events objectAtIndex:row] objectForKey:@"name"];
-    cell.detailTextLabel.text = [[self.events objectAtIndex:row] objectForKey:@"description"];
+   
+    NSNumber* eventDate = [[self.events objectAtIndex:row] objectForKey:@"eventtime"];
+    long long eventTime = eventDate.longLongValue;
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateStyle:NSDateFormatterShortStyle];
+    [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
+    
+    if (eventTime > 0) {
+        cell.detailTextLabel.text = [dateFormatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:eventTime/1000]];
+    } else {
+        cell.detailTextLabel.text = @"";
+    }
     return cell;
 }
 
@@ -140,9 +159,11 @@
 {
     DGEventConfirmController* ecc = [self.storyboard instantiateViewControllerWithIdentifier:@"eventConfirmController"];
     NSDictionary* selEvent = [self.events objectAtIndex:[indexPath row]];
-    _currentDetail = selEvent;
     ecc.event = selEvent;
     [self.navigationController pushViewController:ecc animated:YES];
 }
 
+- (IBAction)reload:(id)sender {
+    [self reload];
+}
 @end
