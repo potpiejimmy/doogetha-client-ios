@@ -11,7 +11,7 @@
 @implementation DGEventConfirmController
 @synthesize eventName = _eventName;
 @synthesize eventDescription = _eventDescription;
-@synthesize okButton = _okButton;
+@synthesize surveyTable = _surveyTable;
 @synthesize event = _event;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -55,16 +55,9 @@
     float moreHeight = self.eventDescription.frame.size.height - oldHeight;
     [self.view sizeToFit];
     
-//    for (UIView* view in self.view.subviews) {
-//        [view removeFromSuperview];
-//    }
-    
-    CGRect frame = self.okButton.frame;
+    CGRect frame = self.surveyTable.frame;
     frame.origin.y += moreHeight;
-    self.okButton.frame = frame;
-//    [self.view addSubview:self.eventName];
-//    [self.view addSubview:self.eventDescription];
-//    [self.view addSubview:self.okButton];
+    self.surveyTable.frame = frame;
 }
 
 - (void)viewDidUnload
@@ -73,7 +66,7 @@
     [self setEventDescription:nil];
     [self setEventDescription:nil];
     [self setEventDescription:nil];
-    [self setOkButton:nil];
+    [self setSurveyTable:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;

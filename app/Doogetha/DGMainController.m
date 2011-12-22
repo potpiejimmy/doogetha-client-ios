@@ -35,6 +35,10 @@
     NSLog(@"View did load: DGMainController");
     [DGUtils app].mainController = self;
 
+    [self.navigationController.navigationBar setTintColor:[UIColor colorWithRed:.0 green:.2 blue:.0 alpha:1.0]];
+    UIImage *logo = [UIImage imageNamed:@"button_currentactivities.png"];
+    [self.navigationItem setTitleView:[[UIImageView alloc] initWithImage:logo]];
+    
     _startingSession = YES;
     [self.activityIndicator startAnimating];
     [[DGUtils app] startSession:self];
@@ -130,6 +134,10 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return [self.events count];
+}
+
+-(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    cell.backgroundColor = [UIColor colorWithRed:.9 green:1.0 blue:.9 alpha:1];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
