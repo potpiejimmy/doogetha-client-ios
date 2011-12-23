@@ -23,4 +23,6 @@
 
 - (IBAction)reload:(id)sender;
 
++(BOOL) hasOpenSurveys:(id) event;
+
 @end

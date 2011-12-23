@@ -174,4 +174,15 @@
 - (IBAction)reload:(id)sender {
     [self reload];
 }
+
+
++(BOOL) hasOpenSurveys:(id) event {
+    BOOL hasOpenSurveys = NO;
+    for (NSDictionary* survey in [event objectForKey:@"surveys"])
+    {
+        if ([[survey objectForKey:@"state"] intValue] == 0) hasOpenSurveys = YES;
+    }
+    return hasOpenSurveys;
+}
+
 @end

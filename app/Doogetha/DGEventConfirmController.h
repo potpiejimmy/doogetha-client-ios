@@ -8,10 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@interface DGEventConfirmController : UIViewController
+@interface DGEventConfirmController : UIViewController<UITableViewDelegate,UITableViewDataSource>
+
 @property (weak, nonatomic) IBOutlet UILabel *eventName;
 @property (weak, nonatomic) IBOutlet UILabel *eventDescription;
 @property (weak, nonatomic) IBOutlet UITableView *surveyTable;
+@property (weak, nonatomic) IBOutlet UIButton *confirmButton;
+@property (weak, nonatomic) IBOutlet UIButton *declineButton;
 
 @property (strong, nonatomic) NSDictionary *event;
 

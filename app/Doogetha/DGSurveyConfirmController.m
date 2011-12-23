@@ -1,22 +1,21 @@
 //
-//  DGEventConfirmController.m
+//  DGSurveyConfirmController.m
 //  Doogetha
 //
-//  Created by Kerstin Nicklaus on 18.12.11.
+//  Created by Kerstin Nicklaus on 23.12.11.
 //  Copyright (c) 2011 __MyCompanyName__. All rights reserved.
 //
 
-#import "DGEventConfirmController.h"
-#import "DGMainController.h"
 #import "DGSurveyConfirmController.h"
 
-@implementation DGEventConfirmController
-@synthesize eventName = _eventName;
-@synthesize eventDescription = _eventDescription;
-@synthesize surveyTable = _surveyTable;
-@synthesize confirmButton = _confirmButton;
-@synthesize declineButton = _declineButton;
-@synthesize event = _event;
+@implementation DGSurveyConfirmController
+
+@synthesize surveyName = _surveyName;
+@synthesize surveyDescription = _surveyDescription;
+@synthesize confirmTable = _confirmTable;
+@synthesize okButton = _okButton;
+@synthesize cancelButton = _cancelButton;
+@synthesize survey = _survey;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -44,41 +43,38 @@
 }
 */
 
-
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    NSLog(@"viewDidLoad DGEventConfirmController");
+    NSLog(@"viewDidLoad DGSurveyConfirmController");
     
-    self.eventName.text = [self.event objectForKey:@"name"];
-    self.eventDescription.text = [self.event objectForKey:@"description"];
-    float oldHeight = self.eventDescription.frame.size.height;
-    [self.eventDescription sizeToFit];
-    float moreHeight = self.eventDescription.frame.size.height - oldHeight;
+    self.surveyName.text = [self.survey objectForKey:@"name"];
+    self.surveyDescription.text = [self.survey objectForKey:@"description"];
+    float oldHeight = self.surveyDescription.frame.size.height;
+    [self.surveyDescription sizeToFit];
+    float moreHeight = self.surveyDescription.frame.size.height - oldHeight;
     [self.view sizeToFit];
     
-    CGRect frame = self.surveyTable.frame;
+    CGRect frame = self.confirmTable.frame;
     frame.origin.y += moreHeight;
-    self.surveyTable.frame = frame;
+    self.confirmTable.frame = frame;
     
-    self.surveyTable.rowHeight = 32;
-    
-    BOOL hasOpenSurveys = [DGMainController hasOpenSurveys:self.event];
-    self.confirmButton.hidden = hasOpenSurveys;
-    self.declineButton.hidden = hasOpenSurveys;
+    self.confirmTable.rowHeight = 32;
+
 }
 
 - (void)viewDidUnload
 {
-    [self setEventName:nil];
-    [self setEventDescription:nil];
-    [self setEventDescription:nil];
-    [self setEventDescription:nil];
-    [self setSurveyTable:nil];
-    [self setConfirmButton:nil];
-    [self setDeclineButton:nil];
+    NSLog(@"viewDidUnLoad DGSurveyConfirmController");
+
+    [self setSurveyName:nil];
+    [self setSurveyDescription:nil];
+    [self setConfirmTable:nil];
+    [self setOkButton:nil];
+    [self setCancelButton:nil];
+    [self setConfirmTable:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -94,7 +90,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [[self.event objectForKey:@"surveys"] count];
+    return [[self.survey objectForKey:@"surveyItems"] count];
 }
 
 -(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -104,22 +100,18 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     //NSLog(@"cellForRowAtIndexPath called");
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"surveyItem"];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"confirmRowItem"];
     
     NSUInteger row = [indexPath row];
-    cell.textLabel.text = [[[self.event objectForKey:@"surveys"] objectAtIndex:row] objectForKey:@"name"];
+    cell.textLabel.text = [[[self.survey objectForKey:@"surveyItems"] objectAtIndex:row] objectForKey:@"name"];
     
-    cell.detailTextLabel.text = @"Jetzt abstimmen";
+//    cell.detailTextLabel.text = @"Jetzt abstimmen";
     
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    DGSurveyConfirmController* scc = [self.storyboard instantiateViewControllerWithIdentifier:@"surveyConfirmController"];
-    NSDictionary* selSurvey = [[self.event objectForKey:@"surveys"] objectAtIndex:[indexPath row]];
-    scc.survey = selSurvey;
-    [self.navigationController pushViewController:scc animated:YES];
 }
 
 @end
