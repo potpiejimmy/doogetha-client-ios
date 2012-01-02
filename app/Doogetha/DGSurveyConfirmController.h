@@ -13,7 +13,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *surveyDescription;
 @property (weak, nonatomic) IBOutlet UIButton *okButton;
 @property (weak, nonatomic) IBOutlet UIButton *cancelButton;
-@property (weak, nonatomic) IBOutlet UITableView *confirmTable;
+@property (weak, nonatomic) IBOutlet UIScrollView *scroller;
 
 @property (strong, nonatomic) NSDictionary *survey;
 

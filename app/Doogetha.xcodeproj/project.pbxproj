@@ -11,9 +11,8 @@
 		A50A727614A3DF8400CE4CEB /* dot-green.png in Resources */ = {isa = PBXBuildFile; fileRef = A50A727514A3DF8400CE4CEB /* dot-green.png */; };
 		A51E279E14A0FB3900F10CAB /* refresh.png in Resources */ = {isa = PBXBuildFile; fileRef = A51E279D14A0FB3900F10CAB /* refresh.png */; };
 		A58B323414A4E0E600E6D3E1 /* DGSurveyConfirmController.m in Sources */ = {isa = PBXBuildFile; fileRef = A58B323314A4E0E600E6D3E1 /* DGSurveyConfirmController.m */; };
-		A58B323914A4E1D900E6D3E1 /* survey_confirm.png in Resources */ = {isa = PBXBuildFile; fileRef = A58B323614A4E1D900E6D3E1 /* survey_confirm.png */; };
-		A58B323A14A4E1D900E6D3E1 /* survey_deny.png in Resources */ = {isa = PBXBuildFile; fileRef = A58B323714A4E1D900E6D3E1 /* survey_deny.png */; };
-		A58B323B14A4E1D900E6D3E1 /* survey_neutral.png in Resources */ = {isa = PBXBuildFile; fileRef = A58B323814A4E1D900E6D3E1 /* survey_neutral.png */; };
+		A58B323914A4E1D900E6D3E1 /* survey_confirm@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A58B323614A4E1D900E6D3E1 /* survey_confirm@2x.png */; };
+		A58B323A14A4E1D900E6D3E1 /* survey_deny@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A58B323714A4E1D900E6D3E1 /* survey_deny@2x.png */; };
 		A58CF805149A8EB20072C3F5 /* NSObject+SBJson.m in Sources */ = {isa = PBXBuildFile; fileRef = A58CF7ED149A8EB10072C3F5 /* NSObject+SBJson.m */; };
 		A58CF806149A8EB20072C3F5 /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = A58CF7F0149A8EB10072C3F5 /* SBJsonParser.m */; };
 		A58CF807149A8EB20072C3F5 /* SBJsonStreamParser.m in Sources */ = {isa = PBXBuildFile; fileRef = A58CF7F2149A8EB10072C3F5 /* SBJsonStreamParser.m */; };
@@ -43,6 +42,7 @@
 		A5D12512149E3705007B5606 /* button_currentactivities.png in Resources */ = {isa = PBXBuildFile; fileRef = A5D12510149E3705007B5606 /* button_currentactivities.png */; };
 		A5D12513149E3705007B5606 /* button_myactivities.png in Resources */ = {isa = PBXBuildFile; fileRef = A5D12511149E3705007B5606 /* button_myactivities.png */; };
 		A5D12517149E545D007B5606 /* DGEventConfirmController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5D12516149E545D007B5606 /* DGEventConfirmController.m */; };
+		A5FDC2C814B252BF00CF69F4 /* survey_neutral@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A5FDC2C714B252BF00CF69F4 /* survey_neutral@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,9 +51,8 @@
 		A51E279D14A0FB3900F10CAB /* refresh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = refresh.png; sourceTree = "<group>"; };
 		A58B323214A4E0E600E6D3E1 /* DGSurveyConfirmController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DGSurveyConfirmController.h; sourceTree = "<group>"; };
 		A58B323314A4E0E600E6D3E1 /* DGSurveyConfirmController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DGSurveyConfirmController.m; sourceTree = "<group>"; };
-		A58B323614A4E1D900E6D3E1 /* survey_confirm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = survey_confirm.png; sourceTree = "<group>"; };
-		A58B323714A4E1D900E6D3E1 /* survey_deny.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = survey_deny.png; sourceTree = "<group>"; };
-		A58B323814A4E1D900E6D3E1 /* survey_neutral.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = survey_neutral.png; sourceTree = "<group>"; };
+		A58B323614A4E1D900E6D3E1 /* survey_confirm@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "survey_confirm@2x.png"; sourceTree = "<group>"; };
+		A58B323714A4E1D900E6D3E1 /* survey_deny@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "survey_deny@2x.png"; sourceTree = "<group>"; };
 		A58CF7EC149A8EB10072C3F5 /* NSObject+SBJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SBJson.h"; sourceTree = "<group>"; };
 		A58CF7ED149A8EB10072C3F5 /* NSObject+SBJson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SBJson.m"; sourceTree = "<group>"; };
 		A58CF7EE149A8EB10072C3F5 /* SBJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJson.h; sourceTree = "<group>"; };
@@ -106,6 +105,7 @@
 		A5D12511149E3705007B5606 /* button_myactivities.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_myactivities.png; sourceTree = "<group>"; };
 		A5D12515149E545D007B5606 /* DGEventConfirmController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DGEventConfirmController.h; sourceTree = "<group>"; };
 		A5D12516149E545D007B5606 /* DGEventConfirmController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DGEventConfirmController.m; sourceTree = "<group>"; };
+		A5FDC2C714B252BF00CF69F4 /* survey_neutral@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "survey_neutral@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -210,9 +210,9 @@
 		A591DADF149A6DB20077DF83 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				A58B323614A4E1D900E6D3E1 /* survey_confirm.png */,
-				A58B323714A4E1D900E6D3E1 /* survey_deny.png */,
-				A58B323814A4E1D900E6D3E1 /* survey_neutral.png */,
+				A58B323614A4E1D900E6D3E1 /* survey_confirm@2x.png */,
+				A58B323714A4E1D900E6D3E1 /* survey_deny@2x.png */,
+				A5FDC2C714B252BF00CF69F4 /* survey_neutral@2x.png */,
 				A50A727514A3DF8400CE4CEB /* dot-green.png */,
 				A50A727214A3CDB800CE4CEB /* title.png */,
 				A51E279D14A0FB3900F10CAB /* refresh.png */,
@@ -287,9 +287,9 @@
 				A51E279E14A0FB3900F10CAB /* refresh.png in Resources */,
 				A50A727314A3CDB800CE4CEB /* title.png in Resources */,
 				A50A727614A3DF8400CE4CEB /* dot-green.png in Resources */,
-				A58B323914A4E1D900E6D3E1 /* survey_confirm.png in Resources */,
-				A58B323A14A4E1D900E6D3E1 /* survey_deny.png in Resources */,
-				A58B323B14A4E1D900E6D3E1 /* survey_neutral.png in Resources */,
+				A58B323914A4E1D900E6D3E1 /* survey_confirm@2x.png in Resources */,
+				A58B323A14A4E1D900E6D3E1 /* survey_deny@2x.png in Resources */,
+				A5FDC2C814B252BF00CF69F4 /* survey_neutral@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

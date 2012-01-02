@@ -302,39 +302,6 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="XYb-kd-Svp">
-                                <rect key="frame" x="20" y="111" width="280" height="195"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <color key="backgroundColor" red="0.89818088500000004" green="1" blue="0.89954949819999996" alpha="1" colorSpace="calibratedRGB"/>
-                                <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="confirmRowItem" textLabel="DpC-WU-6yC" imageView="qs3-g7-vLL" style="IBUITableViewCellStyleDefault" id="Qxd-hM-agg">
-                                        <rect key="frame" x="0.0" y="22" width="280" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="280" height="43"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="DpC-WU-6yC">
-                                                    <rect key="frame" x="50" y="0.0" width="220" height="43"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                </label>
-                                                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="survey_neutral.png" id="qs3-g7-vLL">
-                                                    <rect key="frame" x="2" y="2" width="38" height="38"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                </imageView>
-                                            </subviews>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        </view>
-                                    </tableViewCell>
-                                </prototypes>
-                                <connections>
-                                    <outlet property="dataSource" destination="pCe-P8-Qcd" id="AEC-PL-4aF"/>
-                                    <outlet property="delegate" destination="pCe-P8-Qcd" id="Eqr-Jr-ad1"/>
-                                </connections>
-                            </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="3AG-vS-f3U">
                                 <rect key="frame" x="20" y="314" width="72" height="37"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -359,13 +326,17 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="XxO-eu-lge">
+                                <rect key="frame" x="20" y="209" width="280" height="195"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" red="0.89818088500000004" green="1" blue="0.89954949819999996" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <connections>
                         <outlet property="cancelButton" destination="cbq-n9-tgo" id="F0w-q5-ktj"/>
-                        <outlet property="confirmTable" destination="XYb-kd-Svp" id="0g3-tH-oWV"/>
                         <outlet property="okButton" destination="3AG-vS-f3U" id="KSu-Qf-LIn"/>
+                        <outlet property="scroller" destination="XxO-eu-lge" id="7sf-uL-oeu"/>
                         <outlet property="surveyDescription" destination="86e-VU-wBz" id="AMh-vr-lUW"/>
                         <outlet property="surveyName" destination="HWo-dg-aso" id="L09-32-Eev"/>
                     </connections>
@@ -432,7 +403,6 @@
         <image name="button_myactivities.png" width="52" height="34"/>
         <image name="dot-green.png" width="16" height="16"/>
         <image name="icon.png" width="72" height="72"/>
-        <image name="survey_neutral.png" width="38" height="38"/>
     </resources>
     <classes>
         <class className="DGEventConfirmController" superclassName="UIViewController">
@@ -468,8 +438,8 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/DGSurveyConfirmController.h"/>
             <relationships>
                 <relationship kind="outlet" name="cancelButton" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="confirmTable" candidateClass="UITableView"/>
                 <relationship kind="outlet" name="okButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="scroller" candidateClass="UIScrollView"/>
                 <relationship kind="outlet" name="surveyDescription" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="surveyName" candidateClass="UILabel"/>
             </relationships>

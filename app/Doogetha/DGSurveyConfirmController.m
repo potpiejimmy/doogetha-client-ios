@@ -12,9 +12,9 @@
 
 @synthesize surveyName = _surveyName;
 @synthesize surveyDescription = _surveyDescription;
-@synthesize confirmTable = _confirmTable;
 @synthesize okButton = _okButton;
 @synthesize cancelButton = _cancelButton;
+@synthesize scroller = _scroller;
 @synthesize survey = _survey;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -40,6 +40,7 @@
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView
 {
+    NSLog(@"localView DGSurveyConfirmController");
 }
 */
 
@@ -49,6 +50,8 @@
     [super viewDidLoad];
     
     NSLog(@"viewDidLoad DGSurveyConfirmController");
+
+    self.scroller.contentSize=CGSizeMake(320,758);
     
     self.surveyName.text = [self.survey objectForKey:@"name"];
     self.surveyDescription.text = [self.survey objectForKey:@"description"];
@@ -57,12 +60,25 @@
     float moreHeight = self.surveyDescription.frame.size.height - oldHeight;
     [self.view sizeToFit];
     
-    CGRect frame = self.confirmTable.frame;
+    CGRect frame = self.scroller.frame;
     frame.origin.y += moreHeight;
-    self.confirmTable.frame = frame;
+    frame.size.height -= moreHeight;
+    self.scroller.frame = frame;
     
-    self.confirmTable.rowHeight = 32;
-
+    NSArray* surveyItems = [self.survey objectForKey:@"surveyItems"];
+    int i=0;
+    for (NSDictionary* surveyItem in surveyItems) {
+        UILabel* test = [[UILabel alloc] initWithFrame:CGRectMake(0, 30*i, 100, 30)];
+        test.text = [surveyItem objectForKey:@"name"];
+        test.font = [UIFont systemFontOfSize:10.0f];
+        [test sizeToFit];
+        [self.scroller addSubview:test];
+        UIImageView* image = [[UIImageView alloc] initWithFrame:CGRectMake(100, 30*i, 1, 1)];
+        image.image = [UIImage imageNamed:@"survey_neutral.png"];
+        [image sizeToFit];
+        [self.scroller addSubview:image];
+        i++;
+    }
 }
 
 - (void)viewDidUnload
@@ -71,10 +87,9 @@
 
     [self setSurveyName:nil];
     [self setSurveyDescription:nil];
-    [self setConfirmTable:nil];
     [self setOkButton:nil];
     [self setCancelButton:nil];
-    [self setConfirmTable:nil];
+    [self setScroller:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -86,32 +101,5 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-#pragma mark Table View Data Source Methods
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return [[self.survey objectForKey:@"surveyItems"] count];
-}
-
--(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    cell.backgroundColor = [UIColor colorWithRed:.9 green:1.0 blue:.9 alpha:1];
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    //NSLog(@"cellForRowAtIndexPath called");
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"confirmRowItem"];
-    
-    NSUInteger row = [indexPath row];
-    cell.textLabel.text = [[[self.survey objectForKey:@"surveyItems"] objectAtIndex:row] objectForKey:@"name"];
-    
-//    cell.detailTextLabel.text = @"Jetzt abstimmen";
-    
-    return cell;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-}
 
 @end
