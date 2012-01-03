@@ -26,6 +26,7 @@ extern NSString* const DOOGETHA_URL;
 @property (strong, nonatomic) id sessionCallback;
 
 -(NSString*)authToken;
+-(int)userId;
 -(void)register:(NSString*)authToken;
 -(void)startSession:(id)sessionCallback;
 

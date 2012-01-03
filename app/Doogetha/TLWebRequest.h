@@ -13,6 +13,7 @@
 -(TLWebRequest*)initWithDelegate:(id)delegate;
 
 -(void)post:(NSString*)url msg:(NSString*)msg name:(NSString*)name;
+-(void)put:(NSString*)url msg:(NSString*)msg name:(NSString*)name;
 -(void)get:(NSString*)url name:(NSString*)name;
 
 -(NSString*)resultString;

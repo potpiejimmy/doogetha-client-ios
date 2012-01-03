@@ -113,4 +113,9 @@ NSString* const DOOGETHA_URL = @"https://www.potpiejimmy.de/doogetha/res/";
     return [settings stringForKey : @"authtoken"];
 }
 
+-(int)userId
+{
+    return [[[[self authToken] componentsSeparatedByString:@":"] objectAtIndex:0] intValue];
+}
+
 @end

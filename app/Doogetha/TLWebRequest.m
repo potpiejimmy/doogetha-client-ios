@@ -24,7 +24,7 @@
     return self;
 }
 
--(void)post:(NSString*)url msg:(NSString*)msg name:(NSString*)name
+-(void)postOrPut:(NSString*)method url:(NSString*)url msg:(NSString*)msg name:(NSString*)name
 {
     self.currentName = name;
     NSData *postData = [msg dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
@@ -33,7 +33,7 @@
 
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
     [request setURL:[NSURL URLWithString:url]];
-    [request setHTTPMethod:@"POST"];
+    [request setHTTPMethod:method];
     [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
     [request setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     [request setHTTPBody:postData];
@@ -44,6 +44,16 @@
         NSLog(@"Connection established");
         self.resultData = [NSMutableData data];
     }
+}
+
+-(void)post:(NSString*)url msg:(NSString*)msg name:(NSString*)name
+{
+    [self postOrPut:@"POST" url:url msg:msg name:name];
+}
+
+-(void)put:(NSString*)url msg:(NSString*)msg name:(NSString*)name
+{
+    [self postOrPut:@"PUT" url:url msg:msg name:name];
 }
 
 -(void)get:(NSString*)url name:(NSString*)name

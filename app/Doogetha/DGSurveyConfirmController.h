@@ -16,5 +16,6 @@
 @property (weak, nonatomic) IBOutlet UIScrollView *scroller;
 
 @property (strong, nonatomic) NSDictionary *survey;
+- (IBAction)confirm:(id)sender;
 
 @end
