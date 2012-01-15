@@ -9,12 +9,13 @@
 #import <UIKit/UIKit.h>
 
 @interface DGSurveyConfirmController : UIViewController
-@property (weak, nonatomic) IBOutlet UILabel *surveyName;
-@property (weak, nonatomic) IBOutlet UILabel *surveyDescription;
-@property (weak, nonatomic) IBOutlet UIButton *okButton;
-@property (weak, nonatomic) IBOutlet UIButton *cancelButton;
+
 @property (weak, nonatomic) IBOutlet UIScrollView *scroller;
 
+@property (strong, nonatomic) UILabel *surveyName;
+@property (strong, nonatomic) UILabel *surveyDescription;
+@property (strong, nonatomic) UIButton *okButton;
+@property (strong, nonatomic) UIButton *cancelButton;
 @property (strong, nonatomic) NSDictionary *survey;
 - (IBAction)confirm:(id)sender;
 

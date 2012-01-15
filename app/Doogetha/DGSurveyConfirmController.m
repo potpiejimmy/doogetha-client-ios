@@ -72,38 +72,90 @@
     [super viewDidLoad];
     
     NSLog(@"viewDidLoad DGSurveyConfirmController");
-
+    
+    int viewWidth = self.scroller.frame.size.width;
+    
+    int itery = 0;
+    
+    // Label and description
+    self.surveyName = [[UILabel alloc] initWithFrame:CGRectMake(0, itery, viewWidth, 1)];
+    self.surveyName.font = [UIFont systemFontOfSize:18.0f];
+    self.surveyName.backgroundColor = [UIColor clearColor];
+    self.surveyName.numberOfLines = 0;
     self.surveyName.text = [self.survey objectForKey:@"name"];
+    [self.surveyName sizeToFit];
+    itery += self.surveyName.frame.size.height;
+    
+    [self.scroller addSubview:self.surveyName];
+    
+    itery += 5;
+
+    self.surveyDescription = [[UILabel alloc] initWithFrame:CGRectMake(0, itery, viewWidth, 1)];
+    self.surveyDescription.font = [UIFont systemFontOfSize:14.0f];
+    self.surveyDescription.backgroundColor = [UIColor clearColor];
+    self.surveyDescription.numberOfLines = 0;
     self.surveyDescription.text = [self.survey objectForKey:@"description"];
-    float oldHeight = self.surveyDescription.frame.size.height;
     [self.surveyDescription sizeToFit];
-    float moreHeight = self.surveyDescription.frame.size.height - oldHeight;
-    [self.view sizeToFit];
+    itery += self.surveyDescription.frame.size.height;
+
+    [self.scroller addSubview:self.surveyDescription];
     
-    CGRect frame = self.scroller.frame;
-    frame.origin.y += moreHeight;
-    frame.size.height -= moreHeight;
-    self.scroller.frame = frame;
+    itery += 20;
     
+    // confirmation table
     int myUserId = [[DGUtils app] userId];
     NSArray* surveyItems = [self.survey objectForKey:@"surveyItems"];
-    int i=0;
     for (NSDictionary* surveyItem in surveyItems) {
-        UILabel* test = [[UILabel alloc] initWithFrame:CGRectMake(0, 30*i, 100, 30)];
-        test.text = [surveyItem objectForKey:@"name"];
+        
+        itery += 10;
+        
+        UILabel* test = [[UILabel alloc] initWithFrame:CGRectMake(0, itery, 110, 1)];
         test.font = [UIFont systemFontOfSize:11.0f];
+        test.numberOfLines = 0;
+        test.text = [surveyItem objectForKey:@"name"];
         test.backgroundColor = [UIColor clearColor];
         [test sizeToFit];
+        
         [self.scroller addSubview:test];
-        UIButton* button = [[UIButton alloc] initWithFrame:CGRectMake(100, 30*i, 1, 1)];
+        
+        UIButton* button = [[UIButton alloc] initWithFrame:CGRectMake(120, itery, 1, 1)];
         [self setButtonImage:button forUser:myUserId item:surveyItem];
         [button sizeToFit];
-        [self.scroller addSubview:button];
         button.tag = [[surveyItem objectForKey:@"id"] intValue];
         [button addTarget:self action:@selector(onClick:) forControlEvents:UIControlEventTouchUpInside];
-        i++;
+        
+        CGRect buttonFrame = button.frame;
+        buttonFrame.origin.y += (test.frame.size.height - button.frame.size.height) / 2;
+        button.frame = buttonFrame;
+        
+        [self.scroller addSubview:button];
+
+        itery += test.frame.size.height;
+        
+        itery += 10;
+        
+        UIView* line = [[UIView alloc] initWithFrame:CGRectMake(0, itery, viewWidth, 2)];
+        line.backgroundColor = [UIColor colorWithRed:0 green:.4 blue:0 alpha:1];
+        
+        itery += line.frame.size.height;
+        
+        [self.scroller addSubview:line];
     }
-    self.scroller.contentSize=CGSizeMake(200,30*i);
+    
+    itery += 10;
+    
+    // buttons
+    self.okButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    self.okButton.frame = CGRectMake(0, itery, 1, 1);
+    [self.okButton setTitle:@"Speichern" forState:UIControlStateNormal];
+    [self.okButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [self.okButton sizeToFit];
+    [self.okButton addTarget:self action:@selector(confirm:) forControlEvents:UIControlEventTouchUpInside];
+    itery += self.okButton.frame.size.height;
+    
+    [self.scroller addSubview:self.okButton];
+    
+    self.scroller.contentSize=CGSizeMake(viewWidth,itery);
 }
 
 - (void)viewDidUnload
