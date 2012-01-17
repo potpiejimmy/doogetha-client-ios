@@ -9,6 +9,7 @@
 #import "DGEventConfirmController.h"
 #import "DGMainController.h"
 #import "DGSurveyConfirmController.h"
+#import "DGUtils.h"
 
 @implementation DGEventConfirmController
 @synthesize eventName = _eventName;
@@ -118,6 +119,8 @@
 {
     DGSurveyConfirmController* scc = [self.storyboard instantiateViewControllerWithIdentifier:@"surveyConfirmController"];
     NSDictionary* selSurvey = [[self.event objectForKey:@"surveys"] objectAtIndex:[indexPath row]];
+    [[DGUtils app] makeMeFirst:self.event]; // XXX shouldn't call here on each selection
+    scc.event = self.event;
     scc.survey = selSurvey;
     [self.navigationController pushViewController:scc animated:YES];
 }

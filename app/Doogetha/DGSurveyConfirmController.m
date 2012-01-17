@@ -17,6 +17,7 @@
 @synthesize okButton = _okButton;
 @synthesize cancelButton = _cancelButton;
 @synthesize scroller = _scroller;
+@synthesize event = _event;
 @synthesize survey = _survey;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -66,6 +67,11 @@
     }
 }
 
+- (NSString*)displayName:(NSString*)mail {
+    NSArray* tok = [mail componentsSeparatedByString:@"@"];
+    return [NSString stringWithFormat:@"%@@ %@",[tok objectAtIndex:0],[tok objectAtIndex:1]];
+}
+
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
@@ -102,45 +108,83 @@
     
     itery += 20;
     
+    UIScrollView* tableScroller = [[UIScrollView alloc] initWithFrame:CGRectMake(0, itery, viewWidth, 1)];
+    int tableitery = 0;
+    
     // confirmation table
     int myUserId = [[DGUtils app] userId];
     NSArray* surveyItems = [self.survey objectForKey:@"surveyItems"];
+    const int COLUMN1_WIDTH = 120;
+    const int COLUMN_WIDTH  =  30;
+    const int HEADER_HEIGHT = 100;
+    
+    int userCount = 0;
+    
+    // header
+    for (NSDictionary* user in [self.event objectForKey:@"users"]) {
+        
+        UILabel* userName = [[UILabel alloc] initWithFrame:CGRectMake(COLUMN1_WIDTH - (HEADER_HEIGHT-COLUMN_WIDTH)/2 + userCount*COLUMN_WIDTH, tableitery, HEADER_HEIGHT, HEADER_HEIGHT)];
+        userName.font = [UIFont systemFontOfSize:11.0f];
+        userName.numberOfLines = 0;
+        userName.text = [[user objectForKey:@"id"] intValue] == myUserId ? @"Ich" : [self displayName:[user objectForKey:@"email"]];
+        userName.backgroundColor = [UIColor clearColor];
+        userName.transform = CGAffineTransformMakeRotation( -M_PI/2 );
+        
+        [tableScroller addSubview:userName];
+
+        userCount++;
+    }
+    tableitery += HEADER_HEIGHT;
+    tableitery += 10;
+    
+    // body
     for (NSDictionary* surveyItem in surveyItems) {
         
-        itery += 10;
-        
-        UILabel* test = [[UILabel alloc] initWithFrame:CGRectMake(0, itery, 110, 1)];
-        test.font = [UIFont systemFontOfSize:11.0f];
-        test.numberOfLines = 0;
-        test.text = [surveyItem objectForKey:@"name"];
-        test.backgroundColor = [UIColor clearColor];
-        [test sizeToFit];
-        
-        [self.scroller addSubview:test];
-        
-        UIButton* button = [[UIButton alloc] initWithFrame:CGRectMake(120, itery, 1, 1)];
-        [self setButtonImage:button forUser:myUserId item:surveyItem];
-        [button sizeToFit];
-        button.tag = [[surveyItem objectForKey:@"id"] intValue];
-        [button addTarget:self action:@selector(onClick:) forControlEvents:UIControlEventTouchUpInside];
-        
-        CGRect buttonFrame = button.frame;
-        buttonFrame.origin.y += (test.frame.size.height - button.frame.size.height) / 2;
-        button.frame = buttonFrame;
-        
-        [self.scroller addSubview:button];
-
-        itery += test.frame.size.height;
-        
-        itery += 10;
-        
-        UIView* line = [[UIView alloc] initWithFrame:CGRectMake(0, itery, viewWidth, 2)];
+        UIView* line = [[UIView alloc] initWithFrame:CGRectMake(0, tableitery, viewWidth, 2)];
         line.backgroundColor = [UIColor colorWithRed:0 green:.4 blue:0 alpha:1];
+        tableitery += line.frame.size.height;
         
-        itery += line.frame.size.height;
+        [tableScroller addSubview:line];
+
+        tableitery += 10;
         
-        [self.scroller addSubview:line];
+        UILabel* itemLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, tableitery, COLUMN1_WIDTH - 10, 1)];
+        itemLabel.font = [UIFont systemFontOfSize:11.0f];
+        itemLabel.numberOfLines = 0;
+        itemLabel.text = [surveyItem objectForKey:@"name"];
+        itemLabel.backgroundColor = [UIColor clearColor];
+        [itemLabel sizeToFit];
+        
+        [tableScroller addSubview:itemLabel];
+        
+        int i = 0;
+        for (NSDictionary* user in [self.event objectForKey:@"users"]) {
+            UIButton* button = [[UIButton alloc] initWithFrame:CGRectMake(COLUMN1_WIDTH + i*COLUMN_WIDTH, tableitery, 1, 1)];
+            [self setButtonImage:button forUser:[[user objectForKey:@"id"] intValue] item:surveyItem];
+            [button sizeToFit];
+            button.tag = [[surveyItem objectForKey:@"id"] intValue];
+            if (i == 0)
+                [button addTarget:self action:@selector(onClick:) forControlEvents:UIControlEventTouchUpInside];
+        
+            CGRect buttonFrame = button.frame;
+            buttonFrame.origin.y += (itemLabel.frame.size.height - button.frame.size.height) / 2;
+            buttonFrame.origin.x += (COLUMN_WIDTH - button.frame.size.width) / 2;
+            button.frame = buttonFrame;
+        
+            [tableScroller addSubview:button];
+            i++;
+        }
+
+        tableitery += itemLabel.frame.size.height;
+        
+        tableitery += 10;
     }
+    
+    tableScroller.frame = CGRectMake(0, itery, viewWidth, tableitery);
+    tableScroller.contentSize = CGSizeMake(COLUMN1_WIDTH + userCount*COLUMN_WIDTH, tableitery);
+    itery += tableitery;
+    
+    [self.scroller addSubview:tableScroller];
     
     itery += 10;
     

@@ -118,4 +118,21 @@ NSString* const DOOGETHA_URL = @"https://www.potpiejimmy.de/doogetha/res/";
     return [[[[self authToken] componentsSeparatedByString:@":"] objectAtIndex:0] intValue];
 }
 
+-(void)makeMeFirst:(NSDictionary*) event
+{
+    NSMutableArray* users = [event objectForKey:@"users"];
+    int found = -1;
+    int index = 0;
+    for (NSDictionary* user in users) {
+        if ([[user objectForKey:@"id"] intValue] == self.userId)
+            found = index;
+        index++;
+    }
+    if (found > 0) {
+        id swap = [users objectAtIndex:found];
+        [users replaceObjectAtIndex:found withObject:[users objectAtIndex:0]];
+        [users replaceObjectAtIndex:0 withObject:swap];
+    }
+}
+
 @end
