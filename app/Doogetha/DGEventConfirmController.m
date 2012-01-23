@@ -15,6 +15,7 @@
 @synthesize eventName = _eventName;
 @synthesize eventDescription = _eventDescription;
 @synthesize surveyTable = _surveyTable;
+@synthesize scroller = _scroller;
 @synthesize confirmButton = _confirmButton;
 @synthesize declineButton = _declineButton;
 @synthesize event = _event;
@@ -36,6 +37,18 @@
     // Release any cached data, images, etc that aren't in use.
 }
 
+
+- (NSDictionary*) surveyResultItem: (NSDictionary*) survey
+{
+    for (NSDictionary* item in [survey objectForKey:@"surveyItems"])
+    {
+        int itemState = [[item objectForKey:@"state"] intValue];
+        if (itemState == 1) /* close item */
+            return item;
+    }
+    return nil;
+}
+
 #pragma mark - View lifecycle
 
 /*
@@ -53,18 +66,36 @@
     
     NSLog(@"viewDidLoad DGEventConfirmController");
     
-    self.eventName.text = [self.event objectForKey:@"name"];
-    self.eventDescription.text = [self.event objectForKey:@"description"];
-    float oldHeight = self.eventDescription.frame.size.height;
-    [self.eventDescription sizeToFit];
-    float moreHeight = self.eventDescription.frame.size.height - oldHeight;
-    [self.view sizeToFit];
+    int viewWidth = self.scroller.frame.size.width;
     
-    CGRect frame = self.surveyTable.frame;
-    frame.origin.y += moreHeight;
-    self.surveyTable.frame = frame;
+    int itery = 0;
     
+    // Label and description
+    self.eventName = [DGUtils label:CGRectMake(0, itery, viewWidth, 1) withText:[self.event objectForKey:@"name"] size:18.0f];
+    itery += self.eventName.frame.size.height;
+    
+    [self.scroller addSubview:self.eventName];
+    
+    itery += 5;
+    
+    self.eventDescription = [DGUtils label:CGRectMake(0, itery, viewWidth, 1) withText:[self.event objectForKey:@"description"] size:14.0f];
+    itery += self.eventDescription.frame.size.height;
+    
+    [self.scroller addSubview:self.eventDescription];
+    
+    itery += 10;
+
+    self.surveyTable.frame = CGRectMake(0, itery, viewWidth, [[self.event objectForKey:@"surveys"] count] * 32);
     self.surveyTable.rowHeight = 32;
+    itery += self.surveyTable.frame.size.height;
+    
+    itery += 10;
+    
+    self.confirmButton = [DGUtils button:CGRectMake(0, itery, 1, 1) withText:@"Ich nehme teil" target:self action:@selector(confirm:)];
+    self.declineButton = [DGUtils button:CGRectMake(self.confirmButton.frame.size.width + 5, itery, 1, 1) withText:@"Ich nehme nicht teil" target:self action:@selector(decline:)];
+    
+    [self.scroller addSubview:self.confirmButton];
+    [self.scroller addSubview:self.declineButton];
     
     BOOL hasOpenSurveys = [DGMainController hasOpenSurveys:self.event];
     self.confirmButton.hidden = hasOpenSurveys;
@@ -80,9 +111,18 @@
     [self setSurveyTable:nil];
     [self setConfirmButton:nil];
     [self setDeclineButton:nil];
+    [self setScroller:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    NSLog(@"View did appear: DGEventConfirmController");
+    
+    [self.surveyTable reloadData];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -107,10 +147,21 @@
     //NSLog(@"cellForRowAtIndexPath called");
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"surveyItem"];
     
-    NSUInteger row = [indexPath row];
-    cell.textLabel.text = [[[self.event objectForKey:@"surveys"] objectAtIndex:row] objectForKey:@"name"];
+    NSDictionary* survey = [[self.event objectForKey:@"surveys"] objectAtIndex:[indexPath row]];
+    int surveyState = [[survey objectForKey:@"state"] intValue];
+
+    cell.textLabel.text = [survey objectForKey:@"name"];
     
-    cell.detailTextLabel.text = @"Jetzt abstimmen";
+    if (surveyState == 0) /* open */
+    {
+        cell.detailTextLabel.text = @"Jetzt abstimmen";
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    }
+    else if (surveyState == 1) /* closed */
+    {
+        cell.detailTextLabel.text = [[self surveyResultItem:survey] objectForKey:@"name"];
+        cell.accessoryType = UITableViewCellAccessoryNone;
+    }
     
     return cell;
 }
@@ -123,6 +174,36 @@
     scc.event = self.event;
     scc.survey = selSurvey;
     [self.navigationController pushViewController:scc animated:YES];
+}
+
+// ----------
+
+- (void) doConfirm: (int)state
+{
+    TLWebRequest* webRequester = [[DGUtils app] webRequester];
+    webRequester.delegate = self;
+    
+    int eventId = [[self.event objectForKey:@"id"] intValue];
+    
+    NSString* url = [NSString stringWithFormat:@"%@events/%d?confirm=%d",DOOGETHA_URL,eventId,state];
+    NSLog(@"Confirming event: %@", url);
+    [webRequester get:url name:@"confirm"];
+}
+
+- (IBAction) confirm:(id)sender
+{
+    [self doConfirm:1]; /* confirm */
+}
+
+- (IBAction) decline:(id)sender
+{
+    [self doConfirm:2]; /* decline */
+}
+
+- (void) webRequestDone:(NSString*)name
+{
+    NSLog(@"Got result: %@", [[[DGUtils app] webRequester] resultString]);
+    [self.navigationController popViewControllerAnimated: YES];
 }
 
 @end

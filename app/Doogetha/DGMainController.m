@@ -151,12 +151,8 @@
     NSNumber* eventDate = [[self.events objectAtIndex:row] objectForKey:@"eventtime"];
     long long eventTime = eventDate.longLongValue;
     
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateStyle:NSDateFormatterShortStyle];
-    [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
-    
     if (eventTime > 0) {
-        cell.detailTextLabel.text = [dateFormatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:eventTime/1000]];
+        cell.detailTextLabel.text = [DGUtils dateTimeStringForMillis:eventTime];
     } else {
         cell.detailTextLabel.text = @"";
     }

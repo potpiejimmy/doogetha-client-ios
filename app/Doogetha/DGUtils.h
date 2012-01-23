@@ -13,4 +13,9 @@
 
 + (DGApp*) app;
 
++ (UILabel*) label: (CGRect) rect withText: (NSString*) label size: (CGFloat) size;
++ (UIButton*) button: (CGRect) rect withText: (NSString*) label target: (id) target action: (SEL) action;
+
++ (NSString*) dateTimeStringForMillis: (long long) millis;
+
 @end

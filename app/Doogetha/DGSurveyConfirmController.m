@@ -79,29 +79,21 @@
     
     NSLog(@"viewDidLoad DGSurveyConfirmController");
     
+    int surveyState = [[self.survey objectForKey:@"state"] intValue];
+    
     int viewWidth = self.scroller.frame.size.width;
     
     int itery = 0;
     
     // Label and description
-    self.surveyName = [[UILabel alloc] initWithFrame:CGRectMake(0, itery, viewWidth, 1)];
-    self.surveyName.font = [UIFont systemFontOfSize:18.0f];
-    self.surveyName.backgroundColor = [UIColor clearColor];
-    self.surveyName.numberOfLines = 0;
-    self.surveyName.text = [self.survey objectForKey:@"name"];
-    [self.surveyName sizeToFit];
+    self.surveyName = [DGUtils label:CGRectMake(0, itery, viewWidth, 1) withText:[self.survey objectForKey:@"name"] size:18.0f];
     itery += self.surveyName.frame.size.height;
     
     [self.scroller addSubview:self.surveyName];
     
     itery += 5;
 
-    self.surveyDescription = [[UILabel alloc] initWithFrame:CGRectMake(0, itery, viewWidth, 1)];
-    self.surveyDescription.font = [UIFont systemFontOfSize:14.0f];
-    self.surveyDescription.backgroundColor = [UIColor clearColor];
-    self.surveyDescription.numberOfLines = 0;
-    self.surveyDescription.text = [self.survey objectForKey:@"description"];
-    [self.surveyDescription sizeToFit];
+    self.surveyDescription = [DGUtils label:CGRectMake(0, itery, viewWidth, 1) withText:[self.survey objectForKey:@"description"] size:14.0f];
     itery += self.surveyDescription.frame.size.height;
 
     [self.scroller addSubview:self.surveyDescription];
@@ -115,7 +107,7 @@
     int myUserId = [[DGUtils app] userId];
     NSArray* surveyItems = [self.survey objectForKey:@"surveyItems"];
     const int COLUMN1_WIDTH = 120;
-    const int COLUMN_WIDTH  =  30;
+    const int COLUMN_WIDTH  =  40;
     const int HEADER_HEIGHT = 100;
     
     int userCount = 0;
@@ -148,12 +140,7 @@
 
         tableitery += 10;
         
-        UILabel* itemLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, tableitery, COLUMN1_WIDTH - 10, 1)];
-        itemLabel.font = [UIFont systemFontOfSize:11.0f];
-        itemLabel.numberOfLines = 0;
-        itemLabel.text = [surveyItem objectForKey:@"name"];
-        itemLabel.backgroundColor = [UIColor clearColor];
-        [itemLabel sizeToFit];
+        UILabel* itemLabel = [DGUtils label:CGRectMake(0, tableitery, COLUMN1_WIDTH - 10, 1) withText:[surveyItem objectForKey:@"name"] size:11.0f];
         
         [tableScroller addSubview:itemLabel];
         
@@ -163,8 +150,10 @@
             [self setButtonImage:button forUser:[[user objectForKey:@"id"] intValue] item:surveyItem];
             [button sizeToFit];
             button.tag = [[surveyItem objectForKey:@"id"] intValue];
-            if (i == 0)
+            if (i == 0 && surveyState == 0)
                 [button addTarget:self action:@selector(onClick:) forControlEvents:UIControlEventTouchUpInside];
+            else
+                button.enabled = false;
         
             CGRect buttonFrame = button.frame;
             buttonFrame.origin.y += (itemLabel.frame.size.height - button.frame.size.height) / 2;
@@ -189,15 +178,11 @@
     itery += 10;
     
     // buttons
-    self.okButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    self.okButton.frame = CGRectMake(0, itery, 1, 1);
-    [self.okButton setTitle:@"Speichern" forState:UIControlStateNormal];
-    [self.okButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [self.okButton sizeToFit];
-    [self.okButton addTarget:self action:@selector(confirm:) forControlEvents:UIControlEventTouchUpInside];
+    self.okButton = [DGUtils button:CGRectMake(0, itery, 1, 1) withText:@"Speichern" target:self action:@selector(confirm:)];
     itery += self.okButton.frame.size.height;
     
-    [self.scroller addSubview:self.okButton];
+    if (surveyState == 0)
+        [self.scroller addSubview:self.okButton];
     
     self.scroller.contentSize=CGSizeMake(viewWidth,itery);
 }

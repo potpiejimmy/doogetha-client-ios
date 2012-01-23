@@ -10,12 +10,17 @@
 
 @interface DGEventConfirmController : UIViewController<UITableViewDelegate,UITableViewDataSource>
 
-@property (weak, nonatomic) IBOutlet UILabel *eventName;
-@property (weak, nonatomic) IBOutlet UILabel *eventDescription;
 @property (weak, nonatomic) IBOutlet UITableView *surveyTable;
-@property (weak, nonatomic) IBOutlet UIButton *confirmButton;
-@property (weak, nonatomic) IBOutlet UIButton *declineButton;
+@property (weak, nonatomic) IBOutlet UIScrollView *scroller;
+
+@property (strong, nonatomic) UILabel *eventName;
+@property (strong, nonatomic) UILabel *eventDescription;
+@property (strong, nonatomic) UIButton *confirmButton;
+@property (strong, nonatomic) UIButton *declineButton;
 
 @property (strong, nonatomic) NSDictionary *event;
+
+- (IBAction)confirm:(id)sender;
+- (IBAction)decline:(id)sender;
 
 @end
