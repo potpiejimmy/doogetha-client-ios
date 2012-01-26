@@ -187,7 +187,8 @@
     
     NSString* url = [NSString stringWithFormat:@"%@events/%d?confirm=%d",DOOGETHA_URL,eventId,state];
     NSLog(@"Confirming event: %@", url);
-    [webRequester get:url name:@"confirm"];
+    [DGUtils alertWaitStart:@"Bitte warten..."];
+    [webRequester get:url reqid:@"confirm"];
 }
 
 - (IBAction) confirm:(id)sender
@@ -200,8 +201,15 @@
     [self doConfirm:2]; /* decline */
 }
 
-- (void) webRequestDone:(NSString*)name
+- (void)webRequestFail:(NSString*)reqid
 {
+    [DGUtils alertWaitEnd];
+    [DGUtils alert:[DGUtils app].webRequester.lastError];
+}
+
+- (void) webRequestDone:(NSString*)reqid
+{
+    [DGUtils alertWaitEnd];
     NSLog(@"Got result: %@", [[[DGUtils app] webRequester] resultString]);
     [self.navigationController popViewControllerAnimated: YES];
 }

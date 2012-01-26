@@ -242,7 +242,6 @@
     }
 }
 
-
 - (IBAction)confirm:(id)sender {
     TLWebRequest* webRequester = [[DGUtils app] webRequester];
     webRequester.delegate = self;
@@ -250,11 +249,19 @@
     NSString* result = [writer stringWithObject:self.survey];
     int surveyId = [[self.survey objectForKey:@"id"] intValue];
     NSLog(@"Trying to post: %@", result);
-    [webRequester put:[NSString stringWithFormat:@"%@surveys/%d",DOOGETHA_URL,surveyId] msg:result name:@"confirm"];
+    [DGUtils alertWaitStart:@"Speichern. Bitte warten..."];
+    [webRequester put:[NSString stringWithFormat:@"%@surveys/%d",DOOGETHA_URL,surveyId] msg:result reqid:@"confirm"];
 }
 
-- (void)webRequestDone:(NSString*)name
+- (void)webRequestFail:(NSString*)reqid
 {
+    [DGUtils alertWaitEnd];
+    [DGUtils alert:[DGUtils app].webRequester.lastError];
+}
+
+- (void)webRequestDone:(NSString*)reqid
+{
+    [DGUtils alertWaitEnd];
     NSLog(@"Got result: %@", [[[DGUtils app] webRequester] resultString]);
     [self.navigationController popViewControllerAnimated: YES];
 }

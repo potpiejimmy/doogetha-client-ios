@@ -82,15 +82,20 @@
     NSLog(@"Registering...assdf");
     
     [DGUtils app].webRequester.delegate = self;
-    [[DGUtils app].webRequester post:[NSString stringWithFormat:@"%@register",DOOGETHA_URL] msg:self.mailTextField.text name:@"register"];
+    [[DGUtils app].webRequester post:[NSString stringWithFormat:@"%@register",DOOGETHA_URL] msg:self.mailTextField.text reqid:@"register"];
 }
 
-- (void)webRequestDone:(NSString*)name {
+- (void)webRequestFail:(NSString*)reqid
+{
+    [DGUtils alert:[DGUtils app].webRequester.lastError];
+}
+
+- (void)webRequestDone:(NSString*)reqid {
 	//id notificationSender = [notification object];
-    NSLog(@"Received notfication: %@", name);
+    NSLog(@"Received notfication: %@", reqid);
     DGApp* app = [DGUtils app];
     
-    if ([name isEqualToString:@"register"]) {
+    if ([reqid isEqualToString:@"register"]) {
     
         NSString* loginToken = [app.webRequester resultString];
         loginToken = [loginToken substringWithRange:NSMakeRange(1, [loginToken length]-2)];
@@ -103,7 +108,7 @@
         self.resultLabel.text = [NSString stringWithFormat:@"Login token is %@",[tok objectAtIndex:1]];
         self.loginButton.enabled = YES;
 
-    } else if ([name isEqualToString:@"login"]) {
+    } else if ([reqid isEqualToString:@"login"]) {
     
         NSString* credentials = [app.webRequester resultString];
         credentials = [credentials substringWithRange:NSMakeRange(1, [credentials length]-2)];
@@ -132,6 +137,6 @@
     NSArray* tok = [app.loginToken componentsSeparatedByString:@":"];
     
     app.webRequester.delegate = self;
-    [app.webRequester get:[NSString stringWithFormat:@"%@register/%@",DOOGETHA_URL,[tok objectAtIndex:0]] name:@"login"];
+    [app.webRequester get:[NSString stringWithFormat:@"%@register/%@",DOOGETHA_URL,[tok objectAtIndex:0]] reqid:@"login"];
 }
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "DGApp.h"
+#import "DGUtils.h"
 #import "TLUtils.h"
 
 NSString* const DOOGETHA_URL = @"https://www.potpiejimmy.de/doogetha/res/";
@@ -38,7 +39,12 @@ NSString* const DOOGETHA_URL = @"https://www.potpiejimmy.de/doogetha/res/";
     return YES;
 }
 
-- (void)webRequestDone:(NSString*)name 
+- (void)webRequestFail:(NSString*)reqid 
+{
+    [DGUtils alert:self.webRequester.lastError];
+}
+
+- (void)webRequestDone:(NSString*)reqid 
 {
     NSString* sessionKey = [self.webRequester resultString];
     sessionKey = [sessionKey substringWithRange:NSMakeRange(1, [sessionKey length]-2)];
@@ -52,7 +58,7 @@ NSString* const DOOGETHA_URL = @"https://www.potpiejimmy.de/doogetha/res/";
     // start session:
     self.sessionCallback = sessionCallback;
     self.webRequester.delegate = self;
-    [self.webRequester post:[NSString stringWithFormat:@"%@login",DOOGETHA_URL] msg:[self authToken] name:@"session"];
+    [self.webRequester post:[NSString stringWithFormat:@"%@login",DOOGETHA_URL] msg:[self authToken] reqid:@"session"];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application

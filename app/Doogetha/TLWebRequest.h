@@ -12,20 +12,22 @@
 
 -(TLWebRequest*)initWithDelegate:(id)delegate;
 
--(void)post:(NSString*)url msg:(NSString*)msg name:(NSString*)name;
--(void)put:(NSString*)url msg:(NSString*)msg name:(NSString*)name;
--(void)get:(NSString*)url name:(NSString*)name;
+-(void)post:(NSString*)url msg:(NSString*)msg reqid:(NSString*)reqid;
+-(void)put:(NSString*)url msg:(NSString*)msg reqid:(NSString*)reqid;
+-(void)get:(NSString*)url reqid:(NSString*)reqid;
 
 -(NSString*)resultString;
 
 @property (strong, nonatomic) id delegate;
 @property (strong, nonatomic) NSMutableData *resultData;
-@property (strong, nonatomic) NSString *currentName;
+@property (strong, nonatomic) NSString *currentReqId;
+@property (strong, nonatomic) NSString *lastError;
 @property (strong, nonatomic) NSString *authorization;
 
 @end
 
 // Callback protocol:
 @interface NSObject(TLWebRequestDelegateMethods)
-- (void)webRequestDone:(NSString*)name;
+- (void)webRequestDone:(NSString*)reqid;
+- (void)webRequestFail:(NSString*)reqid;
 @end

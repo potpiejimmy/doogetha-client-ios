@@ -18,4 +18,8 @@
 
 + (NSString*) dateTimeStringForMillis: (long long) millis;
 
++ (void) alert:          (NSString*) message;
++ (void) alertWaitStart: (NSString*) message;
++ (void) alertWaitEnd;
+
 @end

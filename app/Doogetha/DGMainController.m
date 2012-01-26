@@ -87,7 +87,7 @@
     app.webRequester.authorization = [NSString stringWithFormat:@"Basic %@",app.sessionKey];
     app.webRequester.delegate = self;
     [self.activityIndicator startAnimating];
-    [app.webRequester get:[NSString stringWithFormat:@"%@events",DOOGETHA_URL] name:@"get"];
+    [app.webRequester get:[NSString stringWithFormat:@"%@events",DOOGETHA_URL] reqid:@"get"];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -106,7 +106,13 @@
     return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
 }
 
-- (void)webRequestDone:(NSString*)name
+- (void)webRequestFail:(NSString*)reqid
+{
+    [self.activityIndicator stopAnimating];
+    [DGUtils alert:[DGUtils app].webRequester.lastError];
+}
+
+- (void)webRequestDone:(NSString*)reqid
 {
     [self.activityIndicator stopAnimating];
     NSString* result = [[DGUtils app].webRequester resultString];

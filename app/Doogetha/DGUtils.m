@@ -8,6 +8,8 @@
 
 #import "DGUtils.h"
 
+UIAlertView* _currentAlert;
+
 @implementation DGUtils
 
 + (DGApp*) app
@@ -44,6 +46,32 @@
     [dateFormatter setDateStyle:NSDateFormatterShortStyle];
     [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
     return [dateFormatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:millis/1000]];
+}
+
++ (void) alert:          (NSString*) message
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil 
+                                              message:message
+                                              delegate:nil 
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+    [alert show];
+}
+
++ (void) alertWaitStart: (NSString*) message
+{
+    _currentAlert = [[UIAlertView alloc] initWithTitle:message message:nil delegate:nil cancelButtonTitle:nil otherButtonTitles: nil];
+    [_currentAlert show];
+    
+    UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    indicator.center = CGPointMake(_currentAlert.bounds.size.width / 2, _currentAlert.bounds.size.height - 50);
+    [indicator startAnimating];
+    [_currentAlert addSubview:indicator];
+}
+
++ (void) alertWaitEnd
+{
+    [_currentAlert dismissWithClickedButtonIndex:0 animated:YES];
 }
 
 @end

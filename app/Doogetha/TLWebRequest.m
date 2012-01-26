@@ -11,9 +11,10 @@
 @implementation TLWebRequest
 
 @synthesize resultData = _resultData;
-@synthesize currentName = _currentName;
+@synthesize currentReqId = _currentReqId;
 @synthesize authorization = _authorization;
 @synthesize delegate = _delegate;
+@synthesize lastError = _lastError;
 
 -(TLWebRequest*)initWithDelegate:(id)delegate
 {
@@ -24,9 +25,9 @@
     return self;
 }
 
--(void)postOrPut:(NSString*)method url:(NSString*)url msg:(NSString*)msg name:(NSString*)name
+-(void)postOrPut:(NSString*)method url:(NSString*)url msg:(NSString*)msg reqid:(NSString*)reqid
 {
-    self.currentName = name;
+    self.currentReqId = reqid;
     NSData *postData = [msg dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
 
     NSString *postLength = [NSString stringWithFormat:@"%d", [postData length]];
@@ -46,19 +47,19 @@
     }
 }
 
--(void)post:(NSString*)url msg:(NSString*)msg name:(NSString*)name
+-(void)post:(NSString*)url msg:(NSString*)msg reqid:(NSString*)reqid
 {
-    [self postOrPut:@"POST" url:url msg:msg name:name];
+    [self postOrPut:@"POST" url:url msg:msg reqid:reqid];
 }
 
--(void)put:(NSString*)url msg:(NSString*)msg name:(NSString*)name
+-(void)put:(NSString*)url msg:(NSString*)msg reqid:(NSString*)reqid
 {
-    [self postOrPut:@"PUT" url:url msg:msg name:name];
+    [self postOrPut:@"PUT" url:url msg:msg reqid:reqid];
 }
 
--(void)get:(NSString*)url name:(NSString*)name
+-(void)get:(NSString*)url reqid:(NSString*)reqid
 {
-    self.currentName = name;
+    self.currentReqId = reqid;
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
     [request setURL:[NSURL URLWithString:url]];
     [request setHTTPMethod:@"GET"];
@@ -86,15 +87,18 @@
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
-    NSLog(@"Connection failed! Error - %@ %@",
-          [error localizedDescription],
-          [[error userInfo] objectForKey:NSURLErrorFailingURLStringErrorKey]);
+    self.lastError = [NSString stringWithFormat:@"Connection failed! Error - %@ %@",
+                               [error localizedDescription],
+                               [[error userInfo] objectForKey:NSURLErrorFailingURLStringErrorKey]];
+    
+    NSLog(@"%@",self.lastError);
+    [self.delegate webRequestFail:self.currentReqId];
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
     NSLog(@"Succeeded! Received %d bytes of data",[self.resultData length]);
-    [self.delegate webRequestDone:self.currentName];
+    [self.delegate webRequestDone:self.currentReqId];
 }
 
 -(NSString*)resultString
