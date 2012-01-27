@@ -22,4 +22,6 @@
 + (void) alertWaitStart: (NSString*) message;
 + (void) alertWaitEnd;
 
++ (void) slideView: (UIView*) view pixels: (int) pixels up: (BOOL) up;
+
 @end

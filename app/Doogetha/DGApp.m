@@ -31,7 +31,7 @@ NSString* const DOOGETHA_URL = @"https://www.potpiejimmy.de/doogetha/res/";
         NSLog(@"Got auth token: %@", [self authToken]);
         self.window.rootViewController = [board instantiateViewControllerWithIdentifier:@"tabBarController"];
     } else {
-        self.window.rootViewController = [board instantiateViewControllerWithIdentifier:@"registerController"];
+        self.window.rootViewController = [board instantiateViewControllerWithIdentifier:@"welcomeController"];
     }
     [self.window makeKeyAndVisible];
     _inBackground = NO;

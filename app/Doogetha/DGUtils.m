@@ -74,4 +74,19 @@ UIAlertView* _currentAlert;
     [_currentAlert dismissWithClickedButtonIndex:0 animated:YES];
 }
 
++ (void) slideView:   (UIView*) view pixels: (int) pixels up: (BOOL) up
+{
+    const int movementDistance = 160; // tweak as needed
+    const float movementDuration = 0.3f; // tweak as needed
+    
+    int movement = (up ? -movementDistance : movementDistance);
+    
+    [UIView beginAnimations: @"anim" context: nil];
+    [UIView setAnimationBeginsFromCurrentState: YES];
+    [UIView setAnimationDuration: movementDuration];
+    view.frame = CGRectOffset(view.frame, 0, movement);
+    [UIView commitAnimations];
+}
+
+
 @end

@@ -69,17 +69,21 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-- (BOOL)textFieldShouldReturn:(UITextField *)theTextField {
-    
+- (BOOL)textFieldShouldReturn:(UITextField *)theTextField
+{
     [theTextField resignFirstResponder];
     
     return YES;
+}
+- (IBAction)backgroundTouched:(id)sender
+{
+    [self.mailTextField resignFirstResponder];
 }
 
 - (IBAction)register:(id)sender {
     
     [self.mailTextField resignFirstResponder];
-    NSLog(@"Registering...assdf");
+    NSLog(@"Registering...");
     
     [DGUtils app].webRequester.delegate = self;
     [[DGUtils app].webRequester post:[NSString stringWithFormat:@"%@register",DOOGETHA_URL] msg:self.mailTextField.text reqid:@"register"];
@@ -105,7 +109,7 @@
 
         NSArray* tok = [loginToken componentsSeparatedByString:@":"];
     
-        self.resultLabel.text = [NSString stringWithFormat:@"Login token is %@",[tok objectAtIndex:1]];
+        self.resultLabel.text = [NSString stringWithFormat:@"PIN: %@",[tok objectAtIndex:1]];
         self.loginButton.enabled = YES;
 
     } else if ([reqid isEqualToString:@"login"]) {
@@ -139,4 +143,19 @@
     app.webRequester.delegate = self;
     [app.webRequester get:[NSString stringWithFormat:@"%@register/%@",DOOGETHA_URL,[tok objectAtIndex:0]] reqid:@"login"];
 }
+
+//-----------
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    [DGUtils slideView:self.view pixels:160 up:YES];
+}
+
+
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    [DGUtils slideView:self.view pixels:160 up:NO];
+}
+
+
 @end
