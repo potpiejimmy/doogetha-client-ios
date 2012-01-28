@@ -141,4 +141,14 @@ NSString* const DOOGETHA_URL = @"https://www.potpiejimmy.de/doogetha/res/";
     }
 }
 
+-(NSDictionary*)findMe:(NSDictionary*) event
+{
+    NSArray* users = [event objectForKey:@"users"];
+    for (NSDictionary* user in users) {
+        if ([[user objectForKey:@"id"] intValue] == self.userId)
+            return user;
+    }
+    return nil;
+}
+
 @end

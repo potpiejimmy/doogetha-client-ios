@@ -13,8 +13,6 @@
 
 @implementation DGRegisterController
 @synthesize mailTextField=_mailTextField;
-@synthesize resultLabel = _resultLabel;
-@synthesize loginButton = _loginButton;
 
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
@@ -56,8 +54,6 @@
 - (void)viewDidUnload
 {
     [self setMailTextField:nil];
-    [self setResultLabel:nil];
-    [self setLoginButton:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -83,7 +79,17 @@
 - (IBAction)register:(id)sender {
     
     [self.mailTextField resignFirstResponder];
+    
+    NSString* mail = self.mailTextField.text;
+    if ([mail rangeOfString:@"@"].location == NSNotFound || [mail length]<5)
+    {
+        [DGUtils alert:@"Bitte gib eine gültige E-Mail-Adresse ein."];
+        return;
+    }
+    
     NSLog(@"Registering...");
+    
+    [DGUtils alertWaitStart:@"Anfrage wird gesendet. Bitte warten..."];
     
     [DGUtils app].webRequester.delegate = self;
     [[DGUtils app].webRequester post:[NSString stringWithFormat:@"%@register",DOOGETHA_URL] msg:self.mailTextField.text reqid:@"register"];
@@ -91,57 +97,25 @@
 
 - (void)webRequestFail:(NSString*)reqid
 {
+    [DGUtils alertWaitEnd];
     [DGUtils alert:[DGUtils app].webRequester.lastError];
 }
 
-- (void)webRequestDone:(NSString*)reqid {
+- (void)webRequestDone:(NSString*)reqid
+{
+    [DGUtils alertWaitEnd];
+
 	//id notificationSender = [notification object];
     NSLog(@"Received notfication: %@", reqid);
     DGApp* app = [DGUtils app];
     
-    if ([reqid isEqualToString:@"register"]) {
+    NSString* loginToken = [app.webRequester resultString];
+    loginToken = [loginToken substringWithRange:NSMakeRange(1, [loginToken length]-2)];
+    NSLog(@"Login Token: %@", loginToken);
     
-        NSString* loginToken = [app.webRequester resultString];
-        loginToken = [loginToken substringWithRange:NSMakeRange(1, [loginToken length]-2)];
-        NSLog(@"Login Token: %@", loginToken);
-    
-        app.loginToken = loginToken;
-
-        NSArray* tok = [loginToken componentsSeparatedByString:@":"];
-    
-        self.resultLabel.text = [NSString stringWithFormat:@"PIN: %@",[tok objectAtIndex:1]];
-        self.loginButton.enabled = YES;
-
-    } else if ([reqid isEqualToString:@"login"]) {
-    
-        NSString* credentials = [app.webRequester resultString];
-        credentials = [credentials substringWithRange:NSMakeRange(1, [credentials length]-2)];
-        NSLog(@"Credentials: %@", credentials);
-        
-        NSArray* tok = [credentials componentsSeparatedByString:@":"];
-		NSString* id = [tok objectAtIndex:0];
-		NSString* password = [tok objectAtIndex:1];
-        
-		tok = [[app loginToken] componentsSeparatedByString:@":"];
-        
-		password = [TLUtils xorHexString:password with:[tok objectAtIndex:0]];
-		app.loginToken = nil;
-        
-    	credentials = [NSString stringWithFormat:@"%@:%@",id,password];
-        NSLog(@"Real Credentials: %@", credentials);
-
-        [app register:credentials];
-        [self performSegueWithIdentifier:@"startSegue" sender:self];
-    }
-
-}
-
-- (IBAction)login:(id)sender {
-    DGApp* app = [DGUtils app];
-    NSArray* tok = [app.loginToken componentsSeparatedByString:@":"];
-    
-    app.webRequester.delegate = self;
-    [app.webRequester get:[NSString stringWithFormat:@"%@register/%@",DOOGETHA_URL,[tok objectAtIndex:0]] reqid:@"login"];
+    app.loginToken = loginToken;
+  
+    [self performSegueWithIdentifier:@"registerSegue" sender:self];
 }
 
 //-----------

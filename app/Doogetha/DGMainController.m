@@ -134,6 +134,22 @@
 }
 
 
++ (void)setConfirmImage: (UIImageView*)imageView forState:(int)state
+{
+    switch (state) {
+        case 0:
+            imageView.image = [UIImage imageNamed:@"dot-gray.png"];
+            break;
+        case 1:
+            imageView.image = [UIImage imageNamed:@"dot-green.png"];
+            break;
+        case 2:
+            imageView.image = [UIImage imageNamed:@"dot-red.png"];
+            break;
+   }
+}
+
+
 #pragma mark -
 #pragma mark Table View Data Source Methods
  
@@ -152,9 +168,12 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"eventItem"];
 
     NSUInteger row = [indexPath row];
-    cell.textLabel.text = [[self.events objectAtIndex:row] objectForKey:@"name"];
+    
+    NSDictionary* event = [self.events objectAtIndex:row];
+    
+    cell.textLabel.text = [event objectForKey:@"name"];
    
-    NSNumber* eventDate = [[self.events objectAtIndex:row] objectForKey:@"eventtime"];
+    NSNumber* eventDate = [event objectForKey:@"eventtime"];
     long long eventTime = eventDate.longLongValue;
     
     if (eventTime > 0) {
@@ -162,6 +181,15 @@
     } else {
         cell.detailTextLabel.text = @"";
     }
+    
+    if ([DGMainController hasOpenSurveys:event])
+        cell.imageView.image = [UIImage imageNamed:@"question_mark.png"];
+    else {
+        NSDictionary* myConfirmation = [[DGUtils app] findMe:event];
+        int myConfirmationState = [[myConfirmation objectForKey:@"state"] intValue];
+        [DGMainController setConfirmImage:cell.imageView forState:myConfirmationState];
+    }
+    
     return cell;
 }
 

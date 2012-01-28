@@ -24,5 +24,6 @@
 - (IBAction)reload:(id)sender;
 
 +(BOOL) hasOpenSurveys:(id) event;
++(void) setConfirmImage: (UIImageView*)imageView forState:(int)state;
 
 @end

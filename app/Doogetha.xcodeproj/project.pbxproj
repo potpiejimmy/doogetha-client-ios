@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A506463514D496FB00BA9113 /* DGRegisterConfirmController.m in Sources */ = {isa = PBXBuildFile; fileRef = A506463414D496FB00BA9113 /* DGRegisterConfirmController.m */; };
+		A506463914D4A50200BA9113 /* dot-gray.png in Resources */ = {isa = PBXBuildFile; fileRef = A506463614D4A50200BA9113 /* dot-gray.png */; };
+		A506463A14D4A50200BA9113 /* dot-red.png in Resources */ = {isa = PBXBuildFile; fileRef = A506463714D4A50200BA9113 /* dot-red.png */; };
+		A506463B14D4A50200BA9113 /* question_mark.png in Resources */ = {isa = PBXBuildFile; fileRef = A506463814D4A50200BA9113 /* question_mark.png */; };
 		A50A727314A3CDB800CE4CEB /* title.png in Resources */ = {isa = PBXBuildFile; fileRef = A50A727214A3CDB800CE4CEB /* title.png */; };
 		A50A727614A3DF8400CE4CEB /* dot-green.png in Resources */ = {isa = PBXBuildFile; fileRef = A50A727514A3DF8400CE4CEB /* dot-green.png */; };
 		A51E279E14A0FB3900F10CAB /* refresh.png in Resources */ = {isa = PBXBuildFile; fileRef = A51E279D14A0FB3900F10CAB /* refresh.png */; };
@@ -52,6 +56,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A506463314D496FB00BA9113 /* DGRegisterConfirmController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DGRegisterConfirmController.h; sourceTree = "<group>"; };
+		A506463414D496FB00BA9113 /* DGRegisterConfirmController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DGRegisterConfirmController.m; sourceTree = "<group>"; };
+		A506463614D4A50200BA9113 /* dot-gray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dot-gray.png"; sourceTree = "<group>"; };
+		A506463714D4A50200BA9113 /* dot-red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dot-red.png"; sourceTree = "<group>"; };
+		A506463814D4A50200BA9113 /* question_mark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = question_mark.png; sourceTree = "<group>"; };
 		A50A727214A3CDB800CE4CEB /* title.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = title.png; sourceTree = "<group>"; };
 		A50A727514A3DF8400CE4CEB /* dot-green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dot-green.png"; sourceTree = "<group>"; };
 		A51E279D14A0FB3900F10CAB /* refresh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = refresh.png; sourceTree = "<group>"; };
@@ -203,6 +212,8 @@
 				A591DAEE149A6DB20077DF83 /* DGMainController.m */,
 				A5C7812C149A6FB100BA93F3 /* DGRegisterController.h */,
 				A5C7812D149A6FB100BA93F3 /* DGRegisterController.m */,
+				A506463314D496FB00BA9113 /* DGRegisterConfirmController.h */,
+				A506463414D496FB00BA9113 /* DGRegisterConfirmController.m */,
 				A5D12515149E545D007B5606 /* DGEventConfirmController.h */,
 				A5D12516149E545D007B5606 /* DGEventConfirmController.m */,
 				A58B323214A4E0E600E6D3E1 /* DGSurveyConfirmController.h */,
@@ -222,6 +233,9 @@
 		A591DADF149A6DB20077DF83 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				A506463614D4A50200BA9113 /* dot-gray.png */,
+				A506463714D4A50200BA9113 /* dot-red.png */,
+				A506463814D4A50200BA9113 /* question_mark.png */,
 				A5C64BE814D34E8A00C979D6 /* logo.png */,
 				A5C64BE214D34D8C00C979D6 /* Icon-72.png */,
 				A5C64BE314D34D8C00C979D6 /* Icon.png */,
@@ -314,6 +328,9 @@
 				A5C64BE614D34D8C00C979D6 /* Icon.png in Resources */,
 				A5C64BE714D34D8C00C979D6 /* Icon@2.png in Resources */,
 				A5C64BE914D34E8A00C979D6 /* logo.png in Resources */,
+				A506463914D4A50200BA9113 /* dot-gray.png in Resources */,
+				A506463A14D4A50200BA9113 /* dot-red.png in Resources */,
+				A506463B14D4A50200BA9113 /* question_mark.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -345,6 +362,7 @@
 				A592B732149BEEB300627259 /* DGUtils.m in Sources */,
 				A5D12517149E545D007B5606 /* DGEventConfirmController.m in Sources */,
 				A58B323414A4E0E600E6D3E1 /* DGSurveyConfirmController.m in Sources */,
+				A506463514D496FB00BA9113 /* DGRegisterConfirmController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -13,11 +13,8 @@
 @interface DGRegisterController : UIViewController
 
 - (IBAction)register:(id)sender;
-- (IBAction)login:(id)sender;
 - (IBAction)backgroundTouched:(id)sender;
 
 @property (weak, nonatomic) IBOutlet UITextField *mailTextField;
-@property (weak, nonatomic) IBOutlet UILabel *resultLabel;
-@property (weak, nonatomic) IBOutlet UIButton *loginButton;
 
 @end
