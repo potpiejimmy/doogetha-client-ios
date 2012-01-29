@@ -12,10 +12,12 @@
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scroller;
 
+@property (strong, nonatomic) UIScrollView* tableScroller;
 @property (strong, nonatomic) UILabel *surveyName;
 @property (strong, nonatomic) UILabel *surveyDescription;
 @property (strong, nonatomic) UIButton *okButton;
 @property (strong, nonatomic) UIButton *cancelButton;
+@property (strong, nonatomic) UIButton *addButton;
 
 @property (strong, nonatomic) NSDictionary *event;
 @property (strong, nonatomic) NSDictionary *survey;

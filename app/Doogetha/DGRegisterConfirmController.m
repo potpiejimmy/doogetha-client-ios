@@ -84,7 +84,13 @@
     NSString* credentials = [app.webRequester resultString];
     credentials = [credentials substringWithRange:NSMakeRange(1, [credentials length]-2)];
     NSLog(@"Credentials: %@", credentials);
-        
+    
+    if ([credentials length] > 48 ||
+        [credentials rangeOfString:@":"].location <= 0) {
+        [DGUtils alert:@"Das Login war nicht erfolgreich. Bitte überprüfe, ob du die Bestätigung korrekt ausgeführt hast."];
+        return;
+    }
+    
     NSArray* tok = [credentials componentsSeparatedByString:@":"];
     NSString* id = [tok objectAtIndex:0];
 	NSString* password = [tok objectAtIndex:1];

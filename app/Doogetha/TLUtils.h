@@ -13,7 +13,8 @@
 + (NSString*) bytesToHex:   (NSData*)data;
 + (NSData*)   hexToBytes:   (NSString*)hexString;
 + (NSString*) xorHexString: (NSString*)a with:(NSString*)b;
-+ (NSString *)encodeBase64WithString:(NSString *)strData;
-+ (NSString *)encodeBase64WithData:(NSData *)objData;
++ (NSString*) encodeBase64WithString:(NSString *)strData;
++ (NSString*) encodeBase64WithData:(NSData *)objData;
++ (NSString*) trim: (NSString*)string;
 
 @end

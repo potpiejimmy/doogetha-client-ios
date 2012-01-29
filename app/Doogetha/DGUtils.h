@@ -23,5 +23,6 @@
 + (void) alertWaitEnd;
 
 + (void) slideView: (UIView*) view pixels: (int) pixels up: (BOOL) up;
++ (void) insertSpaceInView: (UIView*) view pixels: (int) pixels at: (int) pos;
 
 @end

@@ -8,14 +8,21 @@
 
 #import "DGSurveyConfirmController.h"
 #import "DGUtils.h"
+#import "TLUtils.h"
 #import "SBJsonWriter.h"
+
+const int COLUMN1_WIDTH = 120;
+const int COLUMN_WIDTH  =  40;
+const int HEADER_HEIGHT = 100;
 
 @implementation DGSurveyConfirmController
 
+@synthesize tableScroller = _tableScroller;
 @synthesize surveyName = _surveyName;
 @synthesize surveyDescription = _surveyDescription;
 @synthesize okButton = _okButton;
 @synthesize cancelButton = _cancelButton;
+@synthesize addButton = _addButton;
 @synthesize scroller = _scroller;
 @synthesize event = _event;
 @synthesize survey = _survey;
@@ -72,6 +79,52 @@
     return [NSString stringWithFormat:@"%@@ %@",[tok objectAtIndex:0],[tok objectAtIndex:1]];
 }
 
+- (int) addSurveyToggleRow: (NSDictionary*) surveyItem at: (int) currentY
+{
+    int oldY = currentY; // remember initial Y
+    
+    int viewWidth = self.scroller.frame.size.width;
+    int surveyState = [[self.survey objectForKey:@"state"] intValue];
+    
+    UIView* line = [[UIView alloc] initWithFrame:CGRectMake(0, currentY, viewWidth, 2)];
+    line.backgroundColor = [UIColor colorWithRed:0 green:.4 blue:0 alpha:1];
+    currentY += line.frame.size.height;
+    
+    [self.tableScroller addSubview:line];
+    
+    currentY += 10;
+    
+    UILabel* itemLabel = [DGUtils label:CGRectMake(0, currentY, COLUMN1_WIDTH - 10, 1) withText:[surveyItem objectForKey:@"name"] size:11.0f];
+    
+    [self.tableScroller addSubview:itemLabel];
+    
+    int i = 0;
+    for (NSDictionary* user in [self.event objectForKey:@"users"]) {
+        UIButton* button = [[UIButton alloc] initWithFrame:CGRectMake(COLUMN1_WIDTH + i*COLUMN_WIDTH, currentY, 1, 1)];
+        [self setButtonImage:button forUser:[[user objectForKey:@"id"] intValue] item:surveyItem];
+        [button sizeToFit];
+        button.tag = [[surveyItem objectForKey:@"id"] intValue];
+        if (i == 0 && surveyState == 0)
+            [button addTarget:self action:@selector(onClick:) forControlEvents:UIControlEventTouchUpInside];
+        else
+            button.enabled = false;
+        
+        CGRect buttonFrame = button.frame;
+        buttonFrame.origin.y += (itemLabel.frame.size.height - button.frame.size.height) / 2;
+        buttonFrame.origin.x += (COLUMN_WIDTH - button.frame.size.width) / 2;
+        button.frame = buttonFrame;
+        
+        [self.tableScroller addSubview:button];
+        i++;
+    }
+    
+    currentY += itemLabel.frame.size.height;
+    
+    currentY += 10;
+    
+    return (currentY - oldY); // return additional height used by new row
+}
+
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
@@ -100,15 +153,12 @@
     
     itery += 20;
     
-    UIScrollView* tableScroller = [[UIScrollView alloc] initWithFrame:CGRectMake(0, itery, viewWidth, 1)];
+    self.tableScroller = [[UIScrollView alloc] initWithFrame:CGRectMake(0, itery, viewWidth, 1)];
     int tableitery = 0;
     
     // confirmation table
     int myUserId = [[DGUtils app] userId];
     NSArray* surveyItems = [self.survey objectForKey:@"surveyItems"];
-    const int COLUMN1_WIDTH = 120;
-    const int COLUMN_WIDTH  =  40;
-    const int HEADER_HEIGHT = 100;
     
     int userCount = 0;
     
@@ -122,7 +172,7 @@
         userName.backgroundColor = [UIColor clearColor];
         userName.transform = CGAffineTransformMakeRotation( -M_PI/2 );
         
-        [tableScroller addSubview:userName];
+        [self.tableScroller addSubview:userName];
 
         userCount++;
     }
@@ -131,58 +181,37 @@
     
     // body
     for (NSDictionary* surveyItem in surveyItems) {
-        
-        UIView* line = [[UIView alloc] initWithFrame:CGRectMake(0, tableitery, viewWidth, 2)];
-        line.backgroundColor = [UIColor colorWithRed:0 green:.4 blue:0 alpha:1];
-        tableitery += line.frame.size.height;
-        
-        [tableScroller addSubview:line];
-
-        tableitery += 10;
-        
-        UILabel* itemLabel = [DGUtils label:CGRectMake(0, tableitery, COLUMN1_WIDTH - 10, 1) withText:[surveyItem objectForKey:@"name"] size:11.0f];
-        
-        [tableScroller addSubview:itemLabel];
-        
-        int i = 0;
-        for (NSDictionary* user in [self.event objectForKey:@"users"]) {
-            UIButton* button = [[UIButton alloc] initWithFrame:CGRectMake(COLUMN1_WIDTH + i*COLUMN_WIDTH, tableitery, 1, 1)];
-            [self setButtonImage:button forUser:[[user objectForKey:@"id"] intValue] item:surveyItem];
-            [button sizeToFit];
-            button.tag = [[surveyItem objectForKey:@"id"] intValue];
-            if (i == 0 && surveyState == 0)
-                [button addTarget:self action:@selector(onClick:) forControlEvents:UIControlEventTouchUpInside];
-            else
-                button.enabled = false;
-        
-            CGRect buttonFrame = button.frame;
-            buttonFrame.origin.y += (itemLabel.frame.size.height - button.frame.size.height) / 2;
-            buttonFrame.origin.x += (COLUMN_WIDTH - button.frame.size.width) / 2;
-            button.frame = buttonFrame;
-        
-            [tableScroller addSubview:button];
-            i++;
-        }
-
-        tableitery += itemLabel.frame.size.height;
-        
-        tableitery += 10;
+        tableitery += [self addSurveyToggleRow:surveyItem at:tableitery];
     }
     
-    tableScroller.frame = CGRectMake(0, itery, viewWidth, tableitery);
-    tableScroller.contentSize = CGSizeMake(COLUMN1_WIDTH + userCount*COLUMN_WIDTH, tableitery);
+    self.tableScroller.frame = CGRectMake(0, itery, viewWidth, tableitery);
+    self.tableScroller.contentSize = CGSizeMake(COLUMN1_WIDTH + userCount*COLUMN_WIDTH, tableitery);
     itery += tableitery;
     
-    [self.scroller addSubview:tableScroller];
+    [self.scroller addSubview:self.tableScroller];
     
-    itery += 10;
+    itery += 5;
     
     // buttons
-    self.okButton = [DGUtils button:CGRectMake(0, itery, 1, 1) withText:@"Speichern" target:self action:@selector(confirm:)];
-    itery += self.okButton.frame.size.height;
-    
-    if (surveyState == 0)
+    if (surveyState == 0) /* open survey */
+    {
+        int surveyMode = [[self.survey objectForKey:@"mode"] intValue];
+        if (surveyMode == 1) /* editable survey */
+        {
+            UIButton* button = [[UIButton alloc] initWithFrame:CGRectMake(0, itery, 1, 1)];
+            [button setBackgroundImage:[UIImage imageNamed:@"add.png"] forState:UIControlStateNormal];
+            [button sizeToFit];
+            [button addTarget:self action:@selector(addButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+            itery += button.frame.size.height;
+            [self.scroller addSubview:button];
+            itery += 10;
+        }
+        
+        // save button:
+        self.okButton = [DGUtils button:CGRectMake(0, itery, 1, 1) withText:@"Speichern" target:self action:@selector(confirm:)];
+        itery += self.okButton.frame.size.height;
         [self.scroller addSubview:self.okButton];
+    }
     
     self.scroller.contentSize=CGSizeMake(viewWidth,itery);
 }
@@ -229,8 +258,8 @@
     [self setButtonImage:button forUser:myUserId item:item];
 }
 
-- (void)onClick:(id)sender {
-    
+- (void)onClick:(id)sender
+{
     int surveyItemId = [sender tag];
     NSLog(@"Button clicked: %d", surveyItemId);
     
@@ -242,10 +271,75 @@
     }
 }
 
-- (IBAction)confirm:(id)sender {
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0) /* clicked OK */
+    {
+        NSString* newItemText = [TLUtils trim:[[alertView textFieldAtIndex:0] text]];
+        NSLog(@"Entered: %@",newItemText);
+        if ([newItemText length]>0)
+        {
+            BOOL alreadyExists = false;
+            for (NSDictionary* item in [self.survey objectForKey:@"surveyItems"])
+            {
+                if ([[item objectForKey:@"name"] isEqualToString:newItemText]) {
+                    alreadyExists = true;
+                    break;
+                }
+            }
+            if (!alreadyExists)
+            {
+                NSMutableArray* currentItems = [self.survey objectForKey:@"surveyItems"];
+                NSMutableDictionary* newItem = [[NSMutableDictionary alloc] init];
+                [newItem setValue:[NSNumber numberWithInt:-[currentItems count]-1] forKey:@"id"]; // initialize with negative ID for toggling
+                [newItem setValue:[NSNumber numberWithInt:[[DGUtils app] userId]] forKey:@"userId"];
+                [newItem setValue:newItemText forKey:@"name"];
+                [currentItems addObject:newItem];
+                
+                // update table
+                int newRowHeight = [self addSurveyToggleRow:newItem at:self.tableScroller.frame.size.height];
+                
+                // increase table scroller content size:
+                CGSize csize = self.tableScroller.contentSize;
+                csize.height += newRowHeight;
+                self.tableScroller.contentSize = csize;
+                
+                // increase table scroller size to match content (scroll horizontally only):
+                CGRect crect = self.tableScroller.frame;
+                crect.size.height += newRowHeight;
+                self.tableScroller.frame = crect;
+                
+                // add row:
+                [DGUtils insertSpaceInView:self.scroller pixels:newRowHeight at:self.tableScroller.frame.origin.y + 1];
+                
+                // increase the overall content size:
+                csize = self.scroller.contentSize;
+                csize.height += newRowHeight;
+                self.scroller.contentSize = csize;
+            }
+        }
+    }
+}
+
+- (void)addButtonClicked:(id)sender
+{
+    UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Auswahl hinzufügen" message:@"Bitte gib eine neue Auswahlmöglichkeit ein:" delegate:self cancelButtonTitle:@"Hinzufügen" otherButtonTitles:@"Abbrechen",nil];
+    alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+    [alert show];
+}
+
+- (IBAction)confirm:(id)sender
+{
     TLWebRequest* webRequester = [[DGUtils app] webRequester];
     webRequester.delegate = self;
     SBJsonWriter* writer = [[SBJsonWriter alloc] init];
+    NSArray* surveyItems = [self.survey objectForKey:@"surveyItems"];
+    for (NSMutableDictionary* item in surveyItems)
+    {
+        // reset negative IDs to nil (added items)
+        if ([[item objectForKey:@"id"] intValue] < 0)
+            [item removeObjectForKey:@"id"];
+    }
     NSString* result = [writer stringWithObject:self.survey];
     int surveyId = [[self.survey objectForKey:@"id"] intValue];
     NSLog(@"Trying to post: %@", result);

@@ -280,7 +280,6 @@ Bitte drücke auf Fortfahren, um Doogetha auf diesem Gerät einzurichten.</strin
                         <color key="backgroundColor" red="0.89818088500000004" green="1" blue="0.89954949819999996" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <navigationItem key="navigationItem" id="T7f-O9-u36">
-                        <barButtonItem key="leftBarButtonItem" title="Neu..." id="dnp-FF-cU3"/>
                         <barButtonItem key="rightBarButtonItem" title="Aktualisieren" id="BWw-pU-F40">
                             <connections>
                                 <action selector="reload:" destination="Hwz-fp-GIv" id="RZj-Mg-gz3"/>
@@ -308,7 +307,7 @@ Bitte drücke auf Fortfahren, um Doogetha auf diesem Gerät einzurichten.</strin
                                 <rect key="frame" x="20" y="109" width="280" height="331"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <subviews>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="q1l-ZD-sfg">
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="q1l-ZD-sfg">
                                         <rect key="frame" x="0.0" y="0.0" width="280" height="186"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <color key="backgroundColor" red="0.89818088500000004" green="1" blue="0.89954949819999996" alpha="1" colorSpace="calibratedRGB"/>

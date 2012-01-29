@@ -98,8 +98,51 @@
     [self.scroller addSubview:self.declineButton];
     
     BOOL hasOpenSurveys = [DGMainController hasOpenSurveys:self.event];
-    self.confirmButton.hidden = hasOpenSurveys;
-    self.declineButton.hidden = hasOpenSurveys;
+    
+    if (hasOpenSurveys)
+    {
+        self.confirmButton.hidden = YES;
+        self.declineButton.hidden = YES;
+    }
+    else
+    {
+        itery += self.confirmButton.frame.size.height;
+    }
+    
+    itery += 15;
+    
+    UILabel* participantsLabel = [DGUtils label:CGRectMake(0, itery, viewWidth, 1) withText:@"Teilnehmer" size:17.0f];
+    itery += participantsLabel.frame.size.height;
+    
+    [self.scroller addSubview:participantsLabel];
+    
+    itery += 10;
+    
+    [[DGUtils app] makeMeFirst:self.event];
+    for (NSDictionary* user in [self.event objectForKey:@"users"])
+    {
+        UIImageView* imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, itery, 1, 1)];
+        [DGMainController setConfirmImage:imageView forState:[[user objectForKey:@"state"] intValue]];
+        [imageView sizeToFit];
+        
+        [self.scroller addSubview:imageView];
+        
+        NSString* participantName = [user objectForKey:@"email"];
+        if ([[user objectForKey:@"id"] intValue] == [[DGUtils app] userId])
+            participantName = @"Ich";
+        UILabel* participant = [DGUtils label:CGRectMake(imageView.frame.size.width + 5, itery, self.scroller.frame.size.width, 1) withText:participantName size:15.0f];
+        
+        CGRect rect = imageView.frame;
+        rect.origin.y += (participant.frame.size.height - imageView.frame.size.height)/2;
+        imageView.frame = rect;
+        
+        [self.scroller addSubview:participant];
+        
+        itery += imageView.frame.size.height;
+        itery += 8;
+    }
+
+    self.scroller.contentSize=CGSizeMake(viewWidth,itery);
 }
 
 - (void)viewDidUnload

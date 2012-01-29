@@ -76,10 +76,9 @@ UIAlertView* _currentAlert;
 
 + (void) slideView:   (UIView*) view pixels: (int) pixels up: (BOOL) up
 {
-    const int movementDistance = 160; // tweak as needed
     const float movementDuration = 0.3f; // tweak as needed
     
-    int movement = (up ? -movementDistance : movementDistance);
+    int movement = (up ? -pixels : pixels);
     
     [UIView beginAnimations: @"anim" context: nil];
     [UIView setAnimationBeginsFromCurrentState: YES];
@@ -88,5 +87,16 @@ UIAlertView* _currentAlert;
     [UIView commitAnimations];
 }
 
++ (void) insertSpaceInView: (UIView*) view pixels: (int) pixels at: (int) pos
+{
+    for (UIView* child in [view subviews])
+    {
+        CGRect rect = child.frame;
+        if (rect.origin.y >= pos) {
+            rect.origin.y += pixels;
+            child.frame = rect;
+        }
+    }
+}
 
 @end

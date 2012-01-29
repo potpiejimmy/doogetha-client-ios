@@ -145,4 +145,9 @@ http://www.accommodationhepburnsprings.com/hepburn-springs-accommodation/
 	return [NSString stringWithCString:strResult encoding:NSASCIIStringEncoding];
 }
 
++ (NSString*) trim: (NSString*) string
+{
+    return [string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+}
+
 @end
