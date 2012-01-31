@@ -19,6 +19,7 @@
 + (NSString*) dateTimeStringForMillis: (long long) millis;
 
 + (void) alert:          (NSString*) message;
++ (void) alertYesNo:     (NSString*) message   delegate: (id) delegate;
 + (void) alertWaitStart: (NSString*) message;
 + (void) alertWaitEnd;
 

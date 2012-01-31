@@ -28,9 +28,13 @@ extern NSString* const DOOGETHA_URL;
 -(NSString*)authToken;
 -(int)userId;
 -(void)register:(NSString*)authToken;
+-(void)unregister;
 -(void)startSession:(id)sessionCallback;
 -(void)makeMeFirst:(NSDictionary*) event;
 -(NSDictionary*)findMe:(NSDictionary*) event;
+
+-(NSString*)getUserDefaultValueForKey:(NSString*)key;
+-(void)setUserDefaultValue:(NSString*)value forKey:(NSString*)key;
 
 @end
 

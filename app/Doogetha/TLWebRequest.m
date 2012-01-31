@@ -66,7 +66,7 @@
     [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     if (self.authorization) {
         [request setValue:self.authorization forHTTPHeaderField:@"Authorization"];
-        NSLog(@"Authorization: %@",self.authorization);
+        //NSLog(@"Authorization: %@",self.authorization);
     }
     NSURLConnection *theConnection=[[NSURLConnection alloc] initWithRequest:request delegate:self];
     if (theConnection) {

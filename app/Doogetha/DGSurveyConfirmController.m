@@ -9,7 +9,6 @@
 #import "DGSurveyConfirmController.h"
 #import "DGUtils.h"
 #import "TLUtils.h"
-#import "SBJsonWriter.h"
 
 const int COLUMN1_WIDTH = 120;
 const int COLUMN_WIDTH  =  40;
@@ -332,7 +331,7 @@ const int HEADER_HEIGHT = 100;
 {
     TLWebRequest* webRequester = [[DGUtils app] webRequester];
     webRequester.delegate = self;
-    SBJsonWriter* writer = [[SBJsonWriter alloc] init];
+    
     NSArray* surveyItems = [self.survey objectForKey:@"surveyItems"];
     for (NSMutableDictionary* item in surveyItems)
     {
@@ -340,7 +339,12 @@ const int HEADER_HEIGHT = 100;
         if ([[item objectForKey:@"id"] intValue] < 0)
             [item removeObjectForKey:@"id"];
     }
-    NSString* result = [writer stringWithObject:self.survey];
+    
+    NSError* error;
+    NSData* jsonData = [NSJSONSerialization dataWithJSONObject:self.survey 
+                                            options:NSJSONWritingPrettyPrinted error:&error];
+    NSString* result = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    
     int surveyId = [[self.survey objectForKey:@"id"] intValue];
     NSLog(@"Trying to post: %@", result);
     [DGUtils alertWaitStart:@"Speichern. Bitte warten..."];

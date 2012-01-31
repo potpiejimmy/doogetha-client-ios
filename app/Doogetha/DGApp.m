@@ -9,6 +9,7 @@
 #import "DGApp.h"
 #import "DGUtils.h"
 #import "TLUtils.h"
+#import "TLKeychain.h"
 
 NSString* const DOOGETHA_URL = @"https://www.potpiejimmy.de/doogetha/res/";
 
@@ -28,7 +29,7 @@ NSString* const DOOGETHA_URL = @"https://www.potpiejimmy.de/doogetha/res/";
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.webRequester = [[TLWebRequest alloc] initWithDelegate:self];
     if ([self authToken]) {
-        NSLog(@"Got auth token: %@", [self authToken]);
+        //NSLog(@"Got auth token: %@", [self authToken]);
         self.window.rootViewController = [board instantiateViewControllerWithIdentifier:@"tabBarController"];
     } else {
         self.window.rootViewController = [board instantiateViewControllerWithIdentifier:@"welcomeController"];
@@ -48,7 +49,7 @@ NSString* const DOOGETHA_URL = @"https://www.potpiejimmy.de/doogetha/res/";
 {
     NSString* sessionKey = [self.webRequester resultString];
     sessionKey = [sessionKey substringWithRange:NSMakeRange(1, [sessionKey length]-2)];
-    NSLog(@"Session key: Basic %@",sessionKey);
+    //NSLog(@"Session key: Basic %@",sessionKey);
     self.sessionKey = [TLUtils encodeBase64WithString:sessionKey];
     [self.sessionCallback sessionCreated];
 }
@@ -108,15 +109,32 @@ NSString* const DOOGETHA_URL = @"https://www.potpiejimmy.de/doogetha/res/";
 
 -(void)register:(NSString *)authToken
 {
-    NSUserDefaults *settings = [NSUserDefaults standardUserDefaults];
-    [settings setObject : authToken forKey : @"authtoken"];
-    [settings synchronize];
+    [TLKeychain saveString:authToken forKey:@"authToken"];
 }
 
 -(NSString*)authToken
 {
+    return [TLKeychain getStringForKey:@"authToken"];
+}
+
+-(void)unregister
+{
+    [TLKeychain deleteStringForKey:@"authToken"];
+    // also remove current session key
+    self.sessionKey = nil;
+}
+
+-(NSString*)getUserDefaultValueForKey:(NSString*)key
+{
     NSUserDefaults *settings = [NSUserDefaults standardUserDefaults];
-    return [settings stringForKey : @"authtoken"];
+    return [settings stringForKey : key];
+}
+
+-(void)setUserDefaultValue:(NSString*)value forKey:(NSString*)key
+{
+    NSUserDefaults *settings = [NSUserDefaults standardUserDefaults];
+    [settings setObject : value forKey : key];
+    [settings synchronize];
 }
 
 -(int)userId

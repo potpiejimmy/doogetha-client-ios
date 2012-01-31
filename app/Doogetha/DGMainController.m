@@ -11,7 +11,7 @@
 #import "DGUtils.h"
 #import "DGEventConfirmController.h"
 
-#import "SBJsonParser.h"
+#import <Foundation/NSJSONSerialization.h>
 
 @implementation DGMainController
 
@@ -115,11 +115,14 @@
 - (void)webRequestDone:(NSString*)reqid
 {
     [self.activityIndicator stopAnimating];
-    NSString* result = [[DGUtils app].webRequester resultString];
-    NSLog(@"Got result: %@",result);
+    NSData* result = [[DGUtils app].webRequester resultData];
     
-    SBJsonParser* parser = [[SBJsonParser alloc] init];
-    NSDictionary* res = [parser objectWithString:result];
+    NSError* error;
+    NSDictionary* res = [NSJSONSerialization 
+                          JSONObjectWithData:result
+                          options:NSJSONReadingMutableContainers 
+                          error:&error];
+    
     self.events = [res objectForKey:@"events"];
     NSLog(@"Got %d events",[self.events count]);
     

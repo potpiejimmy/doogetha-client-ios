@@ -83,7 +83,7 @@
     
     NSString* credentials = [app.webRequester resultString];
     credentials = [credentials substringWithRange:NSMakeRange(1, [credentials length]-2)];
-    NSLog(@"Credentials: %@", credentials);
+//    NSLog(@"Credentials: %@", credentials);
     
     if ([credentials length] > 48 ||
         [credentials rangeOfString:@":"].location <= 0) {
@@ -101,7 +101,7 @@
 	app.loginToken = nil;
         
     credentials = [NSString stringWithFormat:@"%@:%@",id,password];
-    NSLog(@"Real Credentials: %@", credentials);
+//    NSLog(@"Real Credentials: %@", credentials);
         
     [app register:credentials];
     [self performSegueWithIdentifier:@"startSegue" sender:self];

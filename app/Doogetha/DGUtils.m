@@ -58,6 +58,16 @@ UIAlertView* _currentAlert;
     [alert show];
 }
 
++ (void) alertYesNo:     (NSString*) message   delegate: (id) delegate
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil 
+                                              message:message
+                                              delegate:delegate 
+                                              cancelButtonTitle:@"Ja"
+                                              otherButtonTitles:@"Nein",nil];
+    [alert show];
+}
+
 + (void) alertWaitStart: (NSString*) message
 {
     _currentAlert = [[UIAlertView alloc] initWithTitle:message message:nil delegate:nil cancelButtonTitle:nil otherButtonTitles: nil];
