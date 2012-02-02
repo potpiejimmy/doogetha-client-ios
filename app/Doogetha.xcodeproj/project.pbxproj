@@ -30,6 +30,8 @@
 		A591DAEC149A6DB20077DF83 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A591DAEA149A6DB20077DF83 /* MainStoryboard.storyboard */; };
 		A591DAEF149A6DB20077DF83 /* DGMainController.m in Sources */ = {isa = PBXBuildFile; fileRef = A591DAEE149A6DB20077DF83 /* DGMainController.m */; };
 		A592B732149BEEB300627259 /* DGUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = A592B731149BEEB300627259 /* DGUtils.m */; };
+		A5ABDB9114DB20E800B84903 /* DGContactsUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = A5ABDB9014DB20E800B84903 /* DGContactsUtils.m */; };
+		A5ABDB9414DB2BC900B84903 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5ABDB9314DB2BC900B84903 /* AddressBook.framework */; };
 		A5AC755B14D8614A0029F065 /* TLKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = A5AC755A14D8614A0029F065 /* TLKeychain.m */; };
 		A5AC755E14D86BA50029F065 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5AC755D14D86BA50029F065 /* Security.framework */; };
 		A5AC756114D871820029F065 /* settings.png in Resources */ = {isa = PBXBuildFile; fileRef = A5AC755F14D871820029F065 /* settings.png */; };
@@ -89,6 +91,9 @@
 		A591DAEE149A6DB20077DF83 /* DGMainController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DGMainController.m; sourceTree = "<group>"; };
 		A592B730149BEEB300627259 /* DGUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DGUtils.h; sourceTree = "<group>"; };
 		A592B731149BEEB300627259 /* DGUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DGUtils.m; sourceTree = "<group>"; };
+		A5ABDB8F14DB20E800B84903 /* DGContactsUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DGContactsUtils.h; sourceTree = "<group>"; };
+		A5ABDB9014DB20E800B84903 /* DGContactsUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DGContactsUtils.m; sourceTree = "<group>"; };
+		A5ABDB9314DB2BC900B84903 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		A5AC755914D8614A0029F065 /* TLKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLKeychain.h; sourceTree = "<group>"; };
 		A5AC755A14D8614A0029F065 /* TLKeychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLKeychain.m; sourceTree = "<group>"; };
 		A5AC755D14D86BA50029F065 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -125,6 +130,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A5ABDB9414DB2BC900B84903 /* AddressBook.framework in Frameworks */,
 				A5AC755E14D86BA50029F065 /* Security.framework in Frameworks */,
 				A591DAD9149A6DB20077DF83 /* UIKit.framework in Frameworks */,
 				A591DADB149A6DB20077DF83 /* Foundation.framework in Frameworks */,
@@ -155,6 +161,7 @@
 		A591DAD7149A6DB20077DF83 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A5ABDB9314DB2BC900B84903 /* AddressBook.framework */,
 				A5AC755D14D86BA50029F065 /* Security.framework */,
 				A591DAD8149A6DB20077DF83 /* UIKit.framework */,
 				A591DADA149A6DB20077DF83 /* Foundation.framework */,
@@ -187,6 +194,8 @@
 				A58CF813149A90710072C3F5 /* TLUtils.m */,
 				A5AC755914D8614A0029F065 /* TLKeychain.h */,
 				A5AC755A14D8614A0029F065 /* TLKeychain.m */,
+				A5ABDB8F14DB20E800B84903 /* DGContactsUtils.h */,
+				A5ABDB9014DB20E800B84903 /* DGContactsUtils.m */,
 				A592B730149BEEB300627259 /* DGUtils.h */,
 				A592B731149BEEB300627259 /* DGUtils.m */,
 				A591DADF149A6DB20077DF83 /* Supporting Files */,
@@ -337,6 +346,7 @@
 				A506463514D496FB00BA9113 /* DGRegisterConfirmController.m in Sources */,
 				A5AC755B14D8614A0029F065 /* TLKeychain.m in Sources */,
 				A5AC756514D871D00029F065 /* DGSettingsController.m in Sources */,
+				A5ABDB9114DB20E800B84903 /* DGContactsUtils.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

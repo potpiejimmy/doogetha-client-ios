@@ -10,6 +10,7 @@
 #import "DGMainController.h"
 #import "DGSurveyConfirmController.h"
 #import "DGUtils.h"
+#import "DGContactsUtils.h"
 
 @implementation DGEventConfirmController
 @synthesize eventName = _eventName;
@@ -130,9 +131,9 @@
         
         [self.scroller addSubview:imageView];
         
-        NSString* participantName = [user objectForKey:@"email"];
-        if ([[user objectForKey:@"id"] intValue] == [[DGUtils app] userId])
-            participantName = @"Ich";
+        [DGContactsUtils fillUserInfo:user];
+        
+        NSString* participantName = [DGContactsUtils userDisplayName:user];
         UILabel* participant = [DGUtils label:CGRectMake(imageView.frame.size.width + 5, itery, self.scroller.frame.size.width, 1) withText:participantName size:15.0f];
         
         CGRect rect = imageView.frame;

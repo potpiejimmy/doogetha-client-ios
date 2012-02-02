@@ -9,6 +9,7 @@
 #import "DGSurveyConfirmController.h"
 #import "DGUtils.h"
 #import "TLUtils.h"
+#import "DGContactsUtils.h"
 
 const int COLUMN1_WIDTH = 120;
 const int COLUMN_WIDTH  =  40;
@@ -71,11 +72,6 @@ const int HEADER_HEIGHT = 100;
             }
         }
     }
-}
-
-- (NSString*)displayName:(NSString*)mail {
-    NSArray* tok = [mail componentsSeparatedByString:@"@"];
-    return [NSString stringWithFormat:@"%@@ %@",[tok objectAtIndex:0],[tok objectAtIndex:1]];
 }
 
 - (int) addSurveyToggleRow: (NSDictionary*) surveyItem at: (int) currentY
@@ -156,7 +152,6 @@ const int HEADER_HEIGHT = 100;
     int tableitery = 0;
     
     // confirmation table
-    int myUserId = [[DGUtils app] userId];
     NSArray* surveyItems = [self.survey objectForKey:@"surveyItems"];
     
     int userCount = 0;
@@ -167,7 +162,7 @@ const int HEADER_HEIGHT = 100;
         UILabel* userName = [[UILabel alloc] initWithFrame:CGRectMake(COLUMN1_WIDTH - (HEADER_HEIGHT-COLUMN_WIDTH)/2 + userCount*COLUMN_WIDTH, tableitery, HEADER_HEIGHT, HEADER_HEIGHT)];
         userName.font = [UIFont systemFontOfSize:11.0f];
         userName.numberOfLines = 0;
-        userName.text = [[user objectForKey:@"id"] intValue] == myUserId ? @"Ich" : [self displayName:[user objectForKey:@"email"]];
+        userName.text = [DGContactsUtils userDisplayName:user];
         userName.backgroundColor = [UIColor clearColor];
         userName.transform = CGAffineTransformMakeRotation( -M_PI/2 );
         
