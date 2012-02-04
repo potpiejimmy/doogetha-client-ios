@@ -11,6 +11,7 @@
 #import "DGUtils.h"
 
 @implementation DGSettingsController
+@synthesize settingsTable;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -44,6 +45,7 @@
 
 - (void)viewDidUnload
 {
+    [self setSettingsTable:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -80,27 +82,51 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    return 0;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return 0;
+    return 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
-    
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    NSString* cellId = [indexPath section] == 0 ? @"settingItem" : @"aboutItem";
+
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
     }
     
     // Configure the cell...
+    if ([indexPath section] == 0)
+    {
+        cell.textLabel.text = @"Abmelden";
+        cell.detailTextLabel.text = @"Authentifizierungstoken löschen";
+    }
+    else
+    {
+        NSDictionary* infoDict = [[NSBundle mainBundle] infoDictionary];
+        NSString* version = [infoDict objectForKey:@"CFBundleShortVersionString"];
+        
+        cell.textLabel.text = [NSString stringWithFormat:@"Version %@", version];
+    }
     
     return cell;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    if (section == 0)
+    {
+        return @"Mein Konto";
+    }
+    else
+    {
+        return @"Doogetha";
+    }
 }
 
 /*
@@ -147,26 +173,31 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
+    if ([indexPath section] == 0)
+    {
+        [self unregister];
+    }
+    else
+    {
+        // do nothing
+        [self.settingsTable reloadData];
+    }
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
+    [self.settingsTable reloadData];
     if (buttonIndex == 0) /* clicked OK */
     {
         [[DGUtils app] unregister];
-        [DGUtils alert:@"Die Anmeldedaten wurden gelöscht. Bitte Anwendung neu starten."];
+        //[DGUtils alert:@"Die Anmeldedaten wurden gelöscht. Bitte Anwendung neu starten."];
+        [self performSegueWithIdentifier:@"unregisterSegue" sender:self];
     }
 }
 
-- (IBAction)unregister:(id)sender
+- (void)unregister
 {
-    [DGUtils alertYesNo:@"Registrierung löschen?" delegate:self];
+    [DGUtils alertYesNo:@"Anmeldedaten wirklich löschen?" delegate:self];
 }
 
 @end

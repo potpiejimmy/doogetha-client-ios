@@ -42,10 +42,15 @@ UIAlertView* _currentAlert;
 
 + (NSString*) dateTimeStringForMillis: (long long) millis
 {
+    NSDate* date = [NSDate dateWithTimeIntervalSince1970:millis/1000];
+    NSDateComponents *components = [[NSCalendar currentCalendar] components:(NSHourCalendarUnit | NSMinuteCalendarUnit) fromDate:date];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateStyle:NSDateFormatterShortStyle];
-    [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
-    return [dateFormatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:millis/1000]];
+    [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
+    if ([components hour]==0 && [components minute]==0)
+        [dateFormatter setTimeStyle:NSDateFormatterNoStyle];
+    else
+        [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
+    return [dateFormatter stringFromDate:date];
 }
 
 + (void) alert:          (NSString*) message

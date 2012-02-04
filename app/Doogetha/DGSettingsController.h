@@ -10,6 +10,8 @@
 
 @interface DGSettingsController : UITableViewController
 
-- (IBAction)unregister:(id)sender;
+@property (weak, nonatomic) IBOutlet UITableView *settingsTable;
+
+- (void)unregister;
 
 @end
