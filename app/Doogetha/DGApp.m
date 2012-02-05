@@ -92,8 +92,10 @@ NSString* const DOOGETHA_URL = @"https://www.potpiejimmy.de/doogetha/res/";
      Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
      */
     if (_inBackground) {
-        if (self.mainController)
+        if (self.mainController) {
+            self.mainController.checkVersionAfterReload = YES;
             [self.mainController reload];
+        }
         _inBackground = NO;
     }
 }
@@ -124,7 +126,7 @@ NSString* const DOOGETHA_URL = @"https://www.potpiejimmy.de/doogetha/res/";
     self.sessionKey = nil;
 }
 
--(NSString*)getUserDefaultValueForKey:(NSString*)key
+-(NSString*)userDefaultValueForKey:(NSString*)key
 {
     NSUserDefaults *settings = [NSUserDefaults standardUserDefaults];
     return [settings stringForKey : key];

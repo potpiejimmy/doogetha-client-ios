@@ -108,10 +108,7 @@
     }
     else
     {
-        NSDictionary* infoDict = [[NSBundle mainBundle] infoDictionary];
-        NSString* version = [infoDict objectForKey:@"CFBundleShortVersionString"];
-        
-        cell.textLabel.text = [NSString stringWithFormat:@"Version %@", version];
+        cell.textLabel.text = @"Über Doogetha...";
     }
     
     return cell;
@@ -121,11 +118,12 @@
 {
     if (section == 0)
     {
-        return @"Mein Konto";
+        NSString* mail = [[DGUtils app] userDefaultValueForKey:@"email"];
+        return mail ? mail : @"Mein Konto";
     }
     else
     {
-        return @"Doogetha";
+        return @"Info";
     }
 }
 
@@ -179,8 +177,12 @@
     }
     else
     {
-        // do nothing
         [self.settingsTable reloadData];
+        NSDictionary* infoDict = [[NSBundle mainBundle] infoDictionary];
+        NSString* version = [infoDict objectForKey:@"CFBundleShortVersionString"];
+        NSString* aboutString = [NSString stringWithFormat:@"Doogetha - V. %@\n(c) by Thorsten Liese", version];
+        
+        [DGUtils alert:aboutString];
     }
 }
 
@@ -190,14 +192,14 @@
     if (buttonIndex == 0) /* clicked OK */
     {
         [[DGUtils app] unregister];
-        //[DGUtils alert:@"Die Anmeldedaten wurden gelöscht. Bitte Anwendung neu starten."];
-        [self performSegueWithIdentifier:@"unregisterSegue" sender:self];
+        UIViewController* wc = [self.storyboard instantiateViewControllerWithIdentifier:@"welcomeController"];
+        [self presentModalViewController:wc animated:YES];
     }
 }
 
 - (void)unregister
 {
-    [DGUtils alertYesNo:@"Anmeldedaten wirklich löschen?" delegate:self];
+    [DGUtils alertYesNo:@"Willst du deine Anmeldedaten wirklich löschen?" delegate:self];
 }
 
 @end

@@ -20,8 +20,10 @@
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *refreshButton;
 
 @property (strong, nonatomic) NSArray *events;
+@property BOOL checkVersionAfterReload;
 
 - (IBAction)reload:(id)sender;
+- (void) checkVersion;
 
 +(BOOL) hasOpenSurveys:(id) event;
 +(void) setConfirmImage: (UIImageView*)imageView forState:(int)state;

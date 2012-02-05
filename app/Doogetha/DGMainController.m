@@ -19,6 +19,7 @@
 @synthesize activityIndicator = _activityIndicator;
 @synthesize refreshButton = _refreshButton;
 @synthesize events = _events;
+@synthesize checkVersionAfterReload = _checkVersionAfterReload;
 
 - (void)didReceiveMemoryWarning
 {
@@ -40,6 +41,7 @@
     [self.navigationItem setTitleView:[[UIImageView alloc] initWithImage:logo]];
     
     _startingSession = YES;
+    _checkVersionAfterReload = YES;
     [self.activityIndicator startAnimating];
     [[DGUtils app] startSession:self];
 }
@@ -65,12 +67,16 @@
     NSLog(@"View did appear: DGMainController");
 
     if (!_startingSession)
+    {
+        _checkVersionAfterReload = NO;
         [self reload];
+    }
 }
 
 -(void)sessionCreated
 {
     _startingSession = NO;
+    _checkVersionAfterReload = YES;
     [self.activityIndicator stopAnimating];
     [self reload];
 }
@@ -87,7 +93,7 @@
     app.webRequester.authorization = [NSString stringWithFormat:@"Basic %@",app.sessionKey];
     app.webRequester.delegate = self;
     [self.activityIndicator startAnimating];
-    [app.webRequester get:[NSString stringWithFormat:@"%@events",DOOGETHA_URL] reqid:@"get"];
+    [app.webRequester get:[NSString stringWithFormat:@"%@events",DOOGETHA_URL] reqid:@"load"];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -114,28 +120,53 @@
 
 - (void)webRequestDone:(NSString*)reqid
 {
-    [self.activityIndicator stopAnimating];
-    NSData* result = [[DGUtils app].webRequester resultData];
+    if ([reqid isEqualToString:@"load"])
+    {
+        [self.activityIndicator stopAnimating];
+        NSData* result = [[DGUtils app].webRequester resultData];
     
-    NSError* error;
-    NSDictionary* res = [NSJSONSerialization 
+        NSError* error;
+        NSDictionary* res = [NSJSONSerialization 
                           JSONObjectWithData:result
                           options:NSJSONReadingMutableContainers 
                           error:&error];
     
-    self.events = [res objectForKey:@"events"];
-    NSLog(@"Got %d events",[self.events count]);
+        self.events = [res objectForKey:@"events"];
+        NSLog(@"Got %d events",[self.events count]);
     
+        for (UITabBarItem* item in self.tabBarController.tabBar.items) {
+            if (item.tag == 1) {
+                item.badgeValue = [NSString stringWithFormat:@"%d",[self.events count]];
+            }
+        }
     
-    for (UITabBarItem* item in self.tabBarController.tabBar.items) {
-        if (item.tag == 1) {
-            item.badgeValue = [NSString stringWithFormat:@"%d",[self.events count]];
+        [self.eventsTable reloadData];
+    
+        if (_checkVersionAfterReload)
+        {
+            _checkVersionAfterReload = NO;
+            [self checkVersion];
         }
     }
-    
-    [self.eventsTable reloadData];
+    else if ([reqid isEqualToString:@"version"])
+    {
+        NSString* serverVersion = [[DGUtils app].webRequester resultString];
+        if (serverVersion && [serverVersion length]>2)
+            serverVersion = [serverVersion substringWithRange:NSMakeRange(1, [serverVersion length]-2)];
+        NSDictionary* infoDict = [[NSBundle mainBundle] infoDictionary];
+        NSString* myVersion = [infoDict objectForKey:@"CFBundleVersion"];
+        
+        if (![myVersion isEqualToString:serverVersion]) {
+            [DGUtils alert:@"Es steht eine neue Version von Doogetha zur Verfügung.\nBitte lade diese herunter\n\nhttp://potpiejimmy.de/doogetha/\n\nund installiere sie über iTunes" withTitle:@"Doogetha Beta Program"];
+        }
+    }
 }
 
+- (void) checkVersion
+{
+    [DGUtils app].webRequester.delegate = self;
+    [[DGUtils app].webRequester get:[NSString stringWithFormat:@"%@version?os=ios",DOOGETHA_URL] reqid:@"version"];
+}
 
 + (void)setConfirmImage: (UIImageView*)imageView forState:(int)state
 {

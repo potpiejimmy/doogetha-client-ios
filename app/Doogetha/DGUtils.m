@@ -55,7 +55,12 @@ UIAlertView* _currentAlert;
 
 + (void) alert:          (NSString*) message
 {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil 
+    [self alert:message withTitle:nil];
+}
+
++ (void) alert:          (NSString*) message   withTitle: (NSString*) title
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title 
                                               message:message
                                               delegate:nil 
                                               cancelButtonTitle:@"OK"

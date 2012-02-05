@@ -33,7 +33,7 @@ extern NSString* const DOOGETHA_URL;
 -(void)makeMeFirst:(NSDictionary*) event;
 -(NSDictionary*)findMe:(NSDictionary*) event;
 
--(NSString*)getUserDefaultValueForKey:(NSString*)key;
+-(NSString*)userDefaultValueForKey:(NSString*)key;
 -(void)setUserDefaultValue:(NSString*)value forKey:(NSString*)key;
 
 @end

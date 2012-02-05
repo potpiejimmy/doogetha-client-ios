@@ -80,7 +80,7 @@
     
     [self.mailTextField resignFirstResponder];
     
-    NSString* mail = self.mailTextField.text;
+    NSString* mail = [TLUtils trim:self.mailTextField.text];
     if ([mail rangeOfString:@"@"].location == NSNotFound || [mail length]<5)
     {
         [DGUtils alert:@"Bitte gib eine gültige E-Mail-Adresse ein."];
@@ -91,8 +91,9 @@
     
     [DGUtils alertWaitStart:@"Anfrage wird gesendet. Bitte warten..."];
     
+    [[DGUtils app] setUserDefaultValue:mail forKey:@"email"];
     [DGUtils app].webRequester.delegate = self;
-    [[DGUtils app].webRequester post:[NSString stringWithFormat:@"%@register",DOOGETHA_URL] msg:self.mailTextField.text reqid:@"register"];
+    [[DGUtils app].webRequester post:[NSString stringWithFormat:@"%@register",DOOGETHA_URL] msg:mail reqid:@"register"];
 }
 
 - (void)webRequestFail:(NSString*)reqid
