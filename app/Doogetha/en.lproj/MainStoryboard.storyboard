@@ -227,7 +227,7 @@ Bitte drücke auf Fortfahren, um Doogetha auf diesem Gerät einzurichten.</strin
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="M1N-XM-bSs" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="mainController" id="Hwz-fp-GIv" customClass="DGMainController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="VBN-xO-Zxu">
+                    <view key="view" contentMode="scaleToFill" id="VBN-xO-Zxu" customClass="UITableView">
                         <rect key="frame" x="0.0" y="64" width="320" height="367"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
@@ -281,16 +281,10 @@ Bitte drücke auf Fortfahren, um Doogetha auf diesem Gerät einzurichten.</strin
                     </view>
                     <navigationItem key="navigationItem" id="T7f-O9-u36">
                         <barButtonItem key="leftBarButtonItem" title="Neue Aktivität" id="Zio-NY-5Vh"/>
-                        <barButtonItem key="rightBarButtonItem" image="refresh.png" id="BWw-pU-F40">
-                            <connections>
-                                <action selector="reload:" destination="Hwz-fp-GIv" id="RZj-Mg-gz3"/>
-                            </connections>
-                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="activityIndicator" destination="DSw-sA-71h" id="g81-5t-8ym"/>
                         <outlet property="eventsTable" destination="bCP-j5-VLt" id="AIC-fa-o2n"/>
-                        <outlet property="refreshButton" destination="BWw-pU-F40" id="Oni-fT-Bkz"/>
                     </connections>
                 </viewController>
             </objects>
@@ -539,57 +533,8 @@ Bitte drücke auf Fortfahren, um Doogetha auf diesem Gerät einzurichten.</strin
         <image name="button_myactivities.png" width="26" height="17"/>
         <image name="dot-green.png" width="11" height="12"/>
         <image name="logo.png" width="72" height="72"/>
-        <image name="refresh.png" width="16" height="16"/>
         <image name="settings.png" width="16" height="16"/>
     </resources>
-    <classes>
-        <class className="DGEventConfirmController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/DGEventConfirmController.h"/>
-            <relationships>
-                <relationship kind="action" name="confirm:"/>
-                <relationship kind="action" name="decline:"/>
-                <relationship kind="outlet" name="scroller" candidateClass="UIScrollView"/>
-                <relationship kind="outlet" name="surveyTable" candidateClass="UITableView"/>
-            </relationships>
-        </class>
-        <class className="DGMainController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/DGMainController.h"/>
-            <relationships>
-                <relationship kind="action" name="reload:"/>
-                <relationship kind="outlet" name="activityIndicator" candidateClass="UIActivityIndicatorView"/>
-                <relationship kind="outlet" name="eventsTable" candidateClass="UITableView"/>
-                <relationship kind="outlet" name="refreshButton" candidateClass="UIBarButtonItem"/>
-            </relationships>
-        </class>
-        <class className="DGRegisterConfirmController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/DGRegisterConfirmController.h"/>
-            <relationships>
-                <relationship kind="action" name="login:"/>
-                <relationship kind="outlet" name="pinLabel" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="DGRegisterController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/DGRegisterController.h"/>
-            <relationships>
-                <relationship kind="action" name="backgroundTouched:"/>
-                <relationship kind="action" name="register:"/>
-                <relationship kind="outlet" name="mailTextField" candidateClass="UITextField"/>
-            </relationships>
-        </class>
-        <class className="DGSettingsController" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/DGSettingsController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="settingsTable" candidateClass="UITableView"/>
-            </relationships>
-        </class>
-        <class className="DGSurveyConfirmController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/DGSurveyConfirmController.h"/>
-            <relationships>
-                <relationship kind="action" name="confirm:"/>
-                <relationship kind="outlet" name="scroller" candidateClass="UIScrollView"/>
-            </relationships>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

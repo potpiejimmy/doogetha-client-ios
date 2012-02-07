@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DGPullRefreshTableViewController.h"
 #import "TLWebRequest.h"
 
-@interface DGMainController : UIViewController<UITableViewDelegate,UITableViewDataSource> {
+@interface DGMainController : DGPullRefreshTableViewController<UITableViewDelegate,UITableViewDataSource> {
     @private BOOL _startingSession;
 }
 
@@ -17,12 +18,11 @@
 
 @property (weak, nonatomic) IBOutlet UITableView *eventsTable;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *refreshButton;
 
 @property (strong, nonatomic) NSArray *events;
 @property BOOL checkVersionAfterReload;
 
-- (IBAction)reload:(id)sender;
+- (void) reload:(id)sender;
 - (void) checkVersion;
 
 +(BOOL) hasOpenSurveys:(id) event;

@@ -41,6 +41,11 @@
 		A5BD39A714D5EEF20061A7C3 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = A5BD39A414D5EEF20061A7C3 /* Icon-72.png */; };
 		A5BD39A814D5EEF20061A7C3 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = A5BD39A514D5EEF20061A7C3 /* Icon.png */; };
 		A5BD39A914D5EEF20061A7C3 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A5BD39A614D5EEF20061A7C3 /* Icon@2x.png */; };
+		A5C51B6514E1C3620027DCF9 /* DGRefreshTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = A5C51B6414E1C3620027DCF9 /* DGRefreshTableHeaderView.m */; };
+		A5C51B6814E1C49F0027DCF9 /* pullrefresh_arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = A5C51B6614E1C49F0027DCF9 /* pullrefresh_arrow.png */; };
+		A5C51B6914E1C49F0027DCF9 /* pullrefresh_arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A5C51B6714E1C49F0027DCF9 /* pullrefresh_arrow@2x.png */; };
+		A5C51B6C14E1C4FF0027DCF9 /* DGPullRefreshTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5C51B6B14E1C4FF0027DCF9 /* DGPullRefreshTableViewController.m */; };
+		A5C51B6E14E1C7BC0027DCF9 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5C51B6D14E1C7BC0027DCF9 /* QuartzCore.framework */; };
 		A5C64BE914D34E8A00C979D6 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = A5C64BE814D34E8A00C979D6 /* logo.png */; };
 		A5C7812B149A6F5000BA93F3 /* TLWebRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = A5C7812A149A6F5000BA93F3 /* TLWebRequest.m */; };
 		A5C7812E149A6FB100BA93F3 /* DGRegisterController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5C7812D149A6FB100BA93F3 /* DGRegisterController.m */; };
@@ -105,6 +110,13 @@
 		A5BD39A414D5EEF20061A7C3 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = SOURCE_ROOT; };
 		A5BD39A514D5EEF20061A7C3 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = SOURCE_ROOT; };
 		A5BD39A614D5EEF20061A7C3 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = SOURCE_ROOT; };
+		A5C51B6314E1C3620027DCF9 /* DGRefreshTableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DGRefreshTableHeaderView.h; sourceTree = "<group>"; };
+		A5C51B6414E1C3620027DCF9 /* DGRefreshTableHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DGRefreshTableHeaderView.m; sourceTree = "<group>"; };
+		A5C51B6614E1C49F0027DCF9 /* pullrefresh_arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pullrefresh_arrow.png; sourceTree = "<group>"; };
+		A5C51B6714E1C49F0027DCF9 /* pullrefresh_arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pullrefresh_arrow@2x.png"; sourceTree = "<group>"; };
+		A5C51B6A14E1C4FF0027DCF9 /* DGPullRefreshTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DGPullRefreshTableViewController.h; sourceTree = "<group>"; };
+		A5C51B6B14E1C4FF0027DCF9 /* DGPullRefreshTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DGPullRefreshTableViewController.m; sourceTree = "<group>"; };
+		A5C51B6D14E1C7BC0027DCF9 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		A5C64BE814D34E8A00C979D6 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
 		A5C78129149A6F5000BA93F3 /* TLWebRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TLWebRequest.h; sourceTree = "<group>"; };
 		A5C7812A149A6F5000BA93F3 /* TLWebRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TLWebRequest.m; sourceTree = "<group>"; };
@@ -130,6 +142,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A5C51B6E14E1C7BC0027DCF9 /* QuartzCore.framework in Frameworks */,
 				A5ABDB9414DB2BC900B84903 /* AddressBook.framework in Frameworks */,
 				A5AC755E14D86BA50029F065 /* Security.framework in Frameworks */,
 				A591DAD9149A6DB20077DF83 /* UIKit.framework in Frameworks */,
@@ -161,6 +174,7 @@
 		A591DAD7149A6DB20077DF83 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A5C51B6D14E1C7BC0027DCF9 /* QuartzCore.framework */,
 				A5ABDB9314DB2BC900B84903 /* AddressBook.framework */,
 				A5AC755D14D86BA50029F065 /* Security.framework */,
 				A591DAD8149A6DB20077DF83 /* UIKit.framework */,
@@ -194,6 +208,10 @@
 				A58CF813149A90710072C3F5 /* TLUtils.m */,
 				A5AC755914D8614A0029F065 /* TLKeychain.h */,
 				A5AC755A14D8614A0029F065 /* TLKeychain.m */,
+				A5C51B6314E1C3620027DCF9 /* DGRefreshTableHeaderView.h */,
+				A5C51B6414E1C3620027DCF9 /* DGRefreshTableHeaderView.m */,
+				A5C51B6A14E1C4FF0027DCF9 /* DGPullRefreshTableViewController.h */,
+				A5C51B6B14E1C4FF0027DCF9 /* DGPullRefreshTableViewController.m */,
 				A5ABDB8F14DB20E800B84903 /* DGContactsUtils.h */,
 				A5ABDB9014DB20E800B84903 /* DGContactsUtils.m */,
 				A592B730149BEEB300627259 /* DGUtils.h */,
@@ -219,6 +237,8 @@
 				A506463814D4A50200BA9113 /* question_mark.png */,
 				A5D4578014D5E61C00526065 /* question_mark@2x.png */,
 				A5C64BE814D34E8A00C979D6 /* logo.png */,
+				A5C51B6614E1C49F0027DCF9 /* pullrefresh_arrow.png */,
+				A5C51B6714E1C49F0027DCF9 /* pullrefresh_arrow@2x.png */,
 				A5AC755F14D871820029F065 /* settings.png */,
 				A5AC756014D871820029F065 /* settings@2x.png */,
 				A58B323614A4E1D900E6D3E1 /* survey_confirm@2x.png */,
@@ -324,6 +344,8 @@
 				A5BD39A914D5EEF20061A7C3 /* Icon@2x.png in Resources */,
 				A5AC756114D871820029F065 /* settings.png in Resources */,
 				A5AC756214D871820029F065 /* settings@2x.png in Resources */,
+				A5C51B6814E1C49F0027DCF9 /* pullrefresh_arrow.png in Resources */,
+				A5C51B6914E1C49F0027DCF9 /* pullrefresh_arrow@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -347,6 +369,8 @@
 				A5AC755B14D8614A0029F065 /* TLKeychain.m in Sources */,
 				A5AC756514D871D00029F065 /* DGSettingsController.m in Sources */,
 				A5ABDB9114DB20E800B84903 /* DGContactsUtils.m in Sources */,
+				A5C51B6514E1C3620027DCF9 /* DGRefreshTableHeaderView.m in Sources */,
+				A5C51B6C14E1C4FF0027DCF9 /* DGPullRefreshTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

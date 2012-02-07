@@ -17,7 +17,6 @@
 
 @synthesize eventsTable = _eventsTable;
 @synthesize activityIndicator = _activityIndicator;
-@synthesize refreshButton = _refreshButton;
 @synthesize events = _events;
 @synthesize checkVersionAfterReload = _checkVersionAfterReload;
 
@@ -50,7 +49,6 @@
 {
     [self setEventsTable:nil];
     [self setActivityIndicator:nil];
-    [self setRefreshButton:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -115,6 +113,8 @@
 - (void)webRequestFail:(NSString*)reqid
 {
     [self.activityIndicator stopAnimating];
+    [self dataSourceDidFinishLoadingNewData]; // DGPullRefreshTableViewController
+
     [DGUtils alert:[DGUtils app].webRequester.lastError];
 }
 
@@ -123,6 +123,8 @@
     if ([reqid isEqualToString:@"load"])
     {
         [self.activityIndicator stopAnimating];
+        [self dataSourceDidFinishLoadingNewData]; // DGPullRefreshTableViewController
+
         NSData* result = [[DGUtils app].webRequester resultData];
     
         NSError* error;
@@ -235,7 +237,7 @@
     [self.navigationController pushViewController:ecc animated:YES];
 }
 
-- (IBAction)reload:(id)sender {
+- (void) reload:(id)sender {
     [self reload];
 }
 
@@ -247,6 +249,12 @@
         if ([[survey objectForKey:@"state"] intValue] == 0) hasOpenSurveys = YES;
     }
     return hasOpenSurveys;
+}
+
+- (void)reloadTableViewDataSource
+{
+    // called by DGPullRefreshTableViewController when pulled
+	[self reload];
 }
 
 @end
