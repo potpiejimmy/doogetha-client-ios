@@ -16,7 +16,6 @@
 @implementation DGMainController
 
 @synthesize eventsTable = _eventsTable;
-@synthesize activityIndicator = _activityIndicator;
 @synthesize events = _events;
 @synthesize checkVersionAfterReload = _checkVersionAfterReload;
 
@@ -36,19 +35,20 @@
     [DGUtils app].mainController = self;
 
     [self.navigationController.navigationBar setTintColor:[UIColor colorWithRed:.0 green:.2 blue:.0 alpha:1.0]];
-    UIImage *logo = [UIImage imageNamed:@"button_currentactivities.png"];
-    [self.navigationItem setTitleView:[[UIImageView alloc] initWithImage:logo]];
+    UIImage *logo = [UIImage imageNamed:@"logo.png"];
+    UIImageView* imageView = [[UIImageView alloc] initWithImage:logo];
+    imageView.contentMode = UIViewContentModeScaleAspectFit;
+    [self.navigationItem setTitleView:imageView];
     
     _startingSession = YES;
     _checkVersionAfterReload = YES;
-    [self.activityIndicator startAnimating];
+    [self showReloadAnimationAnimated:NO];
     [[DGUtils app] startSession:self];
 }
 
 - (void)viewDidUnload
 {
     [self setEventsTable:nil];
-    [self setActivityIndicator:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -75,7 +75,6 @@
 {
     _startingSession = NO;
     _checkVersionAfterReload = YES;
-    [self.activityIndicator stopAnimating];
     [self reload];
 }
 
@@ -90,7 +89,7 @@
     NSLog(@"Got session key %@",app.sessionKey);
     app.webRequester.authorization = [NSString stringWithFormat:@"Basic %@",app.sessionKey];
     app.webRequester.delegate = self;
-    [self.activityIndicator startAnimating];
+    [self showReloadAnimationAnimated:NO];
     [app.webRequester get:[NSString stringWithFormat:@"%@events",DOOGETHA_URL] reqid:@"load"];
 }
 
@@ -112,7 +111,6 @@
 
 - (void)webRequestFail:(NSString*)reqid
 {
-    [self.activityIndicator stopAnimating];
     [self dataSourceDidFinishLoadingNewData]; // DGPullRefreshTableViewController
 
     [DGUtils alert:[DGUtils app].webRequester.lastError];
@@ -122,7 +120,6 @@
 {
     if ([reqid isEqualToString:@"load"])
     {
-        [self.activityIndicator stopAnimating];
         [self dataSourceDidFinishLoadingNewData]; // DGPullRefreshTableViewController
 
         NSData* result = [[DGUtils app].webRequester resultData];

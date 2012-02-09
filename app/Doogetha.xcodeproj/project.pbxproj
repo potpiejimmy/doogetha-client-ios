@@ -14,6 +14,7 @@
 		A50A727314A3CDB800CE4CEB /* title.png in Resources */ = {isa = PBXBuildFile; fileRef = A50A727214A3CDB800CE4CEB /* title.png */; };
 		A50A727614A3DF8400CE4CEB /* dot-green.png in Resources */ = {isa = PBXBuildFile; fileRef = A50A727514A3DF8400CE4CEB /* dot-green.png */; };
 		A51E279E14A0FB3900F10CAB /* refresh.png in Resources */ = {isa = PBXBuildFile; fileRef = A51E279D14A0FB3900F10CAB /* refresh.png */; };
+		A54DB06114E4738400FBC2C4 /* logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A54DB06014E4738400FBC2C4 /* logo@2x.png */; };
 		A56579BB14B37B810002B9AE /* survey_confirm.png in Resources */ = {isa = PBXBuildFile; fileRef = A56579B814B37B810002B9AE /* survey_confirm.png */; };
 		A56579BC14B37B810002B9AE /* survey_deny.png in Resources */ = {isa = PBXBuildFile; fileRef = A56579B914B37B810002B9AE /* survey_deny.png */; };
 		A56579BD14B37B810002B9AE /* survey_neutral.png in Resources */ = {isa = PBXBuildFile; fileRef = A56579BA14B37B810002B9AE /* survey_neutral.png */; };
@@ -72,6 +73,7 @@
 		A50A727214A3CDB800CE4CEB /* title.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = title.png; sourceTree = "<group>"; };
 		A50A727514A3DF8400CE4CEB /* dot-green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dot-green.png"; sourceTree = "<group>"; };
 		A51E279D14A0FB3900F10CAB /* refresh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = refresh.png; sourceTree = "<group>"; };
+		A54DB06014E4738400FBC2C4 /* logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo@2x.png"; sourceTree = "<group>"; };
 		A56579B814B37B810002B9AE /* survey_confirm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = survey_confirm.png; sourceTree = "<group>"; };
 		A56579B914B37B810002B9AE /* survey_deny.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = survey_deny.png; sourceTree = "<group>"; };
 		A56579BA14B37B810002B9AE /* survey_neutral.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = survey_neutral.png; sourceTree = "<group>"; };
@@ -237,6 +239,7 @@
 				A506463814D4A50200BA9113 /* question_mark.png */,
 				A5D4578014D5E61C00526065 /* question_mark@2x.png */,
 				A5C64BE814D34E8A00C979D6 /* logo.png */,
+				A54DB06014E4738400FBC2C4 /* logo@2x.png */,
 				A5C51B6614E1C49F0027DCF9 /* pullrefresh_arrow.png */,
 				A5C51B6714E1C49F0027DCF9 /* pullrefresh_arrow@2x.png */,
 				A5AC755F14D871820029F065 /* settings.png */,
@@ -346,6 +349,7 @@
 				A5AC756214D871820029F065 /* settings@2x.png in Resources */,
 				A5C51B6814E1C49F0027DCF9 /* pullrefresh_arrow.png in Resources */,
 				A5C51B6914E1C49F0027DCF9 /* pullrefresh_arrow@2x.png in Resources */,
+				A54DB06114E4738400FBC2C4 /* logo@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

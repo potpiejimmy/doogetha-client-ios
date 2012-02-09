@@ -17,7 +17,6 @@
 -(void)reload;
 
 @property (weak, nonatomic) IBOutlet UITableView *eventsTable;
-@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 
 @property (strong, nonatomic) NSArray *events;
 @property BOOL checkVersionAfterReload;

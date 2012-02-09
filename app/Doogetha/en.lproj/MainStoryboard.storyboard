@@ -227,63 +227,51 @@ Bitte drücke auf Fortfahren, um Doogetha auf diesem Gerät einzurichten.</strin
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="M1N-XM-bSs" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="mainController" id="Hwz-fp-GIv" customClass="DGMainController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="VBN-xO-Zxu" customClass="UITableView">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="bCP-j5-VLt">
                         <rect key="frame" x="0.0" y="64" width="320" height="367"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="bCP-j5-VLt">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="367"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <color key="backgroundColor" red="0.89818088500000004" green="1" blue="0.89954949819999996" alpha="1" colorSpace="calibratedRGB"/>
-                                <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="eventItem" textLabel="yBK-3b-RCW" detailTextLabel="3FF-xK-0g0" imageView="Fqq-p2-vzc" style="IBUITableViewCellStyleSubtitle" id="hyZ-tk-G2c">
-                                        <rect key="frame" x="0.0" y="22" width="320" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="300" height="43"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="yBK-3b-RCW">
-                                                    <rect key="frame" x="31" y="5" width="29" height="19"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                </label>
-                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="3FF-xK-0g0">
-                                                    <rect key="frame" x="31" y="24" width="41" height="15"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="italicSystem" pointSize="12"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                </label>
-                                                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="dot-green.png" id="Fqq-p2-vzc">
-                                                    <rect key="frame" x="10" y="15" width="11" height="12"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                </imageView>
-                                            </subviews>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        </view>
-                                        <color key="backgroundColor" red="0.81960791349411011" green="1" blue="0.85490202903747559" alpha="1" colorSpace="deviceRGB"/>
-                                    </tableViewCell>
-                                </prototypes>
-                                <connections>
-                                    <outlet property="dataSource" destination="Hwz-fp-GIv" id="5FE-WY-l3X"/>
-                                    <outlet property="delegate" destination="Hwz-fp-GIv" id="xe8-sn-RC3"/>
-                                </connections>
-                            </tableView>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="gray" id="DSw-sA-71h">
-                                <rect key="frame" x="150" y="175" width="20" height="20"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </activityIndicatorView>
-                        </subviews>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.89818088500000004" green="1" blue="0.89954949819999996" alpha="1" colorSpace="calibratedRGB"/>
-                    </view>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="eventItem" textLabel="yBK-3b-RCW" detailTextLabel="3FF-xK-0g0" imageView="Fqq-p2-vzc" style="IBUITableViewCellStyleSubtitle" id="hyZ-tk-G2c">
+                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="300" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="yBK-3b-RCW">
+                                            <rect key="frame" x="31" y="5" width="29" height="19"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="3FF-xK-0g0">
+                                            <rect key="frame" x="31" y="24" width="41" height="15"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="italicSystem" pointSize="12"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </label>
+                                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="dot-green.png" id="Fqq-p2-vzc">
+                                            <rect key="frame" x="10" y="15" width="11" height="12"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </imageView>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <color key="backgroundColor" red="0.81960791349411011" green="1" blue="0.85490202903747559" alpha="1" colorSpace="deviceRGB"/>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Hwz-fp-GIv" id="5FE-WY-l3X"/>
+                            <outlet property="delegate" destination="Hwz-fp-GIv" id="xe8-sn-RC3"/>
+                        </connections>
+                    </tableView>
                     <navigationItem key="navigationItem" id="T7f-O9-u36">
                         <barButtonItem key="leftBarButtonItem" title="Neue Aktivität" id="Zio-NY-5Vh"/>
                     </navigationItem>
                     <connections>
-                        <outlet property="activityIndicator" destination="DSw-sA-71h" id="g81-5t-8ym"/>
                         <outlet property="eventsTable" destination="bCP-j5-VLt" id="AIC-fa-o2n"/>
                     </connections>
                 </viewController>
@@ -532,9 +520,57 @@ Bitte drücke auf Fortfahren, um Doogetha auf diesem Gerät einzurichten.</strin
         <image name="button_currentactivities.png" width="26" height="17"/>
         <image name="button_myactivities.png" width="26" height="17"/>
         <image name="dot-green.png" width="11" height="12"/>
-        <image name="logo.png" width="72" height="72"/>
+        <image name="logo.png" width="36" height="36"/>
         <image name="settings.png" width="16" height="16"/>
     </resources>
+    <classes>
+        <class className="DGEventConfirmController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/DGEventConfirmController.h"/>
+            <relationships>
+                <relationship kind="action" name="confirm:"/>
+                <relationship kind="action" name="decline:"/>
+                <relationship kind="outlet" name="scroller" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="surveyTable" candidateClass="UITableView"/>
+            </relationships>
+        </class>
+        <class className="DGMainController" superclassName="DGPullRefreshTableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/DGMainController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="eventsTable" candidateClass="UITableView"/>
+            </relationships>
+        </class>
+        <class className="DGPullRefreshTableViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/DGPullRefreshTableViewController.h"/>
+        </class>
+        <class className="DGRegisterConfirmController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/DGRegisterConfirmController.h"/>
+            <relationships>
+                <relationship kind="action" name="login:"/>
+                <relationship kind="outlet" name="pinLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="DGRegisterController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/DGRegisterController.h"/>
+            <relationships>
+                <relationship kind="action" name="backgroundTouched:"/>
+                <relationship kind="action" name="register:"/>
+                <relationship kind="outlet" name="mailTextField" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+        <class className="DGSettingsController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/DGSettingsController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="settingsTable" candidateClass="UITableView"/>
+            </relationships>
+        </class>
+        <class className="DGSurveyConfirmController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/DGSurveyConfirmController.h"/>
+            <relationships>
+                <relationship kind="action" name="confirm:"/>
+                <relationship kind="outlet" name="scroller" candidateClass="UIScrollView"/>
+            </relationships>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
