@@ -21,6 +21,8 @@
 @property (strong, nonatomic) NSArray *events;
 @property BOOL checkVersionAfterReload;
 
+- (IBAction)newButtonClicked:(id)sender;
+
 - (void) reload:(id)sender;
 - (void) checkVersion;
 

@@ -14,6 +14,11 @@
 		A50A727314A3CDB800CE4CEB /* title.png in Resources */ = {isa = PBXBuildFile; fileRef = A50A727214A3CDB800CE4CEB /* title.png */; };
 		A50A727614A3DF8400CE4CEB /* dot-green.png in Resources */ = {isa = PBXBuildFile; fileRef = A50A727514A3DF8400CE4CEB /* dot-green.png */; };
 		A51E279E14A0FB3900F10CAB /* refresh.png in Resources */ = {isa = PBXBuildFile; fileRef = A51E279D14A0FB3900F10CAB /* refresh.png */; };
+		A5465B0914E6D02A00886694 /* DGWizardBasicsController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5465B0814E6D02A00886694 /* DGWizardBasicsController.m */; };
+		A5465B0D14E6D11900886694 /* DGEventEditBasicsController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5465B0C14E6D11900886694 /* DGEventEditBasicsController.m */; };
+		A5465B1014E6D5D100886694 /* DGWizardParticipantsController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5465B0F14E6D5D100886694 /* DGWizardParticipantsController.m */; };
+		A5465B1314E6F87F00886694 /* DGEventEditDateTimeController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5465B1214E6F87F00886694 /* DGEventEditDateTimeController.m */; };
+		A5465B1614E7044F00886694 /* DGWizardDoneController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5465B1514E7044F00886694 /* DGWizardDoneController.m */; };
 		A54DB06114E4738400FBC2C4 /* logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A54DB06014E4738400FBC2C4 /* logo@2x.png */; };
 		A56579BB14B37B810002B9AE /* survey_confirm.png in Resources */ = {isa = PBXBuildFile; fileRef = A56579B814B37B810002B9AE /* survey_confirm.png */; };
 		A56579BC14B37B810002B9AE /* survey_deny.png in Resources */ = {isa = PBXBuildFile; fileRef = A56579B914B37B810002B9AE /* survey_deny.png */; };
@@ -73,6 +78,16 @@
 		A50A727214A3CDB800CE4CEB /* title.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = title.png; sourceTree = "<group>"; };
 		A50A727514A3DF8400CE4CEB /* dot-green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dot-green.png"; sourceTree = "<group>"; };
 		A51E279D14A0FB3900F10CAB /* refresh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = refresh.png; sourceTree = "<group>"; };
+		A5465B0714E6D02A00886694 /* DGWizardBasicsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DGWizardBasicsController.h; sourceTree = "<group>"; };
+		A5465B0814E6D02A00886694 /* DGWizardBasicsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DGWizardBasicsController.m; sourceTree = "<group>"; };
+		A5465B0B14E6D11900886694 /* DGEventEditBasicsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DGEventEditBasicsController.h; sourceTree = "<group>"; };
+		A5465B0C14E6D11900886694 /* DGEventEditBasicsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DGEventEditBasicsController.m; sourceTree = "<group>"; };
+		A5465B0E14E6D5D100886694 /* DGWizardParticipantsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DGWizardParticipantsController.h; sourceTree = "<group>"; };
+		A5465B0F14E6D5D100886694 /* DGWizardParticipantsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DGWizardParticipantsController.m; sourceTree = "<group>"; };
+		A5465B1114E6F87F00886694 /* DGEventEditDateTimeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DGEventEditDateTimeController.h; sourceTree = "<group>"; };
+		A5465B1214E6F87F00886694 /* DGEventEditDateTimeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DGEventEditDateTimeController.m; sourceTree = "<group>"; };
+		A5465B1414E7044F00886694 /* DGWizardDoneController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DGWizardDoneController.h; sourceTree = "<group>"; };
+		A5465B1514E7044F00886694 /* DGWizardDoneController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DGWizardDoneController.m; sourceTree = "<group>"; };
 		A54DB06014E4738400FBC2C4 /* logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo@2x.png"; sourceTree = "<group>"; };
 		A56579B814B37B810002B9AE /* survey_confirm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = survey_confirm.png; sourceTree = "<group>"; };
 		A56579B914B37B810002B9AE /* survey_deny.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = survey_deny.png; sourceTree = "<group>"; };
@@ -198,6 +213,10 @@
 				A5C7812D149A6FB100BA93F3 /* DGRegisterController.m */,
 				A506463314D496FB00BA9113 /* DGRegisterConfirmController.h */,
 				A506463414D496FB00BA9113 /* DGRegisterConfirmController.m */,
+				A5465B0B14E6D11900886694 /* DGEventEditBasicsController.h */,
+				A5465B0C14E6D11900886694 /* DGEventEditBasicsController.m */,
+				A5465B1114E6F87F00886694 /* DGEventEditDateTimeController.h */,
+				A5465B1214E6F87F00886694 /* DGEventEditDateTimeController.m */,
 				A5D12515149E545D007B5606 /* DGEventConfirmController.h */,
 				A5D12516149E545D007B5606 /* DGEventConfirmController.m */,
 				A58B323214A4E0E600E6D3E1 /* DGSurveyConfirmController.h */,
@@ -214,6 +233,12 @@
 				A5C51B6414E1C3620027DCF9 /* DGRefreshTableHeaderView.m */,
 				A5C51B6A14E1C4FF0027DCF9 /* DGPullRefreshTableViewController.h */,
 				A5C51B6B14E1C4FF0027DCF9 /* DGPullRefreshTableViewController.m */,
+				A5465B0714E6D02A00886694 /* DGWizardBasicsController.h */,
+				A5465B0814E6D02A00886694 /* DGWizardBasicsController.m */,
+				A5465B0E14E6D5D100886694 /* DGWizardParticipantsController.h */,
+				A5465B0F14E6D5D100886694 /* DGWizardParticipantsController.m */,
+				A5465B1414E7044F00886694 /* DGWizardDoneController.h */,
+				A5465B1514E7044F00886694 /* DGWizardDoneController.m */,
 				A5ABDB8F14DB20E800B84903 /* DGContactsUtils.h */,
 				A5ABDB9014DB20E800B84903 /* DGContactsUtils.m */,
 				A592B730149BEEB300627259 /* DGUtils.h */,
@@ -375,6 +400,11 @@
 				A5ABDB9114DB20E800B84903 /* DGContactsUtils.m in Sources */,
 				A5C51B6514E1C3620027DCF9 /* DGRefreshTableHeaderView.m in Sources */,
 				A5C51B6C14E1C4FF0027DCF9 /* DGPullRefreshTableViewController.m in Sources */,
+				A5465B0914E6D02A00886694 /* DGWizardBasicsController.m in Sources */,
+				A5465B0D14E6D11900886694 /* DGEventEditBasicsController.m in Sources */,
+				A5465B1014E6D5D100886694 /* DGWizardParticipantsController.m in Sources */,
+				A5465B1314E6F87F00886694 /* DGEventEditDateTimeController.m in Sources */,
+				A5465B1614E7044F00886694 /* DGWizardDoneController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

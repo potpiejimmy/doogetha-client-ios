@@ -36,6 +36,8 @@
 {
     [super viewDidLoad];
 
+    [self.navigationController.navigationBar setTintColor:[UIColor colorWithRed:.0 green:.2 blue:.0 alpha:1.0]];
+
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  

@@ -337,7 +337,7 @@ const int HEADER_HEIGHT = 100;
     
     NSError* error;
     NSData* jsonData = [NSJSONSerialization dataWithJSONObject:self.survey 
-                                            options:NSJSONWritingPrettyPrinted error:&error];
+                                            options:0 error:&error];
     NSString* result = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
     
     int surveyId = [[self.survey objectForKey:@"id"] intValue];

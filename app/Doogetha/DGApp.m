@@ -21,6 +21,8 @@ NSString* const DOOGETHA_URL = @"https://www.potpiejimmy.de/doogetha/res/";
 @synthesize sessionKey = _sessionKey;
 @synthesize sessionCallback = _sessionCallback;
 @synthesize mainController = _mainController;
+@synthesize wizardNext = _wizardNext;
+@synthesize currentEvent = _currentEvent;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {

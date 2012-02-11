@@ -234,6 +234,19 @@
     [self.navigationController pushViewController:ecc animated:YES];
 }
 
+- (IBAction)newButtonClicked:(id)sender {
+    
+    NSLog(@"creating new activity");
+    
+    DGApp* app = [DGUtils app];
+    app.currentEvent = [[NSMutableDictionary alloc] init];
+    NSDictionary* myself = [[NSMutableDictionary alloc] init];
+    [myself setValue:[app userDefaultValueForKey:@"email"] forKey:@"email"];
+    [app.currentEvent setValue:[[NSMutableArray alloc] initWithObjects:myself, nil] forKey:@"users"];
+
+    [self performSegueWithIdentifier:@"newClickedSegue" sender:self];
+}
+
 - (void) reload:(id)sender {
     [self reload];
 }
