@@ -18,8 +18,6 @@
 @property (strong, nonatomic) UIButton *confirmButton;
 @property (strong, nonatomic) UIButton *declineButton;
 
-@property (strong, nonatomic) NSDictionary *event;
-
 - (IBAction)confirm:(id)sender;
 - (IBAction)decline:(id)sender;
 

@@ -19,9 +19,6 @@
 @property (strong, nonatomic) UIButton *cancelButton;
 @property (strong, nonatomic) UIButton *addButton;
 
-@property (strong, nonatomic) NSDictionary *event;
-@property (strong, nonatomic) NSDictionary *survey;
-
 - (IBAction)confirm:(id)sender;
 
 @end

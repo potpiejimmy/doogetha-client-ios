@@ -53,6 +53,16 @@ UIAlertView* _currentAlert;
     return [dateFormatter stringFromDate:date];
 }
 
++ (NSDateComponents*) dateComponents: (NSDate*) date
+{
+    return [[NSCalendar currentCalendar] components:(NSYearCalendarUnit |
+                                                     NSMonthCalendarUnit |
+                                                     NSDayCalendarUnit |
+                                                     NSHourCalendarUnit |
+                                                     NSMinuteCalendarUnit |
+                                                     NSSecondCalendarUnit) fromDate:date];
+}
+
 + (void) alert:          (NSString*) message
 {
     [self alert:message withTitle:nil];
@@ -117,6 +127,15 @@ UIAlertView* _currentAlert;
             child.frame = rect;
         }
     }
+}
+
++ (void) popViewControllers: (UIViewController*) controller num: (int)num
+{
+    NSMutableArray *vcs = [NSMutableArray arrayWithArray:controller.navigationController.viewControllers];
+    for (int i=0; i<num-1; i++)
+        [vcs removeObjectAtIndex:[vcs count] - 2];
+    controller.navigationController.viewControllers = vcs;
+    [controller.navigationController popViewControllerAnimated:YES];
 }
 
 @end

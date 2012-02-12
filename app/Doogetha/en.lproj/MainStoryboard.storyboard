@@ -205,7 +205,7 @@ Bitte drücke auf Fortfahren, um Doogetha auf diesem Gerät einzurichten.</strin
         <scene sceneID="dXm-T6-rec">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="M1N-XM-bSs" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController storyboardIdentifier="mainController" id="Hwz-fp-GIv" customClass="DGMainController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="currentActivitiesController" id="Hwz-fp-GIv" customClass="DGMainController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="bCP-j5-VLt">
                         <rect key="frame" x="0.0" y="64" width="320" height="367"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -248,15 +248,16 @@ Bitte drücke auf Fortfahren, um Doogetha auf diesem Gerät einzurichten.</strin
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="T7f-O9-u36">
-                        <barButtonItem key="leftBarButtonItem" title="Neu..." id="Zio-NY-5Vh">
+                        <barButtonItem key="leftBarButtonItem" title="Neu..." id="txV-hb-gzj">
                             <connections>
-                                <action selector="newButtonClicked:" destination="Hwz-fp-GIv" id="Hyn-4h-egc"/>
+                                <action selector="newButtonClicked:" destination="Hwz-fp-GIv" id="Q8U-2F-Xwb"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="eventsTable" destination="bCP-j5-VLt" id="AIC-fa-o2n"/>
-                        <segue destination="hNl-L4-DJr" kind="push" identifier="newClickedSegue" id="7A4-Sf-kqM"/>
+                        <segue destination="xuR-Qe-jIy" kind="push" identifier="eventConfirmSegue" id="ZRm-mJ-TwR"/>
+                        <segue destination="hNl-L4-DJr" kind="push" identifier="newClickedSegue" id="bhh-vc-hI2"/>
                     </connections>
                 </viewController>
             </objects>
@@ -282,7 +283,7 @@ Bitte drücke auf Fortfahren, um Doogetha auf diesem Gerät einzurichten.</strin
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <string key="text">Doogetha wird dich nun Schritt für Schritt durch die Erstellung einer neuen Aktivität führen.
 
-Für die Aktivität musst du zunächst einen Titel und optional eine kurze Beschreibung eingeben.</string>
+Für die Aktivität kannst du zunächst einen Titel und optional eine kurze Beschreibung eingeben.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -330,7 +331,7 @@ Wenn der Zeitpunkt der Aktivität noch nicht feststeht, weil du diesen mit den a
 
 
 </string>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -386,7 +387,7 @@ Wenn der Zeitpunkt der Aktivität noch nicht feststeht, weil du diesen mit den a
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Done." lineBreakMode="tailTruncation" minimumFontSize="10" id="3hc-wL-y6l">
                                 <rect key="frame" x="20" y="20" width="280" height="282"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -413,7 +414,7 @@ Wenn der Zeitpunkt der Aktivität noch nicht feststeht, weil du diesen mit den a
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Titel" minimumFontSize="17" id="2IQ-sl-wKL">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name der Aktivität" minimumFontSize="17" id="2IQ-sl-wKL">
                                 <rect key="frame" x="20" y="49" width="280" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -500,7 +501,7 @@ Wenn der Zeitpunkt der Aktivität noch nicht feststeht, weil du diesen mit den a
                                 </date>
                                 <locale key="locale" localeIdentifier="de_DE"/>
                                 <timeZone key="timeZone" name="America/Los_Angeles">
-                                    <mutableData key="data">
+                                    <data key="data">
 VFppZgAAAAAAAAAAAAAAAAAAAAAAAAAEAAAABAAAAAAAAAC5AAAABAAAABCepkign7sVkKCGKqChmveQ
 y4kaoNIj9HDSYSYQ1v50INiArZDa/tGg28CQENzes6DdqayQ3r6VoN+JjpDgnneg4WlwkOJ+WaDjSVKQ
 5F47oOUpNJDmR1gg5xJREOgnOiDo8jMQ6gccIOrSFRDr5v4g7LH3EO3G4CDukdkQ76/8oPBxuxDxj96g
@@ -518,7 +519,7 @@ f5gqkAABAAECAwEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEA
 AQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEA
 AQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEA
 AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
-</mutableData>
+</data>
                                 </timeZone>
                                 <connections>
                                     <action selector="datePickerValueChanged:" destination="5rj-y3-dvc" eventType="valueChanged" id="8Y8-PW-j0G"/>
@@ -550,6 +551,9 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                 <state key="highlighted">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="saveNoTime:" destination="5rj-y3-dvc" eventType="touchUpInside" id="0Ij-w2-fJm"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="vYJ-Bb-B98">
                                 <rect key="frame" x="197" y="360" width="103" height="37"/>
@@ -577,6 +581,9 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                 <state key="highlighted">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="saveDateTime:" destination="5rj-y3-dvc" eventType="touchUpInside" id="RnN-Td-Gl7"/>
+                                </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Zeitpunkt" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" id="wns-JH-H5i">
                                 <rect key="frame" x="20" y="230" width="280" height="21"/>
@@ -601,11 +608,11 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tKe-o8-eVM" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="eventConfirmController" hidesBottomBarWhenPushed="YES" id="xuR-Qe-jIy" customClass="DGEventConfirmController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="NCe-Pa-sPW">
-                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="367"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="qwP-80-ioP">
-                                <rect key="frame" x="20" y="64" width="280" height="376"/>
+                                <rect key="frame" x="20" y="-29" width="280" height="376"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="q1l-ZD-sfg">
@@ -653,6 +660,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                     <connections>
                         <outlet property="scroller" destination="qwP-80-ioP" id="Ead-BC-SZM"/>
                         <outlet property="surveyTable" destination="q1l-ZD-sfg" id="Xg6-wf-qNl"/>
+                        <segue destination="pCe-P8-Qcd" kind="push" identifier="surveyConfirmSegue" id="3wH-jx-PpF"/>
                     </connections>
                 </viewController>
             </objects>
@@ -661,13 +669,60 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
         <scene sceneID="I9g-QW-Hts">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TEO-Nw-YSa" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController id="wpx-HJ-ZaH" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="gqh-8P-Vzd">
+                <viewController storyboardIdentifier="myActivitiesController" id="wpx-HJ-ZaH" customClass="DGMainController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Ecu-Sy-jvJ">
                         <rect key="frame" x="0.0" y="64" width="320" height="367"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="DTW-V7-nuq"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.89818088500000004" green="1" blue="0.89954949819999996" alpha="1" colorSpace="calibratedRGB"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="eventItem" textLabel="GEW-Rg-qoH" detailTextLabel="tYD-Jn-Pae" imageView="JIq-S2-RbE" style="IBUITableViewCellStyleSubtitle" id="mNk-0I-ylD">
+                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="300" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="GEW-Rg-qoH">
+                                            <rect key="frame" x="31" y="5" width="29" height="19"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="tYD-Jn-Pae">
+                                            <rect key="frame" x="31" y="24" width="41" height="15"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="italicSystem" pointSize="12"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </label>
+                                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="dot-green.png" id="JIq-S2-RbE">
+                                            <rect key="frame" x="10" y="15" width="11" height="12"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </imageView>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <color key="backgroundColor" red="0.81960791349999995" green="1" blue="0.85490202900000001" alpha="1" colorSpace="deviceRGB"/>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="wpx-HJ-ZaH" id="VO1-ep-Y9v"/>
+                            <outlet property="delegate" destination="wpx-HJ-ZaH" id="PFU-gG-dFN"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="DTW-V7-nuq">
+                        <barButtonItem key="leftBarButtonItem" title="Neu..." id="9cS-2j-CR1">
+                            <connections>
+                                <action selector="newButtonClicked:" destination="wpx-HJ-ZaH" id="XM2-OG-nUc"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="eventsTable" destination="Ecu-Sy-jvJ" id="9jA-XH-QkI"/>
+                        <segue destination="hNl-L4-DJr" kind="push" identifier="newClickedSegue" id="Reu-pG-r5d"/>
+                        <segue destination="xuR-Qe-jIy" kind="push" identifier="eventConfirmSegue" id="Jh4-bb-yJ9"/>
+                    </connections>
                 </viewController>
             </objects>
             <point key="canvasLocation" x="1471" y="800"/>
@@ -677,16 +732,17 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hy9-Sw-Neu" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="surveyConfirmController" hidesBottomBarWhenPushed="YES" id="pCe-P8-Qcd" customClass="DGSurveyConfirmController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="MSL-GM-bZS">
-                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="367"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="XxO-eu-lge">
-                                <rect key="frame" x="20" y="64" width="280" height="376"/>
+                                <rect key="frame" x="20" y="-29" width="280" height="376"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             </scrollView>
                         </subviews>
                         <color key="backgroundColor" red="0.89818088500000004" green="1" blue="0.89954949819999996" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
+                    <navigationItem key="navigationItem" id="O0Q-9J-UKH"/>
                     <connections>
                         <outlet property="scroller" destination="XxO-eu-lge" id="7sf-uL-oeu"/>
                     </connections>
@@ -735,7 +791,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bky-9m-h6O" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController id="W7V-k4-kPk" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" enabled="NO" title="Meine Aktivitäten" image="button_myactivities.png" id="4Ws-vz-7Id"/>
+                    <tabBarItem key="tabBarItem" tag="2" title="Meine Aktivitäten" image="button_myactivities.png" id="4Ws-vz-7Id"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="cfZ-nn-Nkr">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -819,7 +875,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BMZ-cm-oVL" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController id="eFx-rx-8ri" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Einstellungen" image="settings.png" id="rwi-8k-AHM"/>
+                    <tabBarItem key="tabBarItem" tag="3" title="Einstellungen" image="settings.png" id="rwi-8k-AHM"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="iew-tq-FO9">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -841,9 +897,96 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
         <image name="logo.png" width="115" height="36"/>
         <image name="settings.png" width="16" height="16"/>
     </resources>
+    <classes>
+        <class className="DGEventConfirmController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/DGEventConfirmController.h"/>
+            <relationships>
+                <relationship kind="action" name="confirm:"/>
+                <relationship kind="action" name="decline:"/>
+                <relationship kind="outlet" name="scroller" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="surveyTable" candidateClass="UITableView"/>
+            </relationships>
+        </class>
+        <class className="DGEventEditBasicsController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/DGEventEditBasicsController.h"/>
+            <relationships>
+                <relationship kind="action" name="backgroundTouched:"/>
+                <relationship kind="action" name="cancel:"/>
+                <relationship kind="action" name="save:"/>
+                <relationship kind="outlet" name="description" candidateClass="UITextView"/>
+                <relationship kind="outlet" name="name" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+        <class className="DGEventEditDateTimeController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/DGEventEditDateTimeController.h"/>
+            <relationships>
+                <relationship kind="action" name="cancel:"/>
+                <relationship kind="action" name="datePickerValueChanged:"/>
+                <relationship kind="action" name="saveDate:"/>
+                <relationship kind="action" name="saveDateTime:"/>
+                <relationship kind="action" name="saveNoTime:"/>
+                <relationship kind="outlet" name="datePicker" candidateClass="UIDatePicker"/>
+                <relationship kind="outlet" name="dateTimeLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="DGMainController" superclassName="DGPullRefreshTableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/DGMainController.h"/>
+            <relationships>
+                <relationship kind="action" name="newButtonClicked:"/>
+                <relationship kind="outlet" name="eventsTable" candidateClass="UITableView"/>
+            </relationships>
+        </class>
+        <class className="DGPullRefreshTableViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/DGPullRefreshTableViewController.h"/>
+        </class>
+        <class className="DGRegisterConfirmController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/DGRegisterConfirmController.h"/>
+            <relationships>
+                <relationship kind="action" name="login:"/>
+                <relationship kind="outlet" name="pinLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="DGRegisterController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/DGRegisterController.h"/>
+            <relationships>
+                <relationship kind="action" name="backgroundTouched:"/>
+                <relationship kind="action" name="register:"/>
+                <relationship kind="outlet" name="mailTextField" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+        <class className="DGSettingsController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/DGSettingsController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="settingsTable" candidateClass="UITableView"/>
+            </relationships>
+        </class>
+        <class className="DGSurveyConfirmController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/DGSurveyConfirmController.h"/>
+            <relationships>
+                <relationship kind="action" name="confirm:"/>
+                <relationship kind="outlet" name="scroller" candidateClass="UIScrollView"/>
+            </relationships>
+        </class>
+        <class className="DGWizardBasicsController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/DGWizardBasicsController.h"/>
+        </class>
+        <class className="DGWizardDoneController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/DGWizardDoneController.h"/>
+            <relationships>
+                <relationship kind="action" name="save:"/>
+            </relationships>
+        </class>
+        <class className="DGWizardParticipantsController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/DGWizardParticipantsController.h"/>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="ZRm-mJ-TwR"/>
+        <segue reference="bhh-vc-hI2"/>
+    </inferredMetricsTieBreakers>
 </document>

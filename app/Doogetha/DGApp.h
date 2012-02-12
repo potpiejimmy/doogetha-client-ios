@@ -23,7 +23,9 @@ extern NSString* const DOOGETHA_URL;
 @property (strong, nonatomic) NSString *sessionKey;
 
 @property BOOL wizardNext;
-@property (strong, nonatomic) NSDictionary* currentEvent;
+
+@property (strong, nonatomic) NSMutableDictionary* currentEvent;
+@property (strong, nonatomic) NSMutableDictionary* currentSurvey;
 
 @property (weak, nonatomic) DGMainController *mainController;
 

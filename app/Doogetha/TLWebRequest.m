@@ -57,12 +57,12 @@
     [self postOrPut:@"PUT" url:url msg:msg reqid:reqid];
 }
 
--(void)get:(NSString*)url reqid:(NSString*)reqid
+-(void)getOrDelete:(NSString*)method url:(NSString*)url reqid:(NSString*)reqid
 {
     self.currentReqId = reqid;
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
     [request setURL:[NSURL URLWithString:url]];
-    [request setHTTPMethod:@"GET"];
+    [request setHTTPMethod:method];
     [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     if (self.authorization) {
         [request setValue:self.authorization forHTTPHeaderField:@"Authorization"];
@@ -73,6 +73,16 @@
         NSLog(@"Connection established");
         self.resultData = [NSMutableData data];
     }
+}
+
+-(void)get:(NSString*)url reqid:(NSString*)reqid
+{
+    [self getOrDelete:@"GET" url:url reqid:reqid];
+}
+
+-(void)del:(NSString*)url reqid:(NSString*)reqid
+{
+    [self getOrDelete:@"DELETE" url:url reqid:reqid];
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response

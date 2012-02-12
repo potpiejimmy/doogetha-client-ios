@@ -10,7 +10,7 @@
 #import "DGPullRefreshTableViewController.h"
 #import "TLWebRequest.h"
 
-@interface DGMainController : DGPullRefreshTableViewController<UITableViewDelegate,UITableViewDataSource> {
+@interface DGMainController : DGPullRefreshTableViewController<UITableViewDelegate,UITableViewDataSource,UIGestureRecognizerDelegate> {
     @private BOOL _startingSession;
 }
 

@@ -8,6 +8,7 @@
 
 #import "DGEventEditBasicsController.h"
 #import "DGUtils.h"
+#import "TLUtils.h"
 #import <QuartzCore/QuartzCore.h>
 
 @implementation DGEventEditBasicsController
@@ -41,8 +42,8 @@
 - (void) write
 {
     NSDictionary* e = [DGUtils app].currentEvent;
-    [e setValue:self.name.text        forKey:@"name"];
-    [e setValue:self.description.text forKey:@"description"];
+    [e setValue:[TLUtils trim: self.name.text]  forKey:@"name"];
+    [e setValue:self.description.text           forKey:@"description"];
 }
 
 #pragma mark - View lifecycle
@@ -85,7 +86,6 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    NSLog(@"View did appear: DGEventEditBasicsController");
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -94,7 +94,17 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-- (IBAction)save:(id)sender {
+- (BOOL) validateInput
+{
+    return [[TLUtils trim: self.name.text] length] > 0;
+}
+
+- (IBAction)save: (id)sender {
+    if (![self validateInput]) {
+        [DGUtils alert:@"Bitte gib einen Namen für die Aktivität ein."];
+        return;
+    }
+    
     [self write];
     [DGUtils app].wizardNext = YES; /* go to next wizard step if invoked from wizard */
     [self dismissModalViewControllerAnimated:YES]; 

@@ -15,5 +15,7 @@
 - (IBAction)datePickerValueChanged:(id)sender;
 - (IBAction)cancel:(id)sender;
 - (IBAction)saveDate:(id)sender;
+- (IBAction)saveDateTime:(id)sender;
+- (IBAction)saveNoTime:(id)sender;
 
 @end

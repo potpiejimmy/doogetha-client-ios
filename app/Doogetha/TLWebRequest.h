@@ -15,6 +15,7 @@
 -(void)post:(NSString*)url msg:(NSString*)msg reqid:(NSString*)reqid;
 -(void)put:(NSString*)url msg:(NSString*)msg reqid:(NSString*)reqid;
 -(void)get:(NSString*)url reqid:(NSString*)reqid;
+-(void)del:(NSString*)url reqid:(NSString*)reqid;
 
 -(NSString*)resultString;
 

@@ -19,7 +19,6 @@
 @synthesize scroller = _scroller;
 @synthesize confirmButton = _confirmButton;
 @synthesize declineButton = _declineButton;
-@synthesize event = _event;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -71,22 +70,24 @@
     
     int itery = 0;
     
+    NSDictionary* event = [DGUtils app].currentEvent;
+    
     // Label and description
-    self.eventName = [DGUtils label:CGRectMake(0, itery, viewWidth, 1) withText:[self.event objectForKey:@"name"] size:18.0f];
+    self.eventName = [DGUtils label:CGRectMake(0, itery, viewWidth, 1) withText:[event objectForKey:@"name"] size:18.0f];
     itery += self.eventName.frame.size.height;
     
     [self.scroller addSubview:self.eventName];
     
     itery += 5;
     
-    self.eventDescription = [DGUtils label:CGRectMake(0, itery, viewWidth, 1) withText:[self.event objectForKey:@"description"] size:14.0f];
+    self.eventDescription = [DGUtils label:CGRectMake(0, itery, viewWidth, 1) withText:[event objectForKey:@"description"] size:14.0f];
     itery += self.eventDescription.frame.size.height;
     
     [self.scroller addSubview:self.eventDescription];
     
     itery += 10;
 
-    self.surveyTable.frame = CGRectMake(0, itery, viewWidth, [[self.event objectForKey:@"surveys"] count] * 32);
+    self.surveyTable.frame = CGRectMake(0, itery, viewWidth, [[event objectForKey:@"surveys"] count] * 32);
     self.surveyTable.rowHeight = 32;
     itery += self.surveyTable.frame.size.height;
     
@@ -101,7 +102,7 @@
     [self.scroller addSubview:self.confirmButton];
     [self.scroller addSubview:self.declineButton];
     
-    BOOL hasOpenSurveys = [DGMainController hasOpenSurveys:self.event];
+    BOOL hasOpenSurveys = [DGMainController hasOpenSurveys:event];
     
     if (hasOpenSurveys)
     {
@@ -122,8 +123,8 @@
     
     itery += 10;
     
-    [[DGUtils app] makeMeFirst:self.event];
-    for (NSDictionary* user in [self.event objectForKey:@"users"])
+    [[DGUtils app] makeMeFirst:event];
+    for (NSDictionary* user in [event objectForKey:@"users"])
     {
         UIImageView* imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, itery, 1, 1)];
         [DGMainController setConfirmImage:imageView forState:[[user objectForKey:@"state"] intValue]];
@@ -182,7 +183,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [[self.event objectForKey:@"surveys"] count];
+    return [[[DGUtils app].currentEvent objectForKey:@"surveys"] count];
 }
 
 -(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -194,7 +195,7 @@
     //NSLog(@"cellForRowAtIndexPath called");
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"surveyItem"];
     
-    NSDictionary* survey = [[self.event objectForKey:@"surveys"] objectAtIndex:[indexPath row]];
+    NSDictionary* survey = [[[DGUtils app].currentEvent objectForKey:@"surveys"] objectAtIndex:[indexPath row]];
     int surveyState = [[survey objectForKey:@"state"] intValue];
 
     cell.textLabel.text = [survey objectForKey:@"name"];
@@ -215,12 +216,11 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    DGSurveyConfirmController* scc = [self.storyboard instantiateViewControllerWithIdentifier:@"surveyConfirmController"];
-    NSDictionary* selSurvey = [[self.event objectForKey:@"surveys"] objectAtIndex:[indexPath row]];
-    [[DGUtils app] makeMeFirst:self.event]; // XXX shouldn't call here on each selection
-    scc.event = self.event;
-    scc.survey = selSurvey;
-    [self.navigationController pushViewController:scc animated:YES];
+    NSMutableDictionary* event = [DGUtils app].currentEvent;
+    NSMutableDictionary* selSurvey = [[event objectForKey:@"surveys"] objectAtIndex:[indexPath row]];
+    [[DGUtils app] makeMeFirst:event]; // XXX shouldn't call here on each selection
+    [DGUtils app].currentSurvey = selSurvey;
+    [self performSegueWithIdentifier:@"surveyConfirmSegue" sender:self];
 }
 
 // ----------
@@ -230,7 +230,7 @@
     TLWebRequest* webRequester = [[DGUtils app] webRequester];
     webRequester.delegate = self;
     
-    int eventId = [[self.event objectForKey:@"id"] intValue];
+    int eventId = [[[DGUtils app].currentEvent objectForKey:@"id"] intValue];
     
     NSString* url = [NSString stringWithFormat:@"%@events/%d?confirm=%d",DOOGETHA_URL,eventId,state];
     NSLog(@"Confirming event: %@", url);

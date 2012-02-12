@@ -24,8 +24,6 @@ const int HEADER_HEIGHT = 100;
 @synthesize cancelButton = _cancelButton;
 @synthesize addButton = _addButton;
 @synthesize scroller = _scroller;
-@synthesize event = _event;
-@synthesize survey = _survey;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -76,10 +74,13 @@ const int HEADER_HEIGHT = 100;
 
 - (int) addSurveyToggleRow: (NSDictionary*) surveyItem at: (int) currentY
 {
+    NSDictionary* event =  [DGUtils app].currentEvent;
+    NSDictionary* survey = [DGUtils app].currentSurvey;
+    
     int oldY = currentY; // remember initial Y
     
     int viewWidth = self.scroller.frame.size.width;
-    int surveyState = [[self.survey objectForKey:@"state"] intValue];
+    int surveyState = [[survey objectForKey:@"state"] intValue];
     
     UIView* line = [[UIView alloc] initWithFrame:CGRectMake(0, currentY, viewWidth, 2)];
     line.backgroundColor = [UIColor colorWithRed:0 green:.4 blue:0 alpha:1];
@@ -94,7 +95,7 @@ const int HEADER_HEIGHT = 100;
     [self.tableScroller addSubview:itemLabel];
     
     int i = 0;
-    for (NSDictionary* user in [self.event objectForKey:@"users"]) {
+    for (NSDictionary* user in [event objectForKey:@"users"]) {
         UIButton* button = [[UIButton alloc] initWithFrame:CGRectMake(COLUMN1_WIDTH + i*COLUMN_WIDTH, currentY, 1, 1)];
         [self setButtonImage:button forUser:[[user objectForKey:@"id"] intValue] item:surveyItem];
         [button sizeToFit];
@@ -127,21 +128,24 @@ const int HEADER_HEIGHT = 100;
     
     NSLog(@"viewDidLoad DGSurveyConfirmController");
     
-    int surveyState = [[self.survey objectForKey:@"state"] intValue];
+    NSDictionary* event =  [DGUtils app].currentEvent;
+    NSDictionary* survey = [DGUtils app].currentSurvey;
+
+    int surveyState = [[survey objectForKey:@"state"] intValue];
     
     int viewWidth = self.scroller.frame.size.width;
     
     int itery = 0;
     
     // Label and description
-    self.surveyName = [DGUtils label:CGRectMake(0, itery, viewWidth, 1) withText:[self.survey objectForKey:@"name"] size:18.0f];
+    self.surveyName = [DGUtils label:CGRectMake(0, itery, viewWidth, 1) withText:[survey objectForKey:@"name"] size:18.0f];
     itery += self.surveyName.frame.size.height;
     
     [self.scroller addSubview:self.surveyName];
     
     itery += 5;
 
-    self.surveyDescription = [DGUtils label:CGRectMake(0, itery, viewWidth, 1) withText:[self.survey objectForKey:@"description"] size:14.0f];
+    self.surveyDescription = [DGUtils label:CGRectMake(0, itery, viewWidth, 1) withText:[survey objectForKey:@"description"] size:14.0f];
     itery += self.surveyDescription.frame.size.height;
 
     [self.scroller addSubview:self.surveyDescription];
@@ -152,12 +156,12 @@ const int HEADER_HEIGHT = 100;
     int tableitery = 0;
     
     // confirmation table
-    NSArray* surveyItems = [self.survey objectForKey:@"surveyItems"];
+    NSArray* surveyItems = [survey objectForKey:@"surveyItems"];
     
     int userCount = 0;
     
     // header
-    for (NSDictionary* user in [self.event objectForKey:@"users"]) {
+    for (NSDictionary* user in [event objectForKey:@"users"]) {
         
         UILabel* userName = [[UILabel alloc] initWithFrame:CGRectMake(COLUMN1_WIDTH - (HEADER_HEIGHT-COLUMN_WIDTH)/2 + userCount*COLUMN_WIDTH, tableitery, HEADER_HEIGHT, HEADER_HEIGHT)];
         userName.font = [UIFont systemFontOfSize:11.0f];
@@ -189,7 +193,7 @@ const int HEADER_HEIGHT = 100;
     // buttons
     if (surveyState == 0) /* open survey */
     {
-        int surveyMode = [[self.survey objectForKey:@"mode"] intValue];
+        int surveyMode = [[survey objectForKey:@"mode"] intValue];
         if (surveyMode == 1) /* editable survey */
         {
             UIButton* button = [[UIButton alloc] initWithFrame:CGRectMake(0, itery, 1, 1)];
@@ -257,7 +261,7 @@ const int HEADER_HEIGHT = 100;
     int surveyItemId = [sender tag];
     NSLog(@"Button clicked: %d", surveyItemId);
     
-    NSArray* surveyItems = [self.survey objectForKey:@"surveyItems"];
+    NSArray* surveyItems = [[DGUtils app].currentSurvey objectForKey:@"surveyItems"];
     for (NSDictionary* surveyItem in surveyItems) {
         if ([[surveyItem objectForKey:@"id"] intValue] == surveyItemId) {
             [self toggleConfirmation:surveyItem forView:sender];
@@ -273,8 +277,10 @@ const int HEADER_HEIGHT = 100;
         NSLog(@"Entered: %@",newItemText);
         if ([newItemText length]>0)
         {
+            NSDictionary* survey = [DGUtils app].currentSurvey;
+
             BOOL alreadyExists = false;
-            for (NSDictionary* item in [self.survey objectForKey:@"surveyItems"])
+            for (NSDictionary* item in [survey objectForKey:@"surveyItems"])
             {
                 if ([[item objectForKey:@"name"] isEqualToString:newItemText]) {
                     alreadyExists = true;
@@ -283,7 +289,7 @@ const int HEADER_HEIGHT = 100;
             }
             if (!alreadyExists)
             {
-                NSMutableArray* currentItems = [self.survey objectForKey:@"surveyItems"];
+                NSMutableArray* currentItems = [survey objectForKey:@"surveyItems"];
                 NSMutableDictionary* newItem = [[NSMutableDictionary alloc] init];
                 [newItem setValue:[NSNumber numberWithInt:-[currentItems count]-1] forKey:@"id"]; // initialize with negative ID for toggling
                 [newItem setValue:[NSNumber numberWithInt:[[DGUtils app] userId]] forKey:@"userId"];
@@ -324,10 +330,12 @@ const int HEADER_HEIGHT = 100;
 
 - (IBAction)confirm:(id)sender
 {
+    NSDictionary* survey = [DGUtils app].currentSurvey;
+
     TLWebRequest* webRequester = [[DGUtils app] webRequester];
     webRequester.delegate = self;
     
-    NSArray* surveyItems = [self.survey objectForKey:@"surveyItems"];
+    NSArray* surveyItems = [survey objectForKey:@"surveyItems"];
     for (NSMutableDictionary* item in surveyItems)
     {
         // reset negative IDs to nil (added items)
@@ -336,11 +344,11 @@ const int HEADER_HEIGHT = 100;
     }
     
     NSError* error;
-    NSData* jsonData = [NSJSONSerialization dataWithJSONObject:self.survey 
+    NSData* jsonData = [NSJSONSerialization dataWithJSONObject:survey 
                                             options:0 error:&error];
     NSString* result = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
     
-    int surveyId = [[self.survey objectForKey:@"id"] intValue];
+    int surveyId = [[survey objectForKey:@"id"] intValue];
     NSLog(@"Trying to post: %@", result);
     [DGUtils alertWaitStart:@"Speichern. Bitte warten..."];
     [webRequester put:[NSString stringWithFormat:@"%@surveys/%d",DOOGETHA_URL,surveyId] msg:result reqid:@"confirm"];

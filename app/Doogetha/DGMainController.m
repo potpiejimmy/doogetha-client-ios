@@ -40,6 +40,12 @@
     imageView.contentMode = UIViewContentModeScaleAspectFit;
     [self.navigationItem setTitleView:imageView];
     
+    UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc] 
+                                          initWithTarget:self action:@selector(handleLongPress:)];
+    lpgr.minimumPressDuration = 1.0; //seconds
+    lpgr.delegate = self;
+    [self.eventsTable addGestureRecognizer:lpgr];
+    
     _startingSession = YES;
     _checkVersionAfterReload = YES;
     [self showReloadAnimationAnimated:NO];
@@ -86,11 +92,16 @@
 - (void)reload
 {
     DGApp* app = [DGUtils app];
-    NSLog(@"Got session key %@",app.sessionKey);
+//    NSLog(@"Got session key %@",app.sessionKey);
     app.webRequester.authorization = [NSString stringWithFormat:@"Basic %@",app.sessionKey];
     app.webRequester.delegate = self;
     [self showReloadAnimationAnimated:NO];
-    [app.webRequester get:[NSString stringWithFormat:@"%@events",DOOGETHA_URL] reqid:@"load"];
+    NSString* url;
+    if (self.tabBarController.tabBar.selectedItem.tag == 1)
+        url = @"%@events";
+    else
+        url = @"%@events?mine=true";
+    [app.webRequester get:[NSString stringWithFormat:url,DOOGETHA_URL] reqid:@"load"];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -118,6 +129,7 @@
 
 - (void)webRequestDone:(NSString*)reqid
 {
+    [self dataSourceDidFinishLoadingNewData]; // DGPullRefreshTableViewController
     if ([reqid isEqualToString:@"load"])
     {
         [self dataSourceDidFinishLoadingNewData]; // DGPullRefreshTableViewController
@@ -133,11 +145,7 @@
         self.events = [res objectForKey:@"events"];
         NSLog(@"Got %d events",[self.events count]);
     
-        for (UITabBarItem* item in self.tabBarController.tabBar.items) {
-            if (item.tag == 1) {
-                item.badgeValue = [NSString stringWithFormat:@"%d",[self.events count]];
-            }
-        }
+        self.tabBarController.tabBar.selectedItem.badgeValue = [NSString stringWithFormat:@"%d",[self.events count]];
     
         [self.eventsTable reloadData];
     
@@ -158,6 +166,10 @@
         if (![myVersion isEqualToString:serverVersion]) {
             [DGUtils alert:@"Es steht eine neue Version von Doogetha zur Verfügung.\nBitte lade diese herunter\n\nhttp://potpiejimmy.de/doogetha/\n\nund installiere sie über iTunes" withTitle:@"Doogetha Beta Program"];
         }
+    }
+    else if ([reqid isEqualToString:@"delete"])
+    {
+        [self reload];
     }
 }
 
@@ -228,10 +240,38 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    DGEventConfirmController* ecc = [self.storyboard instantiateViewControllerWithIdentifier:@"eventConfirmController"];
-    NSDictionary* selEvent = [self.events objectAtIndex:[indexPath row]];
-    ecc.event = selEvent;
-    [self.navigationController pushViewController:ecc animated:YES];
+    NSMutableDictionary* selEvent = [self.events objectAtIndex:[indexPath row]];
+    [DGUtils app].currentEvent = selEvent;
+    [self performSegueWithIdentifier:@"eventConfirmSegue" sender:self];
+}
+
+-(void)handleLongPress:(UILongPressGestureRecognizer *)gestureRecognizer
+{
+    if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
+        CGPoint p = [gestureRecognizer locationInView:self.eventsTable];
+        NSIndexPath *indexPath = [self.eventsTable indexPathForRowAtPoint:p];
+
+        if (indexPath == nil) return;
+        
+        if (self.tabBarController.tabBar.selectedItem.tag == 2)
+        {
+            NSMutableDictionary* selEvent = [self.events objectAtIndex:[indexPath row]];
+            [DGUtils app].currentEvent = selEvent;
+            [DGUtils alertYesNo:[NSString stringWithFormat:@"Möchtest du die Aktivität \"%@\" wirklich löschen?",[selEvent objectForKey:@"name"]] delegate:self];
+        }
+    }
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0) /* clicked OK */
+    {
+        NSLog(@"DELETE!!!");
+        int eventId = [[[DGUtils app].currentEvent objectForKey:@"id"] intValue];
+        DGApp* app = [DGUtils app];
+        app.webRequester.delegate = self;
+        [app.webRequester del:[NSString stringWithFormat:@"%@events/%d",DOOGETHA_URL,eventId] reqid:@"delete"];
+    }
 }
 
 - (IBAction)newButtonClicked:(id)sender {
@@ -242,6 +282,7 @@
     app.currentEvent = [[NSMutableDictionary alloc] init];
     NSDictionary* myself = [[NSMutableDictionary alloc] init];
     [myself setValue:[app userDefaultValueForKey:@"email"] forKey:@"email"];
+    [app.currentEvent setValue:myself forKey:@"owner"];
     [app.currentEvent setValue:[[NSMutableArray alloc] initWithObjects:myself, nil] forKey:@"users"];
 
     [self performSegueWithIdentifier:@"newClickedSegue" sender:self];

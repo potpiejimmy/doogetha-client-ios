@@ -45,6 +45,7 @@
 		self.tableView.contentInset = UIEdgeInsetsMake(60.0f, 0.0f, 0.0f,
                                                        0.0f);
 	}
+    [self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:NO];
 }
 
 - (void) reloadTableViewDataSource

@@ -23,6 +23,7 @@ NSString* const DOOGETHA_URL = @"https://www.potpiejimmy.de/doogetha/res/";
 @synthesize mainController = _mainController;
 @synthesize wizardNext = _wizardNext;
 @synthesize currentEvent = _currentEvent;
+@synthesize currentSurvey = _currentSurvey;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {

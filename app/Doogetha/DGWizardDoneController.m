@@ -82,9 +82,7 @@
 {
     [DGUtils alertWaitEnd];
     NSLog(@"Got result: %@", [[[DGUtils app] webRequester] resultString]);
-    [self.navigationController popViewControllerAnimated: YES];
-    [self.navigationController popViewControllerAnimated: YES];
-    [self.navigationController popViewControllerAnimated: YES];
+    [DGUtils popViewControllers:self num:3]; // pop all wizard pages
 }
 
 @end

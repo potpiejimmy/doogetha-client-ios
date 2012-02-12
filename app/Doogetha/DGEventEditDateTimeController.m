@@ -39,15 +39,26 @@
 - (void) read
 {
     NSDictionary* e = [DGUtils app].currentEvent;
-    self.datePicker.date = [NSDate dateWithTimeIntervalSince1970:[[e objectForKey:@"eventtime"] intValue]/1000];
+    long long eventtime = [[e objectForKey:@"eventtime"] longLongValue];
+    if (eventtime > 0) {
+        self.datePicker.date = [NSDate dateWithTimeIntervalSince1970:eventtime/1000];
+    }
     
     [self updateDateTimeLabel];
 }
 
-- (void) write
+- (void) write: (BOOL)useTime
 {
     NSDictionary* e = [DGUtils app].currentEvent;
-    [e setValue:[NSNumber numberWithInt:self.datePicker.date.timeIntervalSince1970*1000] forKey:@"eventtime"];
+
+    NSDateComponents* c = [DGUtils dateComponents:self.datePicker.date];
+    if (!useTime) {
+        [c setHour:0];
+        [c setMinute:0];
+        [c setSecond:0];
+    }
+    NSDate* fixedDate = [[NSCalendar currentCalendar] dateFromComponents:c];
+    [e setValue:[NSNumber numberWithLongLong:fixedDate.timeIntervalSince1970*1000] forKey:@"eventtime"];
 }
 
 #pragma mark - View lifecycle
@@ -64,7 +75,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self updateDateTimeLabel];
+    [self read];
 }
 
 
@@ -95,7 +106,21 @@
 
 - (IBAction)saveDate:(id)sender
 {
-    [self write];
+    [self write: NO];
+    [DGUtils app].wizardNext = YES; /* go to next wizard step if invoked from wizard */
+    [self dismissModalViewControllerAnimated:YES]; 
+}
+
+- (IBAction)saveDateTime:(id)sender
+{
+    [self write: YES];
+    [DGUtils app].wizardNext = YES; /* go to next wizard step if invoked from wizard */
+    [self dismissModalViewControllerAnimated:YES]; 
+}
+
+- (IBAction)saveNoTime:(id)sender
+{
+    [[DGUtils app].currentEvent removeObjectForKey:@"eventtime"];
     [DGUtils app].wizardNext = YES; /* go to next wizard step if invoked from wizard */
     [self dismissModalViewControllerAnimated:YES]; 
 }

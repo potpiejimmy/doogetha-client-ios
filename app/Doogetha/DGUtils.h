@@ -17,6 +17,7 @@
 + (UIButton*) button: (CGRect) rect withText: (NSString*) label target: (id) target action: (SEL) action;
 
 + (NSString*) dateTimeStringForMillis: (long long) millis;
++ (NSDateComponents*) dateComponents: (NSDate*) date;
 
 + (void) alert:          (NSString*) message;
 + (void) alert:          (NSString*) message   withTitle: (NSString*) title;
@@ -26,5 +27,6 @@
 
 + (void) slideView: (UIView*) view pixels: (int) pixels up: (BOOL) up;
 + (void) insertSpaceInView: (UIView*) view pixels: (int) pixels at: (int) pos;
++ (void) popViewControllers: (UIViewController*) controller num: (int)num;
 
 @end
