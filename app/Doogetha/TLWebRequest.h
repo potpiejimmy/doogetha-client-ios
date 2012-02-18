@@ -24,6 +24,9 @@
 @property (strong, nonatomic) NSString *currentReqId;
 @property (strong, nonatomic) NSString *lastError;
 @property (strong, nonatomic) NSString *authorization;
+@property (strong, nonatomic) NSURLConnection *connection;
+@property (strong, nonatomic) NSTimer* timeOutTimer;
+@property                     BOOL running;
 
 @end
 

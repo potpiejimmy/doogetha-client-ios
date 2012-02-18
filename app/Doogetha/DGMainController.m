@@ -16,6 +16,7 @@
 @implementation DGMainController
 
 @synthesize eventsTable = _eventsTable;
+@synthesize buttonNewActivity = _buttonNewActivity;
 @synthesize events = _events;
 @synthesize checkVersionAfterReload = _checkVersionAfterReload;
 
@@ -23,6 +24,14 @@
 {
     [super didReceiveMemoryWarning];
     // Release any cached data, images, etc that aren't in use.
+}
+
+- (void)setUIEnabled: (BOOL) enabled
+{
+    for (id item in self.tabBarController.tabBar.items)
+        [item setEnabled:enabled];
+    [self.view setUserInteractionEnabled:enabled];
+    [self.buttonNewActivity setEnabled:enabled];
 }
 
 #pragma mark - View lifecycle
@@ -55,6 +64,7 @@
 - (void)viewDidUnload
 {
     [self setEventsTable:nil];
+    [self setButtonNewActivity:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -69,6 +79,8 @@
 {
     [super viewDidAppear:animated];
     NSLog(@"View did appear: DGMainController");
+    
+    [self setUIEnabled:NO];
 
     if (!_startingSession)
     {
@@ -101,7 +113,9 @@
         url = @"%@events";
     else
         url = @"%@events?mine=true";
+
     [app.webRequester get:[NSString stringWithFormat:url,DOOGETHA_URL] reqid:@"load"];
+    [self setUIEnabled:NO];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -122,6 +136,7 @@
 
 - (void)webRequestFail:(NSString*)reqid
 {
+    [self setUIEnabled:YES];
     [self dataSourceDidFinishLoadingNewData]; // DGPullRefreshTableViewController
 
     [DGUtils alert:[DGUtils app].webRequester.lastError];
@@ -129,6 +144,7 @@
 
 - (void)webRequestDone:(NSString*)reqid
 {
+    [self setUIEnabled:YES];
     [self dataSourceDidFinishLoadingNewData]; // DGPullRefreshTableViewController
     if ([reqid isEqualToString:@"load"])
     {
@@ -177,6 +193,7 @@
 {
     [DGUtils app].webRequester.delegate = self;
     [[DGUtils app].webRequester get:[NSString stringWithFormat:@"%@version?os=ios",DOOGETHA_URL] reqid:@"version"];
+    [self setUIEnabled:NO];
 }
 
 + (void)setConfirmImage: (UIImageView*)imageView forState:(int)state
@@ -271,6 +288,7 @@
         DGApp* app = [DGUtils app];
         app.webRequester.delegate = self;
         [app.webRequester del:[NSString stringWithFormat:@"%@events/%d",DOOGETHA_URL,eventId] reqid:@"delete"];
+        [self setUIEnabled:NO];
     }
 }
 

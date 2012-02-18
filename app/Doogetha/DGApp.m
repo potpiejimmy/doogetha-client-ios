@@ -45,6 +45,7 @@ NSString* const DOOGETHA_URL = @"https://www.potpiejimmy.de/doogetha/res/";
 
 - (void)webRequestFail:(NSString*)reqid 
 {
+    if (self.mainController) [self.mainController dataSourceDidFinishLoadingNewData];
     [DGUtils alert:self.webRequester.lastError];
 }
 

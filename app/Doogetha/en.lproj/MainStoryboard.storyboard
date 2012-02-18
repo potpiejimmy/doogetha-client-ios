@@ -255,6 +255,7 @@ Bitte drücke auf Fortfahren, um Doogetha auf diesem Gerät einzurichten.</strin
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="buttonNewActivity" destination="txV-hb-gzj" id="1nX-4u-0tJ"/>
                         <outlet property="eventsTable" destination="bCP-j5-VLt" id="AIC-fa-o2n"/>
                         <segue destination="xuR-Qe-jIy" kind="push" identifier="eventConfirmSegue" id="ZRm-mJ-TwR"/>
                         <segue destination="hNl-L4-DJr" kind="push" identifier="newClickedSegue" id="bhh-vc-hI2"/>
@@ -719,6 +720,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="buttonNewActivity" destination="9cS-2j-CR1" id="F2f-R1-9yP"/>
                         <outlet property="eventsTable" destination="Ecu-Sy-jvJ" id="9jA-XH-QkI"/>
                         <segue destination="hNl-L4-DJr" kind="push" identifier="newClickedSegue" id="Reu-pG-r5d"/>
                         <segue destination="xuR-Qe-jIy" kind="push" identifier="eventConfirmSegue" id="Jh4-bb-yJ9"/>
@@ -933,6 +935,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
             <source key="sourceIdentifier" type="project" relativePath="./Classes/DGMainController.h"/>
             <relationships>
                 <relationship kind="action" name="newButtonClicked:"/>
+                <relationship kind="outlet" name="buttonNewActivity" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="eventsTable" candidateClass="UITableView"/>
             </relationships>
         </class>
@@ -986,7 +989,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="ZRm-mJ-TwR"/>
-        <segue reference="bhh-vc-hI2"/>
+        <segue reference="Jh4-bb-yJ9"/>
+        <segue reference="Reu-pG-r5d"/>
     </inferredMetricsTieBreakers>
 </document>
