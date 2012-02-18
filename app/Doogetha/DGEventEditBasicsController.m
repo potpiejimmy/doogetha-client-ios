@@ -106,12 +106,12 @@
     }
     
     [self write];
-    [DGUtils app].wizardNext = YES; /* go to next wizard step if invoked from wizard */
+    [DGUtils app].wizardHint = WIZARD_PROCEED_NEXT; /* go to next wizard step if invoked from wizard */
     [self dismissModalViewControllerAnimated:YES]; 
 }
 
 - (IBAction)cancel:(id)sender {
-    [self dismissModalViewControllerAnimated:YES]; 
+    [DGUtils alertYesNo:@"Änderungen verwerfen?" delegate:self];
 }
 
 - (void)textViewDidBeginEditing:(UITextView *)textView
@@ -137,5 +137,13 @@
     [self.description resignFirstResponder];
 }
 
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0) /* clicked OK */
+    {
+        [DGUtils app].wizardHint = WIZARD_PROCEED_CANCEL; /* cancel wizard if invoked from wizard */
+        [self dismissModalViewControllerAnimated:YES]; 
+    }
+}
 
 @end

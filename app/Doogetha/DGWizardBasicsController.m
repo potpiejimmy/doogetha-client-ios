@@ -41,7 +41,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [DGUtils app].wizardNext = NO;
+    [DGUtils app].wizardHint = WIZARD_PROCEED_STAY;
 }
 
 - (void)viewDidUnload
@@ -60,8 +60,13 @@
 {
     [super viewDidAppear:animated];
     
-    if ([DGUtils app].wizardNext) {
-        [self performSegueWithIdentifier:@"next" sender:self];
+    switch ([DGUtils app].wizardHint) {
+        case WIZARD_PROCEED_NEXT:
+            [self performSegueWithIdentifier:@"next" sender:self];
+            break;
+        case WIZARD_PROCEED_CANCEL:
+            [DGUtils popViewControllers:self num:1]; // pop all wizard pages
+            break;
     }
 }
 

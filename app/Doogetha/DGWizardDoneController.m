@@ -41,7 +41,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [DGUtils app].wizardNext = NO;
+    [DGUtils app].wizardHint = WIZARD_PROCEED_STAY;
 }
 
 - (void)viewDidUnload

@@ -10,6 +10,10 @@
 #import "TLWebRequest.h"
 #import "DGMainController.h"
 
+#define WIZARD_PROCEED_STAY   0
+#define WIZARD_PROCEED_NEXT   1
+#define WIZARD_PROCEED_CANCEL 2
+
 extern NSString* const DOOGETHA_URL;
 
 @interface DGApp : UIResponder <UIApplicationDelegate> {
@@ -22,7 +26,7 @@ extern NSString* const DOOGETHA_URL;
 @property (strong, nonatomic) TLWebRequest *webRequester;
 @property (strong, nonatomic) NSString *sessionKey;
 
-@property BOOL wizardNext;
+@property int wizardHint;
 
 @property (strong, nonatomic) NSMutableDictionary* currentEvent;
 @property (strong, nonatomic) NSMutableDictionary* currentSurvey;
