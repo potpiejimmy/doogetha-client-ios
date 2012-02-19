@@ -61,13 +61,13 @@
     [self read];
 }
 
-/*
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.navigationController.navigationBarHidden = YES;
+    self.navigationController.toolbarHidden = NO;
 }
-*/
 
 - (void)viewDidUnload
 {
@@ -99,6 +99,13 @@
     return [[TLUtils trim: self.name.text] length] > 0;
 }
 
+- (void)dismiss
+{
+    self.navigationController.navigationBarHidden = NO;
+    self.navigationController.toolbarHidden = YES;
+    [self.navigationController popViewControllerAnimated:NO];
+}
+
 - (IBAction)save: (id)sender {
     if (![self validateInput]) {
         [DGUtils alert:@"Bitte gib einen Namen für die Aktivität ein."];
@@ -107,7 +114,7 @@
     
     [self write];
     [DGUtils app].wizardHint = WIZARD_PROCEED_NEXT; /* go to next wizard step if invoked from wizard */
-    [self dismissModalViewControllerAnimated:YES]; 
+    [self dismiss];//[self dismissModalViewControllerAnimated:YES]; 
 }
 
 - (IBAction)cancel:(id)sender {
@@ -142,7 +149,7 @@
     if (buttonIndex == 0) /* clicked OK */
     {
         [DGUtils app].wizardHint = WIZARD_PROCEED_CANCEL; /* cancel wizard if invoked from wizard */
-        [self dismissModalViewControllerAnimated:YES]; 
+        [self dismiss];//[self dismissModalViewControllerAnimated:YES]; 
     }
 }
 

@@ -43,7 +43,9 @@
     NSLog(@"View did load: DGMainController");
     [DGUtils app].mainController = self;
 
-    [self.navigationController.navigationBar setTintColor:[UIColor colorWithRed:.0 green:.2 blue:.0 alpha:1.0]];
+    UIColor* dgColor = [UIColor colorWithRed:.0 green:.2 blue:.0 alpha:1.0];
+    [self.navigationController.navigationBar setTintColor:dgColor];
+    [self.navigationController.toolbar setTintColor:dgColor];
     UIImage *logo = [UIImage imageNamed:@"logo.png"];
     UIImageView* imageView = [[UIImageView alloc] initWithImage:logo];
     imageView.contentMode = UIViewContentModeScaleAspectFit;
@@ -299,6 +301,7 @@
     DGApp* app = [DGUtils app];
     app.currentEvent = [[NSMutableDictionary alloc] init];
     NSDictionary* myself = [[NSMutableDictionary alloc] init];
+    [myself setValue:[NSNumber numberWithInt:[app userId]] forKey:@"id"];
     [myself setValue:[app userDefaultValueForKey:@"email"] forKey:@"email"];
     [app.currentEvent setValue:myself forKey:@"owner"];
     [app.currentEvent setValue:[[NSMutableArray alloc] initWithObjects:myself, nil] forKey:@"users"];

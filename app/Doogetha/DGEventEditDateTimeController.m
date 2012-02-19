@@ -75,6 +75,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.navigationController.navigationBarHidden = YES;
+    self.navigationController.toolbarHidden = NO;
+
     [self read];
 }
 
@@ -99,39 +102,38 @@
     [self updateDateTimeLabel];
 }
 
+- (void)dismiss
+{
+    self.navigationController.navigationBarHidden = NO;
+    self.navigationController.toolbarHidden = YES;
+    [self.navigationController popViewControllerAnimated:NO];
+}
+
 - (IBAction)cancel:(id)sender
 {
-    [DGUtils alertYesNo:@"Änderungen verwerfen?" delegate:self];
+    [DGUtils app].wizardHint = WIZARD_PROCEED_STAY;
+    [self dismiss]; 
 }
 
 - (IBAction)saveDate:(id)sender
 {
     [self write: NO];
     [DGUtils app].wizardHint = WIZARD_PROCEED_NEXT; /* go to next wizard step if invoked from wizard */
-    [self dismissModalViewControllerAnimated:YES]; 
+    [self dismiss]; 
 }
 
 - (IBAction)saveDateTime:(id)sender
 {
     [self write: YES];
     [DGUtils app].wizardHint = WIZARD_PROCEED_NEXT; /* go to next wizard step if invoked from wizard */
-    [self dismissModalViewControllerAnimated:YES]; 
+    [self dismiss]; 
 }
 
 - (IBAction)saveNoTime:(id)sender
 {
     [[DGUtils app].currentEvent removeObjectForKey:@"eventtime"];
     [DGUtils app].wizardHint = WIZARD_PROCEED_NEXT; /* go to next wizard step if invoked from wizard */
-    [self dismissModalViewControllerAnimated:YES]; 
-}
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (buttonIndex == 0) /* clicked OK */
-    {
-        [DGUtils app].wizardHint = WIZARD_PROCEED_CANCEL; /* cancel wizard if invoked from wizard */
-        [self dismissModalViewControllerAnimated:YES]; 
-    }
+    [self dismiss]; 
 }
 
 @end

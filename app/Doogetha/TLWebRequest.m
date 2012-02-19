@@ -126,11 +126,6 @@
     [self getOrDelete:@"DELETE" url:url reqid:reqid];
 }
 
-- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
-{
-    [self.resultData setLength:0];
-}
-
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
 {
     [self.resultData appendData:data];
@@ -156,6 +151,26 @@
     [self runningOff];
     NSLog(@"Succeeded! Received %d bytes of data",[self.resultData length]);
     [self.delegate webRequestDone:self.currentReqId];
+}
+
+- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
+{
+    [self.resultData setLength:0];
+    if ([response respondsToSelector:@selector(statusCode)])
+    {
+        int statusCode = [((NSHTTPURLResponse *)response) statusCode];
+        if (statusCode >= 400)
+        {
+            [connection cancel];  // stop connecting; no more delegate messages
+            NSDictionary *errorInfo
+            = [NSDictionary dictionaryWithObject:[NSString stringWithFormat:
+                                                  NSLocalizedString(@"Server returned status code %d",@""),
+                                                  statusCode]
+                                          forKey:NSLocalizedDescriptionKey];
+            NSError *statusError = [NSError errorWithDomain:@"Error" code:statusCode userInfo:errorInfo];
+            [self connection:connection didFailWithError:statusError];
+        }
+    }
 }
 
 -(void)cancelByTimer

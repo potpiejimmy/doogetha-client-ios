@@ -1,15 +1,15 @@
 //
-//  DGWizardParticipantsController.m
+//  DGWizardDateTimeController.m
 //  Doogetha
 //
-//  Created by Kerstin Nicklaus on 11.02.12.
+//  Created by Kerstin Nicklaus on 19.02.12.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "DGWizardParticipantsController.h"
+#import "DGWizardDateTimeController.h"
 #import "DGUtils.h"
 
-@implementation DGWizardParticipantsController
+@implementation DGWizardDateTimeController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -65,7 +65,7 @@
             [self performSegueWithIdentifier:@"next" sender:self];
             break;
         case WIZARD_PROCEED_CANCEL:
-            [DGUtils popViewControllers:self num:3]; // pop all wizard pages
+            [DGUtils popViewControllers:self num:2]; // pop all wizard pages
             break;
     }
 }

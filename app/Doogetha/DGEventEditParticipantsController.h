@@ -1,0 +1,19 @@
+//
+//  DGEventEditParticipantsController.h
+//  Doogetha
+//
+//  Created by Kerstin Nicklaus on 19.02.12.
+//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+#import <AddressBookUI/AddressBookUI.h>
+
+@interface DGEventEditParticipantsController : UITableViewController<ABPeoplePickerNavigationControllerDelegate>
+- (IBAction)save:(id)sender;
+- (IBAction)addManual:(id)sender;
+- (IBAction)addAddressBook:(id)sender;
+@property (weak, nonatomic) IBOutlet UITableView *participantsTable;
+@property (strong, nonatomic) NSString* checkingMail;
+
+@end
