@@ -209,27 +209,32 @@
     [DGUtils alertWaitStart:@"Adresse wird überprüft..."];
 }
 
+- (void)checkNewParticipant:(NSString*)mail
+{
+    if ([mail length]>0)
+    {
+        NSDictionary* event = [DGUtils app].currentEvent;
+        
+        for (NSDictionary* item in [event objectForKey:@"users"])
+        {
+            if ([[item objectForKey:@"email"] caseInsensitiveCompare:mail] == NSOrderedSame) {
+                [DGUtils alert:@"Der Teilnehmer ist bereits hinzugefügt"];
+                return;
+            }
+        }
+        
+        // check mail address:
+        [self checkMail:mail];
+    }
+}
+
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == 0) /* clicked OK */
     {
         NSString* newItemText = [TLUtils trim:[[alertView textFieldAtIndex:0] text]];
         NSLog(@"Entered: %@",newItemText);
-        if ([newItemText length]>0)
-        {
-            NSDictionary* event = [DGUtils app].currentEvent;
-            
-            for (NSDictionary* item in [event objectForKey:@"users"])
-            {
-                if ([[item objectForKey:@"email"] caseInsensitiveCompare:newItemText] == NSOrderedSame) {
-                    [DGUtils alert:@"Der Teilnehmer ist bereits hinzugefügt"];
-                    return;
-                }
-            }
-            
-            // check mail address:
-            [self checkMail:newItemText];
-        }
+        [self checkNewParticipant:newItemText];
     }
 }
 
@@ -272,7 +277,7 @@
 	NSString *mail = (__bridge_transfer NSString*)ABMultiValueCopyValueAtIndex(mailProperty,identifier);
     [peoplePicker dismissModalViewControllerAnimated:YES];
     // check mail address:
-    [self checkMail:mail];
+    [self checkNewParticipant:mail];
     return NO;
 }
 

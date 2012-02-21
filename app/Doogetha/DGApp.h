@@ -31,9 +31,12 @@ extern NSString* const DOOGETHA_URL;
 @property (strong, nonatomic) NSMutableDictionary* currentEvent;
 @property (strong, nonatomic) NSMutableDictionary* currentSurvey;
 
-@property (weak, nonatomic) DGMainController *mainController;
+@property (strong, nonatomic) DGMainController *mainController;
+@property (strong, nonatomic) DGMainController *mainControllerMyActs;
 
 @property (strong, nonatomic) id sessionCallback;
+
+@property BOOL gotSession;
 
 -(NSString*)authToken;
 -(int)userId;
@@ -45,6 +48,8 @@ extern NSString* const DOOGETHA_URL;
 
 -(NSString*)userDefaultValueForKey:(NSString*)key;
 -(void)setUserDefaultValue:(NSString*)value forKey:(NSString*)key;
+
+-(void)refreshActivities;
 
 @end
 

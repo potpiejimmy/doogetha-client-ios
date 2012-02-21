@@ -19,6 +19,7 @@
 @synthesize buttonNewActivity = _buttonNewActivity;
 @synthesize events = _events;
 @synthesize checkVersionAfterReload = _checkVersionAfterReload;
+@synthesize refreshNeeded = _refreshNeeded;
 
 - (void)didReceiveMemoryWarning
 {
@@ -41,8 +42,11 @@
     [super viewDidLoad];
 
     NSLog(@"View did load: DGMainController");
-    [DGUtils app].mainController = self;
-
+    if (self.tabBarController.tabBar.selectedItem.tag == 1)
+        [DGUtils app].mainController = self; // set main controller
+    else if (self.tabBarController.tabBar.selectedItem.tag == 2)
+        [DGUtils app].mainControllerMyActs = self; // set main controller for my activities
+    
     UIColor* dgColor = [UIColor colorWithRed:.0 green:.2 blue:.0 alpha:1.0];
     [self.navigationController.navigationBar setTintColor:dgColor];
     [self.navigationController.toolbar setTintColor:dgColor];
@@ -56,11 +60,8 @@
     lpgr.minimumPressDuration = 1.0; //seconds
     lpgr.delegate = self;
     [self.eventsTable addGestureRecognizer:lpgr];
-    
-    _startingSession = YES;
-    _checkVersionAfterReload = YES;
-    [self showReloadAnimationAnimated:NO];
-    [[DGUtils app] startSession:self];
+
+    _refreshNeeded = [[DGUtils app] gotSession];
 }
 
 - (void)viewDidUnload
@@ -82,20 +83,10 @@
     [super viewDidAppear:animated];
     NSLog(@"View did appear: DGMainController");
     
-    [self setUIEnabled:NO];
-
-    if (!_startingSession)
-    {
+    if (_refreshNeeded) {
         _checkVersionAfterReload = NO;
         [self reload];
     }
-}
-
--(void)sessionCreated
-{
-    _startingSession = NO;
-    _checkVersionAfterReload = YES;
-    [self reload];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)theTextField {
@@ -105,6 +96,8 @@
 
 - (void)reload
 {
+    if (self.tabBarController.tabBar.selectedItem.tag > 2) return;
+    
     DGApp* app = [DGUtils app];
 //    NSLog(@"Got session key %@",app.sessionKey);
     app.webRequester.authorization = [NSString stringWithFormat:@"Basic %@",app.sessionKey];
@@ -113,7 +106,7 @@
     NSString* url;
     if (self.tabBarController.tabBar.selectedItem.tag == 1)
         url = @"%@events";
-    else
+    else if (self.tabBarController.tabBar.selectedItem.tag == 2)
         url = @"%@events?mine=true";
 
     [app.webRequester get:[NSString stringWithFormat:url,DOOGETHA_URL] reqid:@"load"];
@@ -150,6 +143,7 @@
     [self dataSourceDidFinishLoadingNewData]; // DGPullRefreshTableViewController
     if ([reqid isEqualToString:@"load"])
     {
+        _refreshNeeded = NO;
         [self dataSourceDidFinishLoadingNewData]; // DGPullRefreshTableViewController
 
         NSData* result = [[DGUtils app].webRequester resultData];

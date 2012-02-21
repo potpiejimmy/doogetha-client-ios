@@ -364,6 +364,7 @@ const int HEADER_HEIGHT = 100;
 {
     [DGUtils alertWaitEnd];
     NSLog(@"Got result: %@", [[[DGUtils app] webRequester] resultString]);
+    [[DGUtils app] refreshActivities];
     [self.navigationController popViewControllerAnimated: YES];
 }
 

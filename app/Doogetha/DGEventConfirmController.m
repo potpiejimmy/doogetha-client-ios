@@ -258,6 +258,7 @@
 {
     [DGUtils alertWaitEnd];
     NSLog(@"Got result: %@", [[[DGUtils app] webRequester] resultString]);
+    [[DGUtils app] refreshActivities];
     [self.navigationController popViewControllerAnimated: YES];
 }
 

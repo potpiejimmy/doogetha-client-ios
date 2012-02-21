@@ -21,9 +21,11 @@ NSString* const DOOGETHA_URL = @"https://www.potpiejimmy.de/doogetha/res/";
 @synthesize sessionKey = _sessionKey;
 @synthesize sessionCallback = _sessionCallback;
 @synthesize mainController = _mainController;
+@synthesize mainControllerMyActs = _mainControllerMyActs;
 @synthesize wizardHint = _wizardHint;
 @synthesize currentEvent = _currentEvent;
 @synthesize currentSurvey = _currentSurvey;
+@synthesize gotSession = _gotSession;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -39,6 +41,7 @@ NSString* const DOOGETHA_URL = @"https://www.potpiejimmy.de/doogetha/res/";
     }
     [self.window makeKeyAndVisible];
     _inBackground = NO;
+    _gotSession = NO;
 
     return YES;
 }
@@ -64,6 +67,15 @@ NSString* const DOOGETHA_URL = @"https://www.potpiejimmy.de/doogetha/res/";
     self.sessionCallback = sessionCallback;
     self.webRequester.delegate = self;
     [self.webRequester post:[NSString stringWithFormat:@"%@login",DOOGETHA_URL] msg:[self authToken] reqid:@"session"];
+}
+
+-(void)sessionCreated
+{
+    _gotSession = YES;
+    if (self.mainController) {
+        [self.mainController setCheckVersionAfterReload:YES];
+        [self.mainController reload];
+    }
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
@@ -95,12 +107,19 @@ NSString* const DOOGETHA_URL = @"https://www.potpiejimmy.de/doogetha/res/";
     /*
      Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
      */
+    
     if (_inBackground) {
         if (self.mainController) {
-            self.mainController.checkVersionAfterReload = YES;
-            [self.mainController reload];
+            [self.mainController setCheckVersionAfterReload:YES];
         }
         _inBackground = NO;
+    } else {
+        // start a session:
+        if (self.mainController) {
+            [self.mainController setUIEnabled:NO];
+            [self.mainController showReloadAnimationAnimated:NO];
+            [self startSession:self];
+        }
     }
 }
 
@@ -111,6 +130,12 @@ NSString* const DOOGETHA_URL = @"https://www.potpiejimmy.de/doogetha/res/";
      Save data if appropriate.
      See also applicationDidEnterBackground:.
      */
+}
+
+-(void)refreshActivities
+{
+    if (self.mainController) self.mainController.refreshNeeded = YES;
+    if (self.mainControllerMyActs) self.mainControllerMyActs.refreshNeeded = YES;
 }
 
 -(void)register:(NSString *)authToken
@@ -128,6 +153,7 @@ NSString* const DOOGETHA_URL = @"https://www.potpiejimmy.de/doogetha/res/";
     [TLKeychain deleteStringForKey:@"authToken"];
     // also remove current session key
     self.sessionKey = nil;
+    _gotSession = NO;
 }
 
 -(NSString*)userDefaultValueForKey:(NSString*)key

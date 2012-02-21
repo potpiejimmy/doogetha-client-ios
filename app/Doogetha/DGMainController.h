@@ -11,7 +11,6 @@
 #import "TLWebRequest.h"
 
 @interface DGMainController : DGPullRefreshTableViewController<UITableViewDelegate,UITableViewDataSource,UIGestureRecognizerDelegate> {
-    @private BOOL _startingSession;
 }
 
 -(void)reload;
@@ -21,9 +20,11 @@
 
 @property (strong, nonatomic) NSArray *events;
 @property BOOL checkVersionAfterReload;
+@property BOOL refreshNeeded;
 
 - (IBAction)newButtonClicked:(id)sender;
 
+- (void) setUIEnabled: (BOOL) enabled;
 - (void) reload:(id)sender;
 - (void) checkVersion;
 

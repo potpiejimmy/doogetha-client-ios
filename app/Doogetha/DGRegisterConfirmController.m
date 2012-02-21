@@ -104,6 +104,10 @@
 //    NSLog(@"Real Credentials: %@", credentials);
         
     [app register:credentials];
+    
+    // start session:
+    [app startSession:app];
+    
     [self performSegueWithIdentifier:@"startSegue" sender:self];
 }
 
