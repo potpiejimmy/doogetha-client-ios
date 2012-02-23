@@ -17,7 +17,7 @@
 extern NSString* const DOOGETHA_URL;
 
 @interface DGApp : UIResponder <UIApplicationDelegate> {
-    @private BOOL _inBackground;
+    @private BOOL _inactive;
 }
 
 @property (strong, nonatomic) UIWindow *window;

@@ -181,6 +181,7 @@
     }
     else if ([reqid isEqualToString:@"delete"])
     {
+        [[DGUtils app] refreshActivities];
         [self reload];
     }
 }

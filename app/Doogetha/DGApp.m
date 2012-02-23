@@ -40,7 +40,7 @@ NSString* const DOOGETHA_URL = @"https://www.potpiejimmy.de/doogetha/res/";
         self.window.rootViewController = [board instantiateViewControllerWithIdentifier:@"welcomeController"];
     }
     [self.window makeKeyAndVisible];
-    _inBackground = NO;
+    _inactive = NO;
     _gotSession = NO;
 
     return YES;
@@ -49,7 +49,9 @@ NSString* const DOOGETHA_URL = @"https://www.potpiejimmy.de/doogetha/res/";
 - (void)webRequestFail:(NSString*)reqid 
 {
     if (self.mainController) [self.mainController dataSourceDidFinishLoadingNewData];
-    [DGUtils alert:self.webRequester.lastError];
+//    [DGUtils alert:self.webRequester.lastError];
+    
+    [DGUtils alert:@"Die Verbindung zum Internet konnte nicht hergestellt werden." withTitle:@"Doogetha" andButtonText:@"Erneut versuchen" delegate:self];
 }
 
 - (void)webRequestDone:(NSString*)reqid 
@@ -59,6 +61,13 @@ NSString* const DOOGETHA_URL = @"https://www.potpiejimmy.de/doogetha/res/";
     //NSLog(@"Session key: Basic %@",sessionKey);
     self.sessionKey = [TLUtils encodeBase64WithString:sessionKey];
     [self.sessionCallback sessionCreated];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    // Starting session failed: "Erneut versuchen"
+    [self.mainController showReloadAnimationAnimated:NO];
+    [self startSession:self];
 }
 
 -(void)startSession:(id)sessionCallback
@@ -84,6 +93,7 @@ NSString* const DOOGETHA_URL = @"https://www.potpiejimmy.de/doogetha/res/";
      Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
      Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
      */
+    _inactive = YES;
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
@@ -92,7 +102,6 @@ NSString* const DOOGETHA_URL = @"https://www.potpiejimmy.de/doogetha/res/";
      Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
      If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
      */
-    _inBackground = YES;
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
@@ -108,13 +117,13 @@ NSString* const DOOGETHA_URL = @"https://www.potpiejimmy.de/doogetha/res/";
      Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
      */
     
-    if (_inBackground) {
-        if (self.mainController) {
-            [self.mainController setCheckVersionAfterReload:YES];
-        }
-        _inBackground = NO;
+    if (_inactive) {
+        // entered foreground: trigger a refresh
+        if (self.mainController) [self.mainController setCheckVersionAfterReload:YES];
+        [self refreshActivities];
+        _inactive = NO;
     } else {
-        // start a session:
+        // application startup: start a session:
         if (self.mainController) {
             [self.mainController setUIEnabled:NO];
             [self.mainController showReloadAnimationAnimated:NO];

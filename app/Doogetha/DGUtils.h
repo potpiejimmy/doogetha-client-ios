@@ -21,6 +21,8 @@
 
 + (void) alert:          (NSString*) message;
 + (void) alert:          (NSString*) message   withTitle: (NSString*) title;
++ (void) alert:          (NSString*) message   withTitle: (NSString*) title andButtonText: (NSString*) buttonText;
++ (void) alert:          (NSString*) message   withTitle: (NSString*) title andButtonText: (NSString*) buttonText delegate: (id) delegate;
 + (void) alertYesNo:     (NSString*) message   delegate: (id) delegate;
 + (void) alertWaitStart: (NSString*) message;
 + (void) alertWaitEnd;

@@ -65,15 +65,25 @@ UIAlertView* _currentAlert;
 
 + (void) alert:          (NSString*) message
 {
-    [self alert:message withTitle:nil];
+    [self alert:message withTitle:nil   andButtonText:nil];
 }
 
 + (void) alert:          (NSString*) message   withTitle: (NSString*) title
 {
+    [self alert:message withTitle:title andButtonText:nil];
+}
+
++ (void) alert:          (NSString*) message   withTitle: (NSString*) title andButtonText: (NSString*) buttonText
+{
+    [self alert:message withTitle:title andButtonText:nil delegate:nil];
+}
+
++ (void) alert:          (NSString*) message   withTitle: (NSString*) title andButtonText: (NSString*) buttonText delegate: (id) delegate
+{
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title 
                                               message:message
-                                              delegate:nil 
-                                              cancelButtonTitle:@"OK"
+                                              delegate:delegate 
+                                              cancelButtonTitle:buttonText ? buttonText : @"OK"
                                               otherButtonTitles:nil];
     [alert show];
 }
