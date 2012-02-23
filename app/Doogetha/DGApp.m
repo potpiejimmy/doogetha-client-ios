@@ -16,7 +16,6 @@ NSString* const DOOGETHA_URL = @"https://www.potpiejimmy.de/doogetha/res/";
 @implementation DGApp
 
 @synthesize window = _window;
-@synthesize loginToken = _loginToken;
 @synthesize webRequester = _webRequester;
 @synthesize sessionKey = _sessionKey;
 @synthesize sessionCallback = _sessionCallback;
@@ -174,8 +173,21 @@ NSString* const DOOGETHA_URL = @"https://www.potpiejimmy.de/doogetha/res/";
 -(void)setUserDefaultValue:(NSString*)value forKey:(NSString*)key
 {
     NSUserDefaults *settings = [NSUserDefaults standardUserDefaults];
-    [settings setObject : value forKey : key];
+    if (value)
+        [settings setObject : value forKey : key];
+    else
+        [settings removeObjectForKey: key];
     [settings synchronize];
+}
+
+-(NSString*)loginToken
+{
+    return [self userDefaultValueForKey:@"loginToken"];
+}
+
+-(void)setLoginToken:(NSString*)loginToken
+{
+    [self setUserDefaultValue:loginToken forKey:@"loginToken"];
 }
 
 -(int)userId

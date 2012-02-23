@@ -22,7 +22,6 @@ extern NSString* const DOOGETHA_URL;
 
 @property (strong, nonatomic) UIWindow *window;
 
-@property (strong, nonatomic) NSString *loginToken;
 @property (strong, nonatomic) TLWebRequest *webRequester;
 @property (strong, nonatomic) NSString *sessionKey;
 
@@ -48,6 +47,9 @@ extern NSString* const DOOGETHA_URL;
 
 -(NSString*)userDefaultValueForKey:(NSString*)key;
 -(void)setUserDefaultValue:(NSString*)value forKey:(NSString*)key;
+
+-(NSString*)loginToken;
+-(void)setLoginToken:(NSString*)loginToken;
 
 -(void)refreshActivities;
 

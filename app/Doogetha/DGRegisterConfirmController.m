@@ -65,12 +65,29 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+- (void)displayLoginFailed
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil 
+                                                    message:@"Das Login war nicht erfolgreich. Bitte überprüfe, ob du die E-Mail-Bestätigung korrekt ausgeführt hast."
+                                                   delegate:self 
+                                          cancelButtonTitle:@"OK"
+                                          otherButtonTitles:@"Neustart",nil];
+    [alert show];
+}
 
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1) /* clicked retry registration */
+    {
+        [DGUtils app].loginToken = nil;
+        [self performSegueWithIdentifier:@"cancelSegue" sender:self];
+    }
+}
 
 - (void)webRequestFail:(NSString*)reqid
 {
     [DGUtils alertWaitEnd];
-    [DGUtils alert:[DGUtils app].webRequester.lastError];
+    [self displayLoginFailed];
 }
 
 - (void)webRequestDone:(NSString*)reqid
@@ -87,7 +104,7 @@
     
     if ([credentials length] > 48 ||
         [credentials rangeOfString:@":"].location <= 0) {
-        [DGUtils alert:@"Das Login war nicht erfolgreich. Bitte überprüfe, ob du die Bestätigung korrekt ausgeführt hast."];
+        [self displayLoginFailed];
         return;
     }
     

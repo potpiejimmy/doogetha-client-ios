@@ -14,6 +14,7 @@
 		A50A727314A3CDB800CE4CEB /* title.png in Resources */ = {isa = PBXBuildFile; fileRef = A50A727214A3CDB800CE4CEB /* title.png */; };
 		A50A727614A3DF8400CE4CEB /* dot-green.png in Resources */ = {isa = PBXBuildFile; fileRef = A50A727514A3DF8400CE4CEB /* dot-green.png */; };
 		A51E279E14A0FB3900F10CAB /* refresh.png in Resources */ = {isa = PBXBuildFile; fileRef = A51E279D14A0FB3900F10CAB /* refresh.png */; };
+		A52230B214F6CC26001CE6E4 /* DGWelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A52230B114F6CC26001CE6E4 /* DGWelcomeViewController.m */; };
 		A5465B0914E6D02A00886694 /* DGWizardBasicsController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5465B0814E6D02A00886694 /* DGWizardBasicsController.m */; };
 		A5465B0D14E6D11900886694 /* DGEventEditBasicsController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5465B0C14E6D11900886694 /* DGEventEditBasicsController.m */; };
 		A5465B1014E6D5D100886694 /* DGWizardParticipantsController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5465B0F14E6D5D100886694 /* DGWizardParticipantsController.m */; };
@@ -82,6 +83,8 @@
 		A50A727214A3CDB800CE4CEB /* title.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = title.png; sourceTree = "<group>"; };
 		A50A727514A3DF8400CE4CEB /* dot-green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dot-green.png"; sourceTree = "<group>"; };
 		A51E279D14A0FB3900F10CAB /* refresh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = refresh.png; sourceTree = "<group>"; };
+		A52230B014F6CC26001CE6E4 /* DGWelcomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DGWelcomeViewController.h; sourceTree = "<group>"; };
+		A52230B114F6CC26001CE6E4 /* DGWelcomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DGWelcomeViewController.m; sourceTree = "<group>"; };
 		A5465B0714E6D02A00886694 /* DGWizardBasicsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DGWizardBasicsController.h; sourceTree = "<group>"; };
 		A5465B0814E6D02A00886694 /* DGWizardBasicsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DGWizardBasicsController.m; sourceTree = "<group>"; };
 		A5465B0B14E6D11900886694 /* DGEventEditBasicsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DGEventEditBasicsController.h; sourceTree = "<group>"; };
@@ -222,6 +225,8 @@
 				A591DAEA149A6DB20077DF83 /* MainStoryboard.storyboard */,
 				A591DAED149A6DB20077DF83 /* DGMainController.h */,
 				A591DAEE149A6DB20077DF83 /* DGMainController.m */,
+				A52230B014F6CC26001CE6E4 /* DGWelcomeViewController.h */,
+				A52230B114F6CC26001CE6E4 /* DGWelcomeViewController.m */,
 				A5C7812C149A6FB100BA93F3 /* DGRegisterController.h */,
 				A5C7812D149A6FB100BA93F3 /* DGRegisterController.m */,
 				A506463314D496FB00BA9113 /* DGRegisterConfirmController.h */,
@@ -427,6 +432,7 @@
 				A5B88D7814F15066005773BB /* DGWizardDateTimeController.m in Sources */,
 				A5B88D7C14F1528F005773BB /* DGEventEditParticipantsController.m in Sources */,
 				A5B88D7F14F15EF8005773BB /* DGNonAnimatedPushSegue.m in Sources */,
+				A52230B214F6CC26001CE6E4 /* DGWelcomeViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
