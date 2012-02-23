@@ -15,6 +15,7 @@
 		A50A727614A3DF8400CE4CEB /* dot-green.png in Resources */ = {isa = PBXBuildFile; fileRef = A50A727514A3DF8400CE4CEB /* dot-green.png */; };
 		A51E279E14A0FB3900F10CAB /* refresh.png in Resources */ = {isa = PBXBuildFile; fileRef = A51E279D14A0FB3900F10CAB /* refresh.png */; };
 		A52230B214F6CC26001CE6E4 /* DGWelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A52230B114F6CC26001CE6E4 /* DGWelcomeViewController.m */; };
+		A52230B614F6D63E001CE6E4 /* DGWizardSurveysController.m in Sources */ = {isa = PBXBuildFile; fileRef = A52230B514F6D63E001CE6E4 /* DGWizardSurveysController.m */; };
 		A5465B0914E6D02A00886694 /* DGWizardBasicsController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5465B0814E6D02A00886694 /* DGWizardBasicsController.m */; };
 		A5465B0D14E6D11900886694 /* DGEventEditBasicsController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5465B0C14E6D11900886694 /* DGEventEditBasicsController.m */; };
 		A5465B1014E6D5D100886694 /* DGWizardParticipantsController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5465B0F14E6D5D100886694 /* DGWizardParticipantsController.m */; };
@@ -85,6 +86,8 @@
 		A51E279D14A0FB3900F10CAB /* refresh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = refresh.png; sourceTree = "<group>"; };
 		A52230B014F6CC26001CE6E4 /* DGWelcomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DGWelcomeViewController.h; sourceTree = "<group>"; };
 		A52230B114F6CC26001CE6E4 /* DGWelcomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DGWelcomeViewController.m; sourceTree = "<group>"; };
+		A52230B414F6D63E001CE6E4 /* DGWizardSurveysController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DGWizardSurveysController.h; sourceTree = "<group>"; };
+		A52230B514F6D63E001CE6E4 /* DGWizardSurveysController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DGWizardSurveysController.m; sourceTree = "<group>"; };
 		A5465B0714E6D02A00886694 /* DGWizardBasicsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DGWizardBasicsController.h; sourceTree = "<group>"; };
 		A5465B0814E6D02A00886694 /* DGWizardBasicsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DGWizardBasicsController.m; sourceTree = "<group>"; };
 		A5465B0B14E6D11900886694 /* DGEventEditBasicsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DGEventEditBasicsController.h; sourceTree = "<group>"; };
@@ -259,6 +262,8 @@
 				A5B88D7714F15066005773BB /* DGWizardDateTimeController.m */,
 				A5465B0E14E6D5D100886694 /* DGWizardParticipantsController.h */,
 				A5465B0F14E6D5D100886694 /* DGWizardParticipantsController.m */,
+				A52230B414F6D63E001CE6E4 /* DGWizardSurveysController.h */,
+				A52230B514F6D63E001CE6E4 /* DGWizardSurveysController.m */,
 				A5465B1414E7044F00886694 /* DGWizardDoneController.h */,
 				A5465B1514E7044F00886694 /* DGWizardDoneController.m */,
 				A5B88D7D14F15EF7005773BB /* DGNonAnimatedPushSegue.h */,
@@ -433,6 +438,7 @@
 				A5B88D7C14F1528F005773BB /* DGEventEditParticipantsController.m in Sources */,
 				A5B88D7F14F15EF8005773BB /* DGNonAnimatedPushSegue.m in Sources */,
 				A52230B214F6CC26001CE6E4 /* DGWelcomeViewController.m in Sources */,
+				A52230B614F6D63E001CE6E4 /* DGWizardSurveysController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

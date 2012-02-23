@@ -83,7 +83,7 @@
     [DGUtils alertWaitEnd];
     NSLog(@"Got result: %@", [[[DGUtils app] webRequester] resultString]);
     [[DGUtils app] refreshActivities];
-    [DGUtils popViewControllers:self num:4]; // pop all wizard pages
+    [DGUtils popViewControllers:self num:5]; // pop all wizard pages
 }
 
 @end
