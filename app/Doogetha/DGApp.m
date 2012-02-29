@@ -50,7 +50,7 @@ NSString* const DOOGETHA_URL = @"https://www.potpiejimmy.de/doogetha/res/";
     if (self.mainController) [self.mainController dataSourceDidFinishLoadingNewData];
 //    [DGUtils alert:self.webRequester.lastError];
     
-    [DGUtils alert:@"Die Verbindung zum Internet konnte nicht hergestellt werden." withTitle:@"Doogetha" andButtonText:@"Erneut versuchen" delegate:self];
+    [DGUtils alert:@"Die Verbindung zum Server konnte nicht hergestellt werden." withTitle:@"Doogetha" andButtonText:@"Erneut versuchen" delegate:self];
 }
 
 - (void)webRequestDone:(NSString*)reqid 

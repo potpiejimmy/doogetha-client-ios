@@ -10,8 +10,11 @@
 #import "DGUtils.h"
 
 @implementation DGEventEditDateTimeController
-@synthesize datePicker;
-@synthesize dateTimeLabel;
+@synthesize timePicker = _timePicker;
+@synthesize datePicker = _datePicker;
+@synthesize dateTimeLabel = _dateTimeLabel;
+@synthesize timeSelected = _timeSelected;
+@synthesize dateTimeSwitch = _dateTimeSwitch;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -42,6 +45,7 @@
     long long eventtime = [[e objectForKey:@"eventtime"] longLongValue];
     if (eventtime > 0) {
         self.datePicker.date = [NSDate dateWithTimeIntervalSince1970:eventtime/1000];
+        self.timePicker.date = [NSDate dateWithTimeIntervalSince1970:eventtime/1000];
     }
     
     [self updateDateTimeLabel];
@@ -78,6 +82,8 @@
     self.navigationController.navigationBarHidden = YES;
     self.navigationController.toolbarHidden = NO;
 
+    [self.dateTimeSwitch setTintColor:self.navigationController.toolbar.tintColor];
+    
     [self read];
 }
 
@@ -86,6 +92,8 @@
 {
     [self setDateTimeLabel:nil];
     [self setDatePicker:nil];
+    [self setTimePicker:nil];
+    [self setDateTimeSwitch:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -99,6 +107,17 @@
 
 - (IBAction)datePickerValueChanged:(id)sender 
 {
+    [self updateDateTimeLabel];
+}
+
+- (IBAction)timePickerValueChanged:(id)sender
+{
+    NSDateComponents* cd = [DGUtils dateComponents:self.datePicker.date];
+    NSDateComponents* ct = [DGUtils dateComponents:self.timePicker.date];
+    [cd setHour:  ct.hour];
+    [cd setMinute:ct.minute];
+    [cd setSecond:ct.second];
+    self.datePicker.date = [[NSCalendar currentCalendar] dateFromComponents:cd];
     [self updateDateTimeLabel];
 }
 
@@ -134,6 +153,13 @@
     [[DGUtils app].currentEvent removeObjectForKey:@"eventtime"];
     [DGUtils app].wizardHint = WIZARD_PROCEED_NEXT; /* go to next wizard step if invoked from wizard */
     [self dismiss]; 
+}
+
+- (IBAction)dateTimeSwitched:(id)sender
+{
+    self.timeSelected ^= YES;
+    self.datePicker.hidden = self.timeSelected;
+    self.timePicker.hidden = !self.timeSelected;
 }
 
 @end

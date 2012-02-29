@@ -10,7 +10,7 @@
 
 @interface DGContactsUtils : NSObject
 
-+ (NSString*) fillUserInfo: (NSDictionary*) userVo;
++ (void) fillUserInfo: (NSDictionary*) userVo;
 + (NSString*) userDisplayName: (NSDictionary*) userVo;
 
 @end

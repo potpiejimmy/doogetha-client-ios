@@ -12,35 +12,40 @@
 
 @implementation DGContactsUtils
 
-+ (NSString*) fillUserInfo: (NSMutableDictionary*) userVo
++ (void) fillUserInfo: (NSMutableDictionary*) userVo
 {
-    NSString* searchString = [userVo objectForKey:@"email"];
+    @try {
+        NSString* searchString = [userVo objectForKey:@"email"];
     
-    NSArray *all = (__bridge NSArray*)ABAddressBookCopyArrayOfAllPeople(ABAddressBookCreate());
+        NSArray *all = (__bridge NSArray*)ABAddressBookCopyArrayOfAllPeople(ABAddressBookCreate());
 
-    for (int i=0; i< [all count]; i++)
-    {
-        ABRecordRef person = (__bridge ABRecordRef) [all objectAtIndex:i];
-
-        ABMutableMultiValueRef emails = ABRecordCopyValue(person, kABPersonEmailProperty);
-        CFIndex emailsCount = ABMultiValueGetCount(emails);
-        
-        for (int k=0; k<emailsCount; k++)
+        for (int i=0; i< [all count]; i++)
         {
-            NSString* emailValue = (__bridge NSString*) ABMultiValueCopyValueAtIndex(emails, k);
-            if ([searchString isEqualToString:emailValue]) {
-                NSString* firstName = (__bridge NSString*)ABRecordCopyValue(person, kABPersonFirstNameProperty);
-                NSString* lastName = (__bridge NSString*)ABRecordCopyValue(person, kABPersonLastNameProperty);
+            ABRecordRef person = (__bridge ABRecordRef) [all objectAtIndex:i];
+
+            ABMutableMultiValueRef emails = ABRecordCopyValue(person, kABPersonEmailProperty);
+            CFIndex emailsCount = ABMultiValueGetCount(emails);
+        
+            for (int k=0; k<emailsCount; k++)
+            {
+                NSString* emailValue = (__bridge NSString*) ABMultiValueCopyValueAtIndex(emails, k);
+                if ([searchString isEqualToString:emailValue]) {
+                    NSString* firstName = (__bridge NSString*)ABRecordCopyValue(person, kABPersonFirstNameProperty);
+                    NSString* lastName = (__bridge NSString*)ABRecordCopyValue(person, kABPersonLastNameProperty);
                 
-                NSLog(@"FOUND %@ = %@ %@", searchString, firstName, lastName);
+                    NSLog(@"FOUND %@ = %@ %@", searchString, firstName, lastName);
                 
-                [userVo setObject:firstName forKey:@"firstname"];
-                [userVo setObject:lastName forKey:@"lastname"];
+                    [userVo setObject:[NSString stringWithFormat:@"%@",firstName] forKey:@"firstname"];
+                    [userVo setObject:[NSString stringWithFormat:@"%@",lastName] forKey:@"lastname"];
+                    return;
+                }
             }
         }
     }
-    
-    return nil;
+    @catch (NSException *exception) {
+    }
+    @finally {
+    }
 }
 
 + (NSString*) userDisplayName: (NSDictionary*) userVo
