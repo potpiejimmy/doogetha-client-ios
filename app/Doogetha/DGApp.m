@@ -50,7 +50,12 @@ NSString* const DOOGETHA_URL = @"https://www.potpiejimmy.de/doogetha/res/";
     if (self.mainController) [self.mainController dataSourceDidFinishLoadingNewData];
 //    [DGUtils alert:self.webRequester.lastError];
     
-    [DGUtils alert:@"Die Verbindung zum Server konnte nicht hergestellt werden." withTitle:@"Doogetha" andButtonText:@"Erneut versuchen" delegate:self];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Doogetha" 
+                                                    message:@"Die Verbindung zum Server konnte nicht hergestellt werden."
+                                                   delegate:self 
+                                          cancelButtonTitle:@"Wiederholen"
+                                          otherButtonTitles:@"Zurücksetzen", nil];
+    [alert show];
 }
 
 - (void)webRequestDone:(NSString*)reqid 
@@ -64,9 +69,17 @@ NSString* const DOOGETHA_URL = @"https://www.potpiejimmy.de/doogetha/res/";
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    // Starting session failed: "Erneut versuchen"
-    [self.mainController showReloadAnimationAnimated:NO];
-    [self startSession:self];
+    if (buttonIndex == 0) {
+        // Starting session failed: "Wiederholen"
+        [self.mainController showReloadAnimationAnimated:NO];
+        [self startSession:self];
+    } else if (buttonIndex == 1) {
+        // Starting session failed: "Zuruecksetzen"
+        [self unregister];
+        UIStoryboard *board = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
+        self.window.rootViewController = [board instantiateViewControllerWithIdentifier:@"welcomeController"];
+        [self.window makeKeyAndVisible];
+    }
 }
 
 -(void)startSession:(id)sessionCallback
