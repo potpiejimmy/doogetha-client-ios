@@ -90,7 +90,7 @@ const int HEADER_HEIGHT = 100;
     
     currentY += 10;
     
-    UILabel* itemLabel = [DGUtils label:CGRectMake(0, currentY, COLUMN1_WIDTH - 10, 1) withText:[surveyItem objectForKey:@"name"] size:11.0f];
+    UILabel* itemLabel = [DGUtils label:CGRectMake(0, currentY, COLUMN1_WIDTH - 10, 1) withText:[DGUtils formatSurvey:survey item:surveyItem] size:11.0f];
     
     [self.tableScroller addSubview:itemLabel];
     
@@ -196,13 +196,17 @@ const int HEADER_HEIGHT = 100;
         int surveyMode = [[survey objectForKey:@"mode"] intValue];
         if (surveyMode == 1) /* editable survey */
         {
-            UIButton* button = [[UIButton alloc] initWithFrame:CGRectMake(0, itery, 1, 1)];
-            [button setBackgroundImage:[UIImage imageNamed:@"add.png"] forState:UIControlStateNormal];
-            [button sizeToFit];
-            [button addTarget:self action:@selector(addButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-            itery += button.frame.size.height;
-            [self.scroller addSubview:button];
-            itery += 10;
+            int surveyType = [[survey objectForKey:@"type"] intValue];
+            if (surveyType == 0) /* XXX for now, only allow editing of generic surveys */
+            {
+                UIButton* button = [[UIButton alloc] initWithFrame:CGRectMake(0, itery, 1, 1)];
+                [button setBackgroundImage:[UIImage imageNamed:@"add.png"] forState:UIControlStateNormal];
+                [button sizeToFit];
+                [button addTarget:self action:@selector(addButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+                itery += button.frame.size.height;
+                [self.scroller addSubview:button];
+                itery += 10;
+            }
         }
         
         // save button:

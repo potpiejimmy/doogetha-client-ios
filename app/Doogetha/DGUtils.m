@@ -148,4 +148,18 @@ UIAlertView* _currentAlert;
     [controller.navigationController popViewControllerAnimated:YES];
 }
 
++ (NSString*) formatSurvey: (NSDictionary*) survey item: (NSDictionary*) item
+{
+    switch ([[survey objectForKey:@"type"] intValue])
+    {
+        case 0: /*generic*/
+            return [item objectForKey:@"name"];
+        case 1: /*date picker survey*/
+        case 2: /*date and time picker survey*/
+            return [self dateTimeStringForMillis:[[[[NSNumberFormatter alloc] init] numberFromString:[item objectForKey:@"name"]] longLongValue]];
+        default:
+            return @"";
+    }
+}
+
 @end

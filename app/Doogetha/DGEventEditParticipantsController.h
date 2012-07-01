@@ -9,11 +9,12 @@
 #import <UIKit/UIKit.h>
 #import <AddressBookUI/AddressBookUI.h>
 
-@interface DGEventEditParticipantsController : UITableViewController<ABPeoplePickerNavigationControllerDelegate>
+@interface DGEventEditParticipantsController : UITableViewController<ABPeoplePickerNavigationControllerDelegate,UIGestureRecognizerDelegate>
 - (IBAction)save:(id)sender;
 - (IBAction)addManual:(id)sender;
 - (IBAction)addAddressBook:(id)sender;
 @property (weak, nonatomic) IBOutlet UITableView *participantsTable;
 @property (strong, nonatomic) NSString* checkingMail;
+@property (strong, nonatomic) NSIndexPath* removingUser;
 
 @end

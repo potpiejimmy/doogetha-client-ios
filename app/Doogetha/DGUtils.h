@@ -31,4 +31,6 @@
 + (void) insertSpaceInView: (UIView*) view pixels: (int) pixels at: (int) pos;
 + (void) popViewControllers: (UIViewController*) controller num: (int)num;
 
++ (NSString*) formatSurvey: (NSDictionary*) survey item: (NSDictionary*) item;
+
 @end

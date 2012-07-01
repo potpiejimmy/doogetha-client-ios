@@ -14,6 +14,7 @@
 @implementation DGEventEditParticipantsController
 @synthesize participantsTable = _participantsTable;
 @synthesize checkingMail = _checkingMail;
+@synthesize removingUser = _removingUser;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -37,7 +38,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self setRemovingUser:nil];
 
+    UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc] 
+                                          initWithTarget:self action:@selector(handleLongPress:)];
+    lpgr.minimumPressDuration = 1.0; //seconds
+    lpgr.delegate = self;
+    [self.participantsTable addGestureRecognizer:lpgr];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
@@ -52,6 +59,7 @@
 {
     [self setParticipantsTable:nil];
     [self setCheckingMail:nil];
+    [self setRemovingUser:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -161,13 +169,24 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
+    [self.participantsTable deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+-(void)handleLongPress:(UILongPressGestureRecognizer *)gestureRecognizer
+{
+    if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
+        CGPoint p = [gestureRecognizer locationInView:self.participantsTable];
+        NSIndexPath *indexPath = [self.participantsTable indexPathForRowAtPoint:p];
+        
+        if (indexPath == nil) return;
+        
+        if (indexPath.row > 0)
+        {
+            NSMutableDictionary* selUser = [[[[DGUtils app] currentEvent] objectForKey:@"users"] objectAtIndex:[indexPath row]];
+            self.removingUser = indexPath;
+            [DGUtils alertYesNo:[NSString stringWithFormat:@"Möchtest du den Teilnehmer \"%@\" wirklich entfernen?",[DGContactsUtils userDisplayName:selUser]] delegate:self];
+        }
+    }
 }
 
 - (void)webRequestFail:(NSString*)reqid
@@ -232,9 +251,19 @@
 {
     if (buttonIndex == 0) /* clicked OK */
     {
-        NSString* newItemText = [TLUtils trim:[[alertView textFieldAtIndex:0] text]];
-        NSLog(@"Entered: %@",newItemText);
-        [self checkNewParticipant:newItemText];
+        if (self.removingUser) {
+            [[[[DGUtils app] currentEvent] objectForKey:@"users"] removeObjectAtIndex:self.removingUser.row];
+            self.removingUser = nil;
+            [self.participantsTable reloadData];
+        } else {
+            NSString* newItemText = [TLUtils trim:[[alertView textFieldAtIndex:0] text]];
+            NSLog(@"Entered: %@",newItemText);
+            [self checkNewParticipant:newItemText];
+        }
+    }
+    else 
+    {
+        self.removingUser = nil;
     }
 }
 
