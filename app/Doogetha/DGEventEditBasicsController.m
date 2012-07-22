@@ -148,7 +148,7 @@
 {
     if (buttonIndex == 0) /* clicked OK */
     {
-        [DGUtils app].wizardHint = WIZARD_PROCEED_CANCEL; /* cancel wizard if invoked from wizard */
+        [DGUtils app].wizardHint = WIZARD_PROCEED_STAY; /* stay on wizard page if invoked from wizard */
         [self dismiss];//[self dismissModalViewControllerAnimated:YES]; 
     }
 }
