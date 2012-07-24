@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "TLWebRequest.h"
 #import "DGMainController.h"
+#import "DGDateTimeSelectController.h"
 
 #define WIZARD_PROCEED_STAY   0
 #define WIZARD_PROCEED_NEXT   1
@@ -18,6 +19,7 @@ extern NSString* const DOOGETHA_URL;
 
 @interface DGApp : UIResponder <UIApplicationDelegate> {
     @private BOOL _inactive;
+    @private DGDateTimeSelectController* _dateTimeSelector;
 }
 
 @property (strong, nonatomic) UIWindow *window;
@@ -52,6 +54,8 @@ extern NSString* const DOOGETHA_URL;
 -(void)setLoginToken:(NSString*)loginToken;
 
 -(void)refreshActivities;
+
+-(DGDateTimeSelectController*) dateTimeSelector;
 
 @end
 

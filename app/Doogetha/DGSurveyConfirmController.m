@@ -196,9 +196,9 @@ const int HEADER_HEIGHT = 100;
         int surveyMode = [[survey objectForKey:@"mode"] intValue];
         if (surveyMode == 1) /* editable survey */
         {
-            int surveyType = [[survey objectForKey:@"type"] intValue];
-            if (surveyType == 0) /* XXX for now, only allow editing of generic surveys */
-            {
+//            int surveyType = [[survey objectForKey:@"type"] intValue];
+//            if (surveyType == 0) /* XXX for now, only allow editing of generic surveys */
+//            {
                 UIButton* button = [[UIButton alloc] initWithFrame:CGRectMake(0, itery, 1, 1)];
                 [button setBackgroundImage:[UIImage imageNamed:@"add.png"] forState:UIControlStateNormal];
                 [button sizeToFit];
@@ -206,7 +206,7 @@ const int HEADER_HEIGHT = 100;
                 itery += button.frame.size.height;
                 [self.scroller addSubview:button];
                 itery += 10;
-            }
+//            }
         }
         
         // save button:
@@ -230,6 +230,13 @@ const int HEADER_HEIGHT = 100;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBarHidden = NO;
+    self.navigationController.toolbarHidden = YES;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -327,9 +334,20 @@ const int HEADER_HEIGHT = 100;
 
 - (void)addButtonClicked:(id)sender
 {
-    UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Auswahl hinzufügen" message:@"Bitte gib eine neue Auswahlmöglichkeit ein:" delegate:self cancelButtonTitle:@"Hinzufügen" otherButtonTitles:@"Abbrechen",nil];
-    alert.alertViewStyle = UIAlertViewStylePlainTextInput;
-    [alert show];
+    NSDictionary* survey = [DGUtils app].currentSurvey;
+    int surveyType = [[survey objectForKey:@"type"] intValue];
+    if (surveyType == 0)
+    {
+        /* generic surveys */
+        UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Auswahl hinzufügen" message:@"Bitte gib eine neue Auswahlmöglichkeit ein:" delegate:self cancelButtonTitle:@"Hinzufügen" otherButtonTitles:@"Abbrechen",nil];
+        alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+        [alert show];
+    }
+    else
+    {
+        /* date time surveys */
+        [self.navigationController pushViewController:[DGUtils app].dateTimeSelector animated:NO];
+    }
 }
 
 - (IBAction)confirm:(id)sender

@@ -235,4 +235,11 @@ NSString* const DOOGETHA_URL = @"https://www.potpiejimmy.de/doogetha/res/";
     return nil;
 }
 
+-(DGDateTimeSelectController*) dateTimeSelector
+{
+    if (!_dateTimeSelector)
+        _dateTimeSelector = [[DGDateTimeSelectController alloc] init];
+    return _dateTimeSelector;
+}
+
 @end
