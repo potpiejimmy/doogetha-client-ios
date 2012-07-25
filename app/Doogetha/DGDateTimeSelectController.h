@@ -10,6 +10,10 @@
 
 @interface DGDateTimeSelectController : UIViewController
 
+@property (strong, nonatomic) UILabel* label;
+@property (strong, nonatomic) UIDatePicker* datePicker;
+@property (strong, nonatomic) NSDate* selectedDate;
+
 - (IBAction)save:(id)sender;
 - (IBAction)cancel:(id)sender;
 

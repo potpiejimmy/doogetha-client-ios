@@ -8,7 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface DGSurveyConfirmController : UIViewController
+@interface DGSurveyConfirmController : UIViewController {
+    @private BOOL _selectingDate;
+}
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scroller;
 
@@ -20,5 +22,8 @@
 @property (strong, nonatomic) UIButton *addButton;
 
 - (IBAction)confirm:(id)sender;
+
+- (void)handleDateSelection;
+- (void)addItem: (NSString*) newItemText;
 
 @end

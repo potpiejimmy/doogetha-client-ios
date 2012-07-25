@@ -127,6 +127,7 @@ const int HEADER_HEIGHT = 100;
     [super viewDidLoad];
     
     NSLog(@"viewDidLoad DGSurveyConfirmController");
+    _selectingDate = NO;
     
     NSDictionary* event =  [DGUtils app].currentEvent;
     NSDictionary* survey = [DGUtils app].currentSurvey;
@@ -239,6 +240,24 @@ const int HEADER_HEIGHT = 100;
     self.navigationController.toolbarHidden = YES;
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    if (_selectingDate) {
+        [self handleDateSelection];
+        _selectingDate = NO;
+    }
+}
+
+- (void)handleDateSelection
+{
+    NSDate* selectedDate = [[DGUtils app] dateTimeSelector].selectedDate;
+    if (selectedDate) {
+        long long ts = selectedDate.timeIntervalSince1970*1000;
+        [self addItem:[NSString stringWithFormat:@"%llu", ts]];
+    }
+}
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     // Return YES for supported orientations
@@ -270,7 +289,7 @@ const int HEADER_HEIGHT = 100;
 - (void)onClick:(id)sender
 {
     int surveyItemId = [sender tag];
-    NSLog(@"Button clicked: %d", surveyItemId);
+//    NSLog(@"Button clicked: %d", surveyItemId);
     
     NSArray* surveyItems = [[DGUtils app].currentSurvey objectForKey:@"surveyItems"];
     for (NSDictionary* surveyItem in surveyItems) {
@@ -280,55 +299,61 @@ const int HEADER_HEIGHT = 100;
     }
 }
 
+- (void)addItem: (NSString*) newItemText
+{
+    NSLog(@"Entered: %@",newItemText);
+    
+    if ([newItemText length]>0)
+    {
+        NSDictionary* survey = [DGUtils app].currentSurvey;
+        
+        BOOL alreadyExists = false;
+        for (NSDictionary* item in [survey objectForKey:@"surveyItems"])
+        {
+            if ([[item objectForKey:@"name"] isEqualToString:newItemText]) {
+                alreadyExists = true;
+                break;
+            }
+        }
+        if (!alreadyExists)
+        {
+            NSMutableArray* currentItems = [survey objectForKey:@"surveyItems"];
+            NSMutableDictionary* newItem = [[NSMutableDictionary alloc] init];
+            [newItem setValue:[NSNumber numberWithInt:-[currentItems count]-1] forKey:@"id"]; // initialize with negative ID for toggling
+            [newItem setValue:[NSNumber numberWithInt:[[DGUtils app] userId]] forKey:@"userId"];
+            [newItem setValue:newItemText forKey:@"name"];
+            [currentItems addObject:newItem];
+            
+            // update table
+            int newRowHeight = [self addSurveyToggleRow:newItem at:self.tableScroller.frame.size.height];
+            
+            // increase table scroller content size:
+            CGSize csize = self.tableScroller.contentSize;
+            csize.height += newRowHeight;
+            self.tableScroller.contentSize = csize;
+            
+            // increase table scroller size to match content (scroll horizontally only):
+            CGRect crect = self.tableScroller.frame;
+            crect.size.height += newRowHeight;
+            self.tableScroller.frame = crect;
+            
+            // add row:
+            [DGUtils insertSpaceInView:self.scroller pixels:newRowHeight at:self.tableScroller.frame.origin.y + 1];
+            
+            // increase the overall content size:
+            csize = self.scroller.contentSize;
+            csize.height += newRowHeight;
+            self.scroller.contentSize = csize;
+        }
+    }
+}
+
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == 0) /* clicked OK */
     {
         NSString* newItemText = [TLUtils trim:[[alertView textFieldAtIndex:0] text]];
-        NSLog(@"Entered: %@",newItemText);
-        if ([newItemText length]>0)
-        {
-            NSDictionary* survey = [DGUtils app].currentSurvey;
-
-            BOOL alreadyExists = false;
-            for (NSDictionary* item in [survey objectForKey:@"surveyItems"])
-            {
-                if ([[item objectForKey:@"name"] isEqualToString:newItemText]) {
-                    alreadyExists = true;
-                    break;
-                }
-            }
-            if (!alreadyExists)
-            {
-                NSMutableArray* currentItems = [survey objectForKey:@"surveyItems"];
-                NSMutableDictionary* newItem = [[NSMutableDictionary alloc] init];
-                [newItem setValue:[NSNumber numberWithInt:-[currentItems count]-1] forKey:@"id"]; // initialize with negative ID for toggling
-                [newItem setValue:[NSNumber numberWithInt:[[DGUtils app] userId]] forKey:@"userId"];
-                [newItem setValue:newItemText forKey:@"name"];
-                [currentItems addObject:newItem];
-                
-                // update table
-                int newRowHeight = [self addSurveyToggleRow:newItem at:self.tableScroller.frame.size.height];
-                
-                // increase table scroller content size:
-                CGSize csize = self.tableScroller.contentSize;
-                csize.height += newRowHeight;
-                self.tableScroller.contentSize = csize;
-                
-                // increase table scroller size to match content (scroll horizontally only):
-                CGRect crect = self.tableScroller.frame;
-                crect.size.height += newRowHeight;
-                self.tableScroller.frame = crect;
-                
-                // add row:
-                [DGUtils insertSpaceInView:self.scroller pixels:newRowHeight at:self.tableScroller.frame.origin.y + 1];
-                
-                // increase the overall content size:
-                csize = self.scroller.contentSize;
-                csize.height += newRowHeight;
-                self.scroller.contentSize = csize;
-            }
-        }
+        [self addItem:newItemText];
     }
 }
 
@@ -346,6 +371,7 @@ const int HEADER_HEIGHT = 100;
     else
     {
         /* date time surveys */
+        _selectingDate = YES;
         [self.navigationController pushViewController:[DGUtils app].dateTimeSelector animated:NO];
     }
 }
