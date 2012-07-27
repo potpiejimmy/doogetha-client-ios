@@ -49,7 +49,7 @@
     self.label.backgroundColor = [UIColor clearColor];
     self.label.textAlignment = UITextAlignmentCenter;
     self.label.numberOfLines = 0;
-    self.label.text = @"Please choose:";
+    self.label.text = @"Bitte wähle einen Zeitpunkt:";
     
     [self.view addSubview:self.label];
                  

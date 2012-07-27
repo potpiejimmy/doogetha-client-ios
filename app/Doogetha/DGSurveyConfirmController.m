@@ -128,6 +128,7 @@ const int HEADER_HEIGHT = 100;
     
     NSLog(@"viewDidLoad DGSurveyConfirmController");
     _selectingDate = NO;
+    _selectingTime = NO;
     
     NSDictionary* event =  [DGUtils app].currentEvent;
     NSDictionary* survey = [DGUtils app].currentSurvey;
@@ -243,13 +244,36 @@ const int HEADER_HEIGHT = 100;
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    if (_selectingDate) {
-        [self handleDateSelection];
+
+    if (_selectingDate)
+    {
+        /* user just returned from entering a date */
+        int surveyType = [[[DGUtils app].currentSurvey objectForKey:@"type"] intValue];
+        if (surveyType == 2) /* date and time: start selecting time now */
+        {
+            /* date time surveys */
+            if ([[DGUtils app] dateTimeSelector].selectedDate) /* if not cancelled */
+            {
+                _selectingTime = YES;
+                [[DGUtils app].dateTimeSelector.datePicker setDatePickerMode:UIDatePickerModeTime];
+                [self.navigationController pushViewController:[DGUtils app].dateTimeSelector animated:NO];
+            }
+        }
+        else
+        {
+            [self handleDateTimeSelection];
+        }
         _selectingDate = NO;
+    }
+    else if (_selectingTime)
+    {
+        /* user just returned from entering a time */
+        [self handleDateTimeSelection];
+        _selectingTime = NO;
     }
 }
 
-- (void)handleDateSelection
+- (void)handleDateTimeSelection
 {
     NSDate* selectedDate = [[DGUtils app] dateTimeSelector].selectedDate;
     if (selectedDate) {
@@ -372,6 +396,7 @@ const int HEADER_HEIGHT = 100;
     {
         /* date time surveys */
         _selectingDate = YES;
+        [[DGUtils app].dateTimeSelector.datePicker setDatePickerMode:UIDatePickerModeDate];
         [self.navigationController pushViewController:[DGUtils app].dateTimeSelector animated:NO];
     }
 }

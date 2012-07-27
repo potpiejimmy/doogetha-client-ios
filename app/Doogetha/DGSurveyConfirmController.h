@@ -10,6 +10,7 @@
 
 @interface DGSurveyConfirmController : UIViewController {
     @private BOOL _selectingDate;
+    @private BOOL _selectingTime;
 }
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scroller;
@@ -23,7 +24,7 @@
 
 - (IBAction)confirm:(id)sender;
 
-- (void)handleDateSelection;
+- (void)handleDateTimeSelection;
 - (void)addItem: (NSString*) newItemText;
 
 @end
