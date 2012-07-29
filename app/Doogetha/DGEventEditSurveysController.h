@@ -8,10 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
-@interface DGEventEditSurveysController : UITableViewController
+@interface DGEventEditSurveysController : UITableViewController {
+    @private BOOL _isEditingSurvey;
+    @private BOOL _isCreatingNewSurvey;
+}
+@property (weak, nonatomic) IBOutlet UITableView *surveysTable;
 - (IBAction)save:(id)sender;
 - (IBAction)addSurveyFree:(id)sender;
 - (IBAction)addSurveyDate:(id)sender;
 - (IBAction)addSurveyDateAndTime:(id)sender;
+
+- (void)addSurvey;
 
 @end

@@ -11,6 +11,7 @@
 #import "DGUtils.h"
 
 @implementation DGEventEditSurveysController
+@synthesize surveysTable = _surveysTable;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -34,19 +35,19 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    _isEditingSurvey = NO;
+    _isCreatingNewSurvey = NO;
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-
-    self.navigationController.navigationBarHidden = YES;
-    self.navigationController.toolbarHidden = NO;
 }
 
 - (void)viewDidUnload
 {
+    [self setSurveysTable:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -55,11 +56,28 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    self.navigationController.navigationBarHidden = YES;
+    self.navigationController.toolbarHidden = NO;
+
+    if (_isEditingSurvey) {
+        /* user just returned from editing a survey */
+        _isEditingSurvey = NO;
+        if (_isCreatingNewSurvey) {
+            _isCreatingNewSurvey = NO;
+            if ([DGUtils app].currentSurvey) { /* not cancelled */
+                // new survey was edited and submitted, add it to the list
+                [self addSurvey];
+            }
+        }
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+
+    [self.surveysTable reloadData];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -165,6 +183,17 @@
      */
 }
 
+- (void)addSurvey
+{
+    NSMutableArray* surveys = [[DGUtils app].currentEvent objectForKey:@"surveys"];
+    if (!surveys) {
+        surveys = [NSMutableArray arrayWithObjects:[DGUtils app].currentSurvey, nil];
+        [[DGUtils app].currentEvent setValue:surveys forKey:@"surveys"];
+    } else {
+        [surveys addObject:[DGUtils app].currentSurvey];
+    }
+}
+
 - (void)dismiss
 {
     self.navigationController.navigationBarHidden = NO;
@@ -174,6 +203,16 @@
 
 - (void)addSurveyWithType: (int)type
 {
+    _isEditingSurvey = YES;
+    _isCreatingNewSurvey = YES;
+    
+    /* create a new survey */
+    NSMutableDictionary* survey = [[NSMutableDictionary alloc] init];
+    [survey setValue:[NSMutableArray array] forKey:@"surveyItems"];
+    [survey setValue:@"" forKey:@"name"];
+    [survey setValue:@"" forKey:@"description"];
+    [DGUtils app].currentSurvey = survey;
+    
     [self performSegueWithIdentifier:@"surveyEditSegue" sender:self];
 }
 
