@@ -39,6 +39,8 @@
 		A591DAEC149A6DB20077DF83 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A591DAEA149A6DB20077DF83 /* MainStoryboard.storyboard */; };
 		A591DAEF149A6DB20077DF83 /* DGMainController.m in Sources */ = {isa = PBXBuildFile; fileRef = A591DAEE149A6DB20077DF83 /* DGMainController.m */; };
 		A592B732149BEEB300627259 /* DGUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = A592B731149BEEB300627259 /* DGUtils.m */; };
+		A5992FD415C55BDC00285ABF /* DGEventEditSurveysController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5992FD315C55BDC00285ABF /* DGEventEditSurveysController.m */; };
+		A5992FD815C55F3900285ABF /* DGSurveyEditController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5992FD715C55F3900285ABF /* DGSurveyEditController.m */; };
 		A5ABDB9114DB20E800B84903 /* DGContactsUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = A5ABDB9014DB20E800B84903 /* DGContactsUtils.m */; };
 		A5ABDB9414DB2BC900B84903 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5ABDB9314DB2BC900B84903 /* AddressBook.framework */; };
 		A5AC755B14D8614A0029F065 /* TLKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = A5AC755A14D8614A0029F065 /* TLKeychain.m */; };
@@ -126,6 +128,10 @@
 		A591DAEE149A6DB20077DF83 /* DGMainController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DGMainController.m; sourceTree = "<group>"; };
 		A592B730149BEEB300627259 /* DGUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DGUtils.h; sourceTree = "<group>"; };
 		A592B731149BEEB300627259 /* DGUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DGUtils.m; sourceTree = "<group>"; };
+		A5992FD215C55BDC00285ABF /* DGEventEditSurveysController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DGEventEditSurveysController.h; sourceTree = "<group>"; };
+		A5992FD315C55BDC00285ABF /* DGEventEditSurveysController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DGEventEditSurveysController.m; sourceTree = "<group>"; };
+		A5992FD615C55F3900285ABF /* DGSurveyEditController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DGSurveyEditController.h; sourceTree = "<group>"; };
+		A5992FD715C55F3900285ABF /* DGSurveyEditController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DGSurveyEditController.m; sourceTree = "<group>"; };
 		A5ABDB8F14DB20E800B84903 /* DGContactsUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DGContactsUtils.h; sourceTree = "<group>"; };
 		A5ABDB9014DB20E800B84903 /* DGContactsUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DGContactsUtils.m; sourceTree = "<group>"; };
 		A5ABDB9314DB2BC900B84903 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
@@ -243,10 +249,14 @@
 				A5465B1214E6F87F00886694 /* DGEventEditDateTimeController.m */,
 				A5B88D7A14F1528F005773BB /* DGEventEditParticipantsController.h */,
 				A5B88D7B14F1528F005773BB /* DGEventEditParticipantsController.m */,
+				A5992FD215C55BDC00285ABF /* DGEventEditSurveysController.h */,
+				A5992FD315C55BDC00285ABF /* DGEventEditSurveysController.m */,
 				A5D12515149E545D007B5606 /* DGEventConfirmController.h */,
 				A5D12516149E545D007B5606 /* DGEventConfirmController.m */,
 				A58B323214A4E0E600E6D3E1 /* DGSurveyConfirmController.h */,
 				A58B323314A4E0E600E6D3E1 /* DGSurveyConfirmController.m */,
+				A5992FD615C55F3900285ABF /* DGSurveyEditController.h */,
+				A5992FD715C55F3900285ABF /* DGSurveyEditController.m */,
 				A5AC756314D871D00029F065 /* DGSettingsController.h */,
 				A5AC756414D871D00029F065 /* DGSettingsController.m */,
 				A5C78129149A6F5000BA93F3 /* TLWebRequest.h */,
@@ -445,6 +455,8 @@
 				A52230B214F6CC26001CE6E4 /* DGWelcomeViewController.m in Sources */,
 				A52230B614F6D63E001CE6E4 /* DGWizardSurveysController.m in Sources */,
 				A5677B2415BDDBB40033C0B6 /* DGDateTimeSelectController.m in Sources */,
+				A5992FD415C55BDC00285ABF /* DGEventEditSurveysController.m in Sources */,
+				A5992FD815C55F3900285ABF /* DGSurveyEditController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
