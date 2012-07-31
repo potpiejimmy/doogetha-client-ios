@@ -70,14 +70,13 @@
                 [self addSurvey];
             }
         }
+        [self.surveysTable reloadData];
     }
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-
-    [self.surveysTable reloadData];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -174,13 +173,10 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
+    _isEditingSurvey = YES;
+    _isCreatingNewSurvey = NO;
+    [DGUtils app].currentSurvey = [[[[DGUtils app] currentEvent] objectForKey:@"surveys"] objectAtIndex:indexPath.row];
+    [self performSegueWithIdentifier:@"surveyEditSegue" sender:self];
 }
 
 - (void)addSurvey
@@ -209,8 +205,7 @@
     /* create a new survey */
     NSMutableDictionary* survey = [[NSMutableDictionary alloc] init];
     [survey setValue:[NSMutableArray array] forKey:@"surveyItems"];
-    [survey setValue:@"" forKey:@"name"];
-    [survey setValue:@"" forKey:@"description"];
+    [survey setValue:[NSNumber numberWithInt:type] forKey:@"type"];
     [DGUtils app].currentSurvey = survey;
     
     [self performSegueWithIdentifier:@"surveyEditSegue" sender:self];

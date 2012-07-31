@@ -22,6 +22,7 @@
 		A5465B1314E6F87F00886694 /* DGEventEditDateTimeController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5465B1214E6F87F00886694 /* DGEventEditDateTimeController.m */; };
 		A5465B1614E7044F00886694 /* DGWizardDoneController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5465B1514E7044F00886694 /* DGWizardDoneController.m */; };
 		A54DB06114E4738400FBC2C4 /* logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A54DB06014E4738400FBC2C4 /* logo@2x.png */; };
+		A54F92C615C85E6600D88935 /* DGSurveyEditBaseController.m in Sources */ = {isa = PBXBuildFile; fileRef = A54F92C515C85E6600D88935 /* DGSurveyEditBaseController.m */; };
 		A56579BB14B37B810002B9AE /* survey_confirm.png in Resources */ = {isa = PBXBuildFile; fileRef = A56579B814B37B810002B9AE /* survey_confirm.png */; };
 		A56579BC14B37B810002B9AE /* survey_deny.png in Resources */ = {isa = PBXBuildFile; fileRef = A56579B914B37B810002B9AE /* survey_deny.png */; };
 		A56579BD14B37B810002B9AE /* survey_neutral.png in Resources */ = {isa = PBXBuildFile; fileRef = A56579BA14B37B810002B9AE /* survey_neutral.png */; };
@@ -102,6 +103,8 @@
 		A5465B1414E7044F00886694 /* DGWizardDoneController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DGWizardDoneController.h; sourceTree = "<group>"; };
 		A5465B1514E7044F00886694 /* DGWizardDoneController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DGWizardDoneController.m; sourceTree = "<group>"; };
 		A54DB06014E4738400FBC2C4 /* logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo@2x.png"; sourceTree = "<group>"; };
+		A54F92C415C85E6600D88935 /* DGSurveyEditBaseController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DGSurveyEditBaseController.h; sourceTree = "<group>"; };
+		A54F92C515C85E6600D88935 /* DGSurveyEditBaseController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DGSurveyEditBaseController.m; sourceTree = "<group>"; };
 		A56579B814B37B810002B9AE /* survey_confirm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = survey_confirm.png; sourceTree = "<group>"; };
 		A56579B914B37B810002B9AE /* survey_deny.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = survey_deny.png; sourceTree = "<group>"; };
 		A56579BA14B37B810002B9AE /* survey_neutral.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = survey_neutral.png; sourceTree = "<group>"; };
@@ -255,6 +258,8 @@
 				A5D12516149E545D007B5606 /* DGEventConfirmController.m */,
 				A58B323214A4E0E600E6D3E1 /* DGSurveyConfirmController.h */,
 				A58B323314A4E0E600E6D3E1 /* DGSurveyConfirmController.m */,
+				A54F92C415C85E6600D88935 /* DGSurveyEditBaseController.h */,
+				A54F92C515C85E6600D88935 /* DGSurveyEditBaseController.m */,
 				A5992FD615C55F3900285ABF /* DGSurveyEditController.h */,
 				A5992FD715C55F3900285ABF /* DGSurveyEditController.m */,
 				A5AC756314D871D00029F065 /* DGSettingsController.h */,
@@ -457,6 +462,7 @@
 				A5677B2415BDDBB40033C0B6 /* DGDateTimeSelectController.m in Sources */,
 				A5992FD415C55BDC00285ABF /* DGEventEditSurveysController.m in Sources */,
 				A5992FD815C55F3900285ABF /* DGSurveyEditController.m in Sources */,
+				A54F92C615C85E6600D88935 /* DGSurveyEditBaseController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

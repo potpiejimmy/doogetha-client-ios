@@ -127,8 +127,6 @@ const int HEADER_HEIGHT = 100;
     [super viewDidLoad];
     
     NSLog(@"viewDidLoad DGSurveyConfirmController");
-    _selectingDate = NO;
-    _selectingTime = NO;
     
     NSDictionary* event =  [DGUtils app].currentEvent;
     NSDictionary* survey = [DGUtils app].currentSurvey;
@@ -241,47 +239,6 @@ const int HEADER_HEIGHT = 100;
     self.navigationController.toolbarHidden = YES;
 }
 
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-
-    if (_selectingDate)
-    {
-        /* user just returned from entering a date */
-        int surveyType = [[[DGUtils app].currentSurvey objectForKey:@"type"] intValue];
-        if (surveyType == 2) /* date and time: start selecting time now */
-        {
-            /* date time surveys */
-            if ([[DGUtils app] dateTimeSelector].selectedDate) /* if not cancelled */
-            {
-                _selectingTime = YES;
-                [[DGUtils app].dateTimeSelector.datePicker setDatePickerMode:UIDatePickerModeTime];
-                [self.navigationController pushViewController:[DGUtils app].dateTimeSelector animated:NO];
-            }
-        }
-        else
-        {
-            [self handleDateTimeSelection];
-        }
-        _selectingDate = NO;
-    }
-    else if (_selectingTime)
-    {
-        /* user just returned from entering a time */
-        [self handleDateTimeSelection];
-        _selectingTime = NO;
-    }
-}
-
-- (void)handleDateTimeSelection
-{
-    NSDate* selectedDate = [[DGUtils app] dateTimeSelector].selectedDate;
-    if (selectedDate) {
-        long long ts = selectedDate.timeIntervalSince1970*1000;
-        [self addItem:[NSString stringWithFormat:@"%llu", ts]];
-    }
-}
-
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     // Return YES for supported orientations
@@ -323,82 +280,32 @@ const int HEADER_HEIGHT = 100;
     }
 }
 
-- (void)addItem: (NSString*) newItemText
-{
-    NSLog(@"Entered: %@",newItemText);
-    
-    if ([newItemText length]>0)
-    {
-        NSDictionary* survey = [DGUtils app].currentSurvey;
-        
-        BOOL alreadyExists = false;
-        for (NSDictionary* item in [survey objectForKey:@"surveyItems"])
-        {
-            if ([[item objectForKey:@"name"] isEqualToString:newItemText]) {
-                alreadyExists = true;
-                break;
-            }
-        }
-        if (!alreadyExists)
-        {
-            NSMutableArray* currentItems = [survey objectForKey:@"surveyItems"];
-            NSMutableDictionary* newItem = [[NSMutableDictionary alloc] init];
-            [newItem setValue:[NSNumber numberWithInt:-[currentItems count]-1] forKey:@"id"]; // initialize with negative ID for toggling
-            [newItem setValue:[NSNumber numberWithInt:[[DGUtils app] userId]] forKey:@"userId"];
-            [newItem setValue:newItemText forKey:@"name"];
-            [currentItems addObject:newItem];
-            
-            // update table
-            int newRowHeight = [self addSurveyToggleRow:newItem at:self.tableScroller.frame.size.height];
-            
-            // increase table scroller content size:
-            CGSize csize = self.tableScroller.contentSize;
-            csize.height += newRowHeight;
-            self.tableScroller.contentSize = csize;
-            
-            // increase table scroller size to match content (scroll horizontally only):
-            CGRect crect = self.tableScroller.frame;
-            crect.size.height += newRowHeight;
-            self.tableScroller.frame = crect;
-            
-            // add row:
-            [DGUtils insertSpaceInView:self.scroller pixels:newRowHeight at:self.tableScroller.frame.origin.y + 1];
-            
-            // increase the overall content size:
-            csize = self.scroller.contentSize;
-            csize.height += newRowHeight;
-            self.scroller.contentSize = csize;
-        }
-    }
-}
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (buttonIndex == 0) /* clicked OK */
-    {
-        NSString* newItemText = [TLUtils trim:[[alertView textFieldAtIndex:0] text]];
-        [self addItem:newItemText];
-    }
-}
-
-- (void)addButtonClicked:(id)sender
+- (void)handleItemAdded: (NSDictionary*)newItem
 {
     NSDictionary* survey = [DGUtils app].currentSurvey;
-    int surveyType = [[survey objectForKey:@"type"] intValue];
-    if (surveyType == 0)
-    {
-        /* generic surveys */
-        UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Auswahl hinzufügen" message:@"Bitte gib eine neue Auswahlmöglichkeit ein:" delegate:self cancelButtonTitle:@"Hinzufügen" otherButtonTitles:@"Abbrechen",nil];
-        alert.alertViewStyle = UIAlertViewStylePlainTextInput;
-        [alert show];
-    }
-    else
-    {
-        /* date time surveys */
-        _selectingDate = YES;
-        [[DGUtils app].dateTimeSelector.datePicker setDatePickerMode:UIDatePickerModeDate];
-        [self.navigationController pushViewController:[DGUtils app].dateTimeSelector animated:NO];
-    }
+    NSMutableArray* currentItems = [survey objectForKey:@"surveyItems"];
+    [newItem setValue:[NSNumber numberWithInt:-[currentItems count]-1] forKey:@"id"]; // initialize with negative ID for toggling
+            
+    // update table
+    int newRowHeight = [self addSurveyToggleRow:newItem at:self.tableScroller.frame.size.height];
+    
+    // increase table scroller content size:
+    CGSize csize = self.tableScroller.contentSize;
+    csize.height += newRowHeight;
+    self.tableScroller.contentSize = csize;
+
+    // increase table scroller size to match content (scroll horizontally only):
+    CGRect crect = self.tableScroller.frame;
+    crect.size.height += newRowHeight;
+    self.tableScroller.frame = crect;
+
+    // add row:
+    [DGUtils insertSpaceInView:self.scroller pixels:newRowHeight at:self.tableScroller.frame.origin.y + 1];
+    
+    // increase the overall content size:
+    csize = self.scroller.contentSize;
+    csize.height += newRowHeight;
+    self.scroller.contentSize = csize;
 }
 
 - (IBAction)confirm:(id)sender

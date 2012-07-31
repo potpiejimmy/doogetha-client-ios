@@ -931,6 +931,9 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                 <state key="highlighted">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="addItem:" destination="ZfI-6j-x0M" eventType="touchUpInside" id="n1h-kq-CEV"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.95294123890000004" green="1" blue="0.91372555489999996" alpha="1" colorSpace="deviceRGB"/>

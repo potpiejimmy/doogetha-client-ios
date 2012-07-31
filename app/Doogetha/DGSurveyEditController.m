@@ -116,7 +116,7 @@
     
     NSDictionary* surveyItem = [[[DGUtils app].currentSurvey objectForKey:@"surveyItems"] objectAtIndex:[indexPath row]];
     
-    cell.textLabel.text = [surveyItem objectForKey:@"name"];
+    cell.textLabel.text = [DGUtils formatSurvey:[DGUtils app].currentSurvey item:surveyItem];
     
     return cell;
 }
@@ -128,6 +128,11 @@
 
 // ----------
 
+- (void)handleItemAdded: (NSDictionary*)newItem
+{
+    [self.surveyItemsTable reloadData];
+}
+
 - (BOOL) validateInput
 {
     return [[TLUtils trim: self.name.text] length] > 0;
@@ -135,9 +140,7 @@
 
 - (void)dismiss
 {
-    self.navigationController.navigationBarHidden = NO;
-    self.navigationController.toolbarHidden = YES;
-    [self.navigationController popViewControllerAnimated:NO];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (IBAction)save: (id)sender
@@ -179,12 +182,21 @@
     [self.description resignFirstResponder];
 }
 
+- (IBAction)addItem:(id)sender
+{
+    [self addButtonClicked:self];
+}
+
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if (buttonIndex == 0) /* clicked OK (cancel)*/
-    {
-        [DGUtils app].currentSurvey = nil;
-        [self dismiss];
+    if (_editingItem) {
+        [super alertView:alertView clickedButtonAtIndex:buttonIndex];
+    } else {
+        if (buttonIndex == 0) /* clicked OK (cancel)*/
+        {
+            [DGUtils app].currentSurvey = nil;
+            [self dismiss];
+        }
     }
 }
 @end
