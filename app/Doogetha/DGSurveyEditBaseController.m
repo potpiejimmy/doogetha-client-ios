@@ -34,7 +34,7 @@
     }
 }
 
-- (void)handleItemAdded: (NSString*)newItemText;
+- (void)handleItemAdded: (NSDictionary*)newItem;
 {
     /* overridden by subclasses DGSurveyEditController or DGSurveyConfirmController */
 }

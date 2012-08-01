@@ -284,7 +284,7 @@ const int HEADER_HEIGHT = 100;
 {
     NSDictionary* survey = [DGUtils app].currentSurvey;
     NSMutableArray* currentItems = [survey objectForKey:@"surveyItems"];
-    [newItem setValue:[NSNumber numberWithInt:-[currentItems count]-1] forKey:@"id"]; // initialize with negative ID for toggling
+    [newItem setValue:[NSNumber numberWithInt:-[currentItems count]] forKey:@"id"]; // initialize with negative ID for toggling
             
     // update table
     int newRowHeight = [self addSurveyToggleRow:newItem at:self.tableScroller.frame.size.height];
