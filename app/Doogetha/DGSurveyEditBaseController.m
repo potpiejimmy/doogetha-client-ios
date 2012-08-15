@@ -13,15 +13,19 @@
 
 @implementation DGSurveyEditBaseController
 
-- (void)addButtonClicked:(id)sender
-{
+- (void)startEditingAtIndex: (int)index {
+    _editingIndex = index;
     NSDictionary* survey = [DGUtils app].currentSurvey;
     int surveyType = [[survey objectForKey:@"type"] intValue];
     if (surveyType == 0)
     {
         /* generic surveys */
-        UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Auswahl hinzufügen" message:@"Bitte gib eine neue Auswahlmöglichkeit ein:" delegate:self cancelButtonTitle:@"Hinzufügen" otherButtonTitles:@"Abbrechen",nil];
+        UIAlertView * alert = (index < 0) ? 
+            [[UIAlertView alloc] initWithTitle:@"Auswahl hinzufügen" message:@"Bitte gib eine neue Auswahlmöglichkeit ein:" delegate:self cancelButtonTitle:@"Hinzufügen" otherButtonTitles:@"Abbrechen",nil] :
+            [[UIAlertView alloc] initWithTitle:@"Auswahl bearbeiten" message:@"Bitte bearbeite die Auswahlmöglichkeit:" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:@"Abbrechen",nil];
         alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+        if (index >= 0)
+            [alert textFieldAtIndex:0].text = [[[survey objectForKey:@"surveyItems"] objectAtIndex:index] objectForKey:@"name"];
         _editingItem = YES;
         [alert show];
     }
@@ -30,8 +34,17 @@
         /* date time surveys */
         _selectingDate = YES;
         [[DGUtils app].dateTimeSelector.datePicker setDatePickerMode:UIDatePickerModeDate];
+        if (index >= 0) {
+            long long ts = [[[[NSNumberFormatter alloc] init] numberFromString:[[[survey objectForKey:@"surveyItems"] objectAtIndex:index] objectForKey:@"name"]] longLongValue];
+            [DGUtils app].dateTimeSelector.datePicker.date = [NSDate dateWithTimeIntervalSince1970:ts/1000];
+        }
         [self.navigationController pushViewController:[DGUtils app].dateTimeSelector animated:NO];
     }
+}
+
+- (void)addButtonClicked:(id)sender
+{
+    [self startEditingAtIndex:-1]; /* new item, set index -1 */
 }
 
 - (void)handleItemAdded: (NSDictionary*)newItem;
@@ -56,11 +69,20 @@
             }
         }
         if (!alreadyExists) {
-            NSMutableDictionary* newItem = [[NSMutableDictionary alloc] init];
-            [newItem setValue:newItemText forKey:@"name"];
             NSMutableArray* currentItems = [survey objectForKey:@"surveyItems"];
-            [currentItems addObject:newItem];
-            [self handleItemAdded:newItem];  
+            NSMutableDictionary* item;
+            if (_editingIndex < 0) {
+                /* create a new item and add it */
+                item = [[NSMutableDictionary alloc] init];
+                [currentItems addObject:item];
+            } else {
+                /* item edited */
+                item = [currentItems objectAtIndex:_editingIndex];
+            }
+            [item setValue:newItemText forKey:@"name"];
+            [self handleItemAdded:item];  
+        } else {
+            [DGUtils alert:@"Diese Auswahlmöglichkeit existiert bereits."];
         }
     }
 }

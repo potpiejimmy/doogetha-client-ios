@@ -14,10 +14,8 @@
 }
 @property (weak, nonatomic) IBOutlet UITableView *surveysTable;
 - (IBAction)save:(id)sender;
-- (IBAction)addSurveyFree:(id)sender;
-- (IBAction)addSurveyDate:(id)sender;
-- (IBAction)addSurveyDateAndTime:(id)sender;
 
 - (void)addSurvey;
+- (void)addSurveyWithType: (int)type;
 
 @end

@@ -99,33 +99,53 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    return @"Abstimmungen";
+    if (section == 0)
+        return @"Abstimmungen";
+    else
+        return @"";
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return [[[[DGUtils app] currentEvent] objectForKey:@"surveys"] count];
+    if (section == 0)
+        return [[[[DGUtils app] currentEvent] objectForKey:@"surveys"] count];
+    else
+        return 3;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"surveyCell";
+//    static NSString *CellIdentifier = @"surveyCell";
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-    }
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier: (indexPath.section == 0 ? @"surveyCell" : @"actionCell")];
+//    if (cell == nil) {
+//        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+//    }
     
     // Configure the cell...
-    NSDictionary* survey = [[[[DGUtils app] currentEvent] objectForKey:@"surveys"] objectAtIndex:indexPath.row];
-    cell.textLabel.text = [survey objectForKey:@"name"];
-    cell.detailTextLabel.text = [survey objectForKey:@"description"];
+    if (indexPath.section == 0) {
+        NSDictionary* survey = [[[[DGUtils app] currentEvent] objectForKey:@"surveys"] objectAtIndex:indexPath.row];
+        cell.textLabel.text = [survey objectForKey:@"name"];
+        cell.detailTextLabel.text = [survey objectForKey:@"description"];
+    } else {
+        switch (indexPath.row) {
+            case 0:
+                cell.textLabel.text = @"Neue Abstimmung (frei)";
+                break;
+            case 1:
+                cell.textLabel.text = @"Neue Abstimmung (Datum)";
+                break;
+            case 2:
+                cell.textLabel.text = @"Neue Abstimmung (Datum und Uhrzeit)";
+                break;
+        }
+    }
     
     return cell;
 }
@@ -173,10 +193,14 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    _isEditingSurvey = YES;
-    _isCreatingNewSurvey = NO;
-    [DGUtils app].currentSurvey = [[[[DGUtils app] currentEvent] objectForKey:@"surveys"] objectAtIndex:indexPath.row];
-    [self performSegueWithIdentifier:@"surveyEditSegue" sender:self];
+    if (indexPath.section == 0) {
+        _isEditingSurvey = YES;
+        _isCreatingNewSurvey = NO;
+        [DGUtils app].currentSurvey = [[[[DGUtils app] currentEvent] objectForKey:@"surveys"] objectAtIndex:indexPath.row];
+        [self performSegueWithIdentifier:@"surveyEditSegue" sender:self];
+    } else {
+        [self addSurveyWithType:indexPath.row];
+    }
 }
 
 - (void)addSurvey
@@ -215,21 +239,6 @@
 {
     [DGUtils app].wizardHint = WIZARD_PROCEED_NEXT;
     [self dismiss]; 
-}
-
-- (IBAction)addSurveyFree:(id)sender
-{
-    [self addSurveyWithType:0];
-}
-
-- (IBAction)addSurveyDate:(id)sender
-{
-    [self addSurveyWithType:1];
-}
-
-- (IBAction)addSurveyDateAndTime:(id)sender
-{
-    [self addSurveyWithType:2];
 }
 
 @end

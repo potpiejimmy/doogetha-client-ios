@@ -76,4 +76,9 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+- (IBAction)noDateTimePressed:(id)sender
+{
+    [[DGUtils app].currentEvent removeObjectForKey:@"eventtime"];
+    [self performSegueWithIdentifier:@"next" sender:self];
+}
 @end

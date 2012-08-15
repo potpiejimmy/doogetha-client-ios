@@ -116,14 +116,15 @@
     
     NSDictionary* surveyItem = [[[DGUtils app].currentSurvey objectForKey:@"surveyItems"] objectAtIndex:[indexPath row]];
     
-    cell.textLabel.text = [DGUtils formatSurvey:[DGUtils app].currentSurvey item:surveyItem];
+    cell.textLabel.text = [NSString stringWithFormat:@"%@ %@",@"·",[DGUtils formatSurvey:[DGUtils app].currentSurvey item:surveyItem]];
     
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    //NSMutableDictionary* selSurveyItem = [[[DGUtils app].currentSurvey objectForKey:@"surveyItems"] objectAtIndex:[indexPath row]];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [self startEditingAtIndex:indexPath.row];
 }
 
 // ----------
@@ -135,7 +136,15 @@
 
 - (BOOL) validateInput
 {
-    return [[TLUtils trim: self.name.text] length] > 0;
+    if ([[TLUtils trim: self.name.text] length] == 0) {
+        [DGUtils alert:@"Bitte gib ein Thema für die Abstimmung ein."];
+        return NO;
+    }
+    if ([[[DGUtils app].currentSurvey objectForKey:@"surveyItems"] count] < 2) {
+        [DGUtils alert:@"Bitte gib mindestens zwei Auswahlmöglichkeiten ein."];
+        return NO;
+    }
+    return YES;
 }
 
 - (void)dismiss
@@ -145,10 +154,7 @@
 
 - (IBAction)save: (id)sender
 {
-    if (![self validateInput]) {
-        [DGUtils alert:@"Bitte gib ein Thema für die Abstimmung ein."];
-        return;
-    }
+    if (![self validateInput]) return;
     
     [self write];
     [self dismiss]; 

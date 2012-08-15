@@ -12,10 +12,12 @@
     @protected BOOL _selectingDate;
     @protected BOOL _selectingTime;
     @protected BOOL _editingItem;
+    @protected int _editingIndex;
 }
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex;
 
 - (void)addButtonClicked:(id)sender;
+- (void)startEditingAtIndex: (int)index;
 
 - (void)handleItemAdded: (NSDictionary*)newItem;
 
