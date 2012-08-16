@@ -975,6 +975,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                         <outlet property="description" destination="hOh-J8-C5P" id="NGY-BT-myG"/>
                         <outlet property="name" destination="kuh-KL-ipD" id="BEf-9w-5d0"/>
                         <outlet property="surveyItemsTable" destination="7Pc-7r-icV" id="3TT-Pl-R9K"/>
+                        <outlet property="surveyMode" destination="YAv-oV-yw5" id="KlX-EM-Hbe"/>
                     </connections>
                 </viewController>
             </objects>

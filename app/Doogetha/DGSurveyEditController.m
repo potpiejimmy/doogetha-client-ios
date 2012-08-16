@@ -16,6 +16,7 @@
 @synthesize name = _name;
 @synthesize description = _description;
 @synthesize surveyItemsTable = _surveyItemsTable;
+@synthesize surveyMode = _surveyMode;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -39,6 +40,7 @@
     NSDictionary* s = [DGUtils app].currentSurvey;
     self.name.text =        [s objectForKey:@"name"];
     self.description.text = [s objectForKey:@"description"];
+    self.surveyMode.on =   [[s objectForKey:@"mode"] intValue] == 1;
 }
 
 - (void) write
@@ -46,6 +48,7 @@
     NSDictionary* s = [DGUtils app].currentSurvey;
     [s setValue:[TLUtils trim: self.name.text]  forKey:@"name"];
     [s setValue:self.description.text           forKey:@"description"];
+    [s setValue:(self.surveyMode.on ? [NSNumber numberWithInt:1] : [NSNumber numberWithInt:0]) forKey:@"mode"];
 }
 
 #pragma mark - View lifecycle
@@ -62,19 +65,27 @@
     self.description.clipsToBounds = YES;
 }
 
-/*
+
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    _deletingItemIndex = -1;
+
+    UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc] 
+                                          initWithTarget:self action:@selector(handleLongPress:)];
+    lpgr.minimumPressDuration = 1.0; //seconds
+    lpgr.delegate = self;
+    [self.surveyItemsTable addGestureRecognizer:lpgr];
 }
-*/
+
 
 - (void)viewDidUnload
 {
     [self setName:nil];
     [self setDescription:nil];
     [self setSurveyItemsTable:nil];
+    [self setSurveyMode:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -85,6 +96,13 @@
     [super viewWillAppear:animated];
     
     [self read];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    [self write];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -128,6 +146,19 @@
 }
 
 // ----------
+
+-(void)handleLongPress:(UILongPressGestureRecognizer *)gestureRecognizer
+{
+    if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
+        CGPoint p = [gestureRecognizer locationInView:self.surveyItemsTable];
+        NSIndexPath *indexPath = [self.surveyItemsTable indexPathForRowAtPoint:p];
+        if (indexPath == nil) return;
+        
+        NSDictionary* selItem = [[[DGUtils app].currentSurvey objectForKey:@"surveyItems"] objectAtIndex:indexPath.row];
+        _deletingItemIndex = indexPath.row;
+        [DGUtils alertYesNo:[NSString stringWithFormat:@"Möchtest du die Auswahl \"%@\" wirklich entfernen?",[selItem objectForKey:@"name"]] delegate:self];
+    }
+}
 
 - (void)handleItemAdded: (NSDictionary*)newItem
 {
@@ -195,10 +226,19 @@
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if (_editingItem) {
+    if (_deletingItemIndex >= 0) { /* deleting an item */
+        if (buttonIndex == 0) /* clicked OK */
+        {
+            // remove the item:
+            [[[DGUtils app].currentSurvey objectForKey:@"surveyItems"] removeObjectAtIndex:_deletingItemIndex];
+            [self.surveyItemsTable reloadData];
+        }
+        _deletingItemIndex = -1;
+    }
+    else if (_editingItem) { /* editing an item, handled in super controller */
         [super alertView:alertView clickedButtonAtIndex:buttonIndex];
-    } else {
-        if (buttonIndex == 0) /* clicked OK (cancel)*/
+    } else { /* leaving the view via cancel button */
+        if (buttonIndex == 0) /* clicked OK (really cancel)*/
         {
             [DGUtils app].currentSurvey = nil;
             [self dismiss];

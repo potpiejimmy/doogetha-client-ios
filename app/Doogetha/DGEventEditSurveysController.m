@@ -36,13 +36,13 @@
 {
     [super viewDidLoad];
     _isEditingSurvey = NO;
-    _isCreatingNewSurvey = NO;
+    _deletingIndex = -1;
 
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc] 
+                                          initWithTarget:self action:@selector(handleLongPress:)];
+    lpgr.minimumPressDuration = 1.0; //seconds
+    lpgr.delegate = self;
+    [self.surveysTable addGestureRecognizer:lpgr];
 }
 
 - (void)viewDidUnload
@@ -63,11 +63,13 @@
     if (_isEditingSurvey) {
         /* user just returned from editing a survey */
         _isEditingSurvey = NO;
-        if (_isCreatingNewSurvey) {
-            _isCreatingNewSurvey = NO;
-            if ([DGUtils app].currentSurvey) { /* not cancelled */
+        if ([DGUtils app].currentSurvey) { /* not cancelled */
+            if (_editingIndex < 0) { /* new survey */
                 // new survey was edited and submitted, add it to the list
                 [self addSurvey];
+            } else {
+                // survey was edited, just replace it
+                [[[[DGUtils app] currentEvent] objectForKey:@"surveys"] setObject:[DGUtils app].currentSurvey atIndex:_editingIndex];
             }
         }
         [self.surveysTable reloadData];
@@ -99,10 +101,7 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    if (section == 0)
-        return @"Abstimmungen";
-    else
-        return @"";
+    return (section == 0) ? @"Abstimmungen" : @"";
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -121,12 +120,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    static NSString *CellIdentifier = @"surveyCell";
-    
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier: (indexPath.section == 0 ? @"surveyCell" : @"actionCell")];
-//    if (cell == nil) {
-//        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-//    }
     
     // Configure the cell...
     if (indexPath.section == 0) {
@@ -195,11 +189,25 @@
 {
     if (indexPath.section == 0) {
         _isEditingSurvey = YES;
-        _isCreatingNewSurvey = NO;
-        [DGUtils app].currentSurvey = [[[[DGUtils app] currentEvent] objectForKey:@"surveys"] objectAtIndex:indexPath.row];
+        _editingIndex = indexPath.row;
+        NSMutableDictionary* survey = [[[[DGUtils app] currentEvent] objectForKey:@"surveys"] objectAtIndex:indexPath.row];
+        [DGUtils app].currentSurvey = (__bridge_transfer NSMutableDictionary*)CFPropertyListCreateDeepCopy(kCFAllocatorDefault, (__bridge_retained CFDictionaryRef)survey, kCFPropertyListMutableContainers);
         [self performSegueWithIdentifier:@"surveyEditSegue" sender:self];
     } else {
         [self addSurveyWithType:indexPath.row];
+    }
+}
+
+-(void)handleLongPress:(UILongPressGestureRecognizer *)gestureRecognizer
+{
+    if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
+        CGPoint p = [gestureRecognizer locationInView:self.surveysTable];
+        NSIndexPath *indexPath = [self.surveysTable indexPathForRowAtPoint:p];
+        if (indexPath == nil) return;
+        
+        NSDictionary* selSurvey = [[[DGUtils app].currentEvent objectForKey:@"surveys"] objectAtIndex:indexPath.row];
+        _deletingIndex = indexPath.row;
+        [DGUtils alertYesNo:[NSString stringWithFormat:@"Möchtest du die Abstimmung \"%@\" wirklich löschen?",[selSurvey objectForKey:@"name"]] delegate:self];
     }
 }
 
@@ -224,7 +232,7 @@
 - (void)addSurveyWithType: (int)type
 {
     _isEditingSurvey = YES;
-    _isCreatingNewSurvey = YES;
+    _editingIndex = -1; /* new survey, set index -1 */
     
     /* create a new survey */
     NSMutableDictionary* survey = [[NSMutableDictionary alloc] init];
@@ -241,4 +249,16 @@
     [self dismiss]; 
 }
 
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (_deletingIndex >= 0) { /* deleting an item */
+        if (buttonIndex == 0) /* clicked OK */
+        {
+            // remove the survey:
+            [[[DGUtils app].currentEvent objectForKey:@"surveys"] removeObjectAtIndex:_deletingIndex];
+            [self.surveysTable reloadData];
+        }
+        _deletingIndex = -1;
+    }
+}
 @end

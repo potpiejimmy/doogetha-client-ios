@@ -10,10 +10,13 @@
 
 #import "DGSurveyEditBaseController.h"
 
-@interface DGSurveyEditController : DGSurveyEditBaseController<UITableViewDelegate,UITableViewDataSource>
+@interface DGSurveyEditController : DGSurveyEditBaseController<UITableViewDelegate,UITableViewDataSource,UIGestureRecognizerDelegate> {
+    @private int _deletingItemIndex;
+}
 @property (weak, nonatomic) IBOutlet UITextField *name;
 @property (weak, nonatomic) IBOutlet UITextView *description;
 @property (weak, nonatomic) IBOutlet UITableView *surveyItemsTable;
+@property (weak, nonatomic) IBOutlet UISwitch *surveyMode;
 - (IBAction)save:(id)sender;
 - (IBAction)cancel:(id)sender;
 - (IBAction)backgroundTouched:(id)sender;

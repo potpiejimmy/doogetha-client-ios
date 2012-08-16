@@ -8,9 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface DGEventEditSurveysController : UITableViewController {
+@interface DGEventEditSurveysController : UITableViewController<UIGestureRecognizerDelegate> {
     @private BOOL _isEditingSurvey;
-    @private BOOL _isCreatingNewSurvey;
+    @private int _editingIndex;
+    @private int _deletingIndex;
 }
 @property (weak, nonatomic) IBOutlet UITableView *surveysTable;
 - (IBAction)save:(id)sender;
