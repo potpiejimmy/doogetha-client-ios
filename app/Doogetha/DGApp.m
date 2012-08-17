@@ -235,6 +235,13 @@ NSString* const DOOGETHA_URL = @"https://www.potpiejimmy.de/doogetha/res/";
     return nil;
 }
 
+-(BOOL)isCurrentEventMyEvent
+{
+    if (!self.currentEvent) return NO;
+    int eventOwner = [[[self.currentEvent objectForKey:@"owner"] objectForKey:@"id"] intValue];
+    return (eventOwner == self.userId);
+}
+
 -(DGDateTimeSelectController*) dateTimeSelector
 {
     if (!_dateTimeSelector)

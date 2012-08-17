@@ -89,10 +89,33 @@ const int HEADER_HEIGHT = 100;
     [self.tableScroller addSubview:line];
     
     currentY += 10;
+
+    // my event & survey is open: add close buttons
+    BOOL needCloseButton = surveyState == 0 /* open survey */ && [[DGUtils app] isCurrentEventMyEvent] /* my event */;
     
-    UILabel* itemLabel = [DGUtils label:CGRectMake(0, currentY, COLUMN1_WIDTH - 10, 1) withText:[DGUtils formatSurvey:survey item:surveyItem] size:11.0f];
+    int closeButtonSpace = 0;
+    if (needCloseButton) {
+        // my event: reserve some extra space in first column for close buttons:
+        closeButtonSpace = 20;
+    }
+    
+    UILabel* itemLabel = [DGUtils label:CGRectMake(closeButtonSpace, currentY, COLUMN1_WIDTH - 10 - closeButtonSpace, 1) withText:[DGUtils formatSurvey:survey item:surveyItem] size:11.0f];
     
     [self.tableScroller addSubview:itemLabel];
+    
+    if (needCloseButton) {
+        // now that we know the height of the current row (the itemLabel's height), add the close button:
+        UIButton* closeButton = [[UIButton alloc] initWithFrame:CGRectMake(0, currentY, 1, 1)];
+        [closeButton setBackgroundImage:[UIImage imageNamed:@"close.png"] forState:UIControlStateNormal];
+        [closeButton addTarget:self action:@selector(onClickClose:) forControlEvents:UIControlEventTouchUpInside];
+        [closeButton sizeToFit];
+        closeButton.tag = [[surveyItem objectForKey:@"id"] intValue];
+        // now vertically align the button in center:
+        CGRect buttonFrame = closeButton.frame;
+        buttonFrame.origin.y += (itemLabel.frame.size.height - closeButton.frame.size.height) / 2;
+        closeButton.frame = buttonFrame;
+        [self.tableScroller addSubview:closeButton];
+    }
     
     int i = 0;
     for (NSDictionary* user in [event objectForKey:@"users"]) {
@@ -105,6 +128,7 @@ const int HEADER_HEIGHT = 100;
         else
             button.enabled = false;
         
+        // center align vertically and horizontally:
         CGRect buttonFrame = button.frame;
         buttonFrame.origin.y += (itemLabel.frame.size.height - button.frame.size.height) / 2;
         buttonFrame.origin.x += (COLUMN_WIDTH - button.frame.size.width) / 2;
@@ -125,6 +149,7 @@ const int HEADER_HEIGHT = 100;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    _closingWithItem = nil;
     
     NSLog(@"viewDidLoad DGSurveyConfirmController");
     
@@ -227,6 +252,9 @@ const int HEADER_HEIGHT = 100;
     [self setOkButton:nil];
     [self setCancelButton:nil];
     [self setScroller:nil];
+    
+    _closingWithItem = nil;
+    
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -267,16 +295,29 @@ const int HEADER_HEIGHT = 100;
     [self setButtonImage:button forUser:myUserId item:item];
 }
 
+- (NSMutableDictionary*) findItemForId: (int)id
+{
+    NSArray* surveyItems = [[DGUtils app].currentSurvey objectForKey:@"surveyItems"];
+    for (NSMutableDictionary* surveyItem in surveyItems) {
+        if ([[surveyItem objectForKey:@"id"] intValue] == id) {
+            return surveyItem;
+        }
+    }
+    return nil;
+}
+
 - (void)onClick:(id)sender
 {
-    int surveyItemId = [sender tag];
-//    NSLog(@"Button clicked: %d", surveyItemId);
-    
-    NSArray* surveyItems = [[DGUtils app].currentSurvey objectForKey:@"surveyItems"];
-    for (NSDictionary* surveyItem in surveyItems) {
-        if ([[surveyItem objectForKey:@"id"] intValue] == surveyItemId) {
-            [self toggleConfirmation:surveyItem forView:sender];
-        }
+    NSMutableDictionary* surveyItem = [self findItemForId:[sender tag]];
+    if (surveyItem) [self toggleConfirmation:surveyItem forView:sender];
+}
+
+- (void)onClickClose:(id)sender
+{
+    NSMutableDictionary* surveyItem = [self findItemForId:[sender tag]];
+    if (surveyItem) {
+        _closingWithItem = surveyItem;
+        [DGUtils alertYesNo:[NSString stringWithFormat:@"Abstimmung jetzt schließen mit dem Ergebnis \"%@\"?",[DGUtils formatSurvey:[DGUtils app].currentSurvey item:surveyItem]] delegate:self];
     }
 }
 
@@ -334,9 +375,22 @@ const int HEADER_HEIGHT = 100;
     [webRequester put:[NSString stringWithFormat:@"%@surveys/%d",DOOGETHA_URL,surveyId] msg:result reqid:@"confirm"];
 }
 
+- (void)closeSurveyWithItem:(NSMutableDictionary*)closeItem
+{
+    [[DGUtils app].currentSurvey setObject:[NSNumber numberWithInt:1] forKey:@"state"]; /* survey state: 1 = closed */
+    NSArray* surveyItems = [[DGUtils app].currentSurvey objectForKey:@"surveyItems"];
+    for (NSMutableDictionary* surveyItem in surveyItems)
+        [surveyItem setObject:[NSNumber numberWithInt:0] forKey:@"state"]; // reset all other to 0
+    [closeItem setObject:[NSNumber numberWithInt:1] forKey:@"state"]; // close reason (1)
+    
+    // now save the view:
+    [self confirm:nil];
+}
+
 - (void)webRequestFail:(NSString*)reqid
 {
     [DGUtils alertWaitEnd];
+    _closingWithItem = nil;
     [DGUtils alert:[DGUtils app].webRequester.lastError];
 }
 
@@ -345,7 +399,34 @@ const int HEADER_HEIGHT = 100;
     [DGUtils alertWaitEnd];
     NSLog(@"Got result: %@", [[[DGUtils app] webRequester] resultString]);
     [[DGUtils app] refreshActivities];
-    [self.navigationController popViewControllerAnimated: YES];
+    
+    if (_closingWithItem) {
+        // closing - send the close request now:
+        TLWebRequest* webRequester = [[DGUtils app] webRequester];
+        webRequester.delegate = self;
+
+        NSDictionary* survey = [DGUtils app].currentSurvey;
+        int surveyId = [[survey objectForKey:@"id"] intValue];
+        int surveyItemId = [[_closingWithItem objectForKey:@"id"] intValue];
+        _closingWithItem = nil;
+        NSLog(@"Closing survey %d with item %d", surveyId, surveyItemId);
+        [DGUtils alertWaitStart:@"Abstimmung wird geschlossen. Bitte warten..."];
+        [webRequester get:[NSString stringWithFormat:@"%@surveys/%d?close=%d",DOOGETHA_URL,surveyId,surveyItemId] reqid:@"close"];
+    } else {
+        // leave view:
+        [self.navigationController popViewControllerAnimated: YES];
+    }
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    // alert: really close survey?
+    if (buttonIndex == 0) /* clicked OK */ {
+        [self closeSurveyWithItem:_closingWithItem];
+        // keep _closingWithItem until saved
+    } else {
+        _closingWithItem = nil;
+    }
 }
 
 @end

@@ -46,6 +46,7 @@ extern NSString* const DOOGETHA_URL;
 -(void)startSession:(id)sessionCallback;
 -(void)makeMeFirst:(NSDictionary*) event;
 -(NSDictionary*)findMe:(NSDictionary*) event;
+-(BOOL)isCurrentEventMyEvent;
 
 -(NSString*)userDefaultValueForKey:(NSString*)key;
 -(void)setUserDefaultValue:(NSString*)value forKey:(NSString*)key;

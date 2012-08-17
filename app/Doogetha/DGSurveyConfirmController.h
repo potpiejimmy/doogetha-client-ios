@@ -10,7 +10,9 @@
 
 #import "DGSurveyEditBaseController.h"
 
-@interface DGSurveyConfirmController : DGSurveyEditBaseController
+@interface DGSurveyConfirmController : DGSurveyEditBaseController {
+    @private NSMutableDictionary* _closingWithItem;
+}
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scroller;
 
@@ -22,5 +24,6 @@
 @property (strong, nonatomic) UIButton *addButton;
 
 - (IBAction)confirm:(id)sender;
+- (void)closeSurveyWithItem:(NSMutableDictionary*)closeItem;
 
 @end

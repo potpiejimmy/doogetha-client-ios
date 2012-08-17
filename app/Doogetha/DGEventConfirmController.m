@@ -207,7 +207,7 @@
     }
     else if (surveyState == 1) /* closed */
     {
-        cell.detailTextLabel.text = [[self surveyResultItem:survey] objectForKey:@"name"];
+        cell.detailTextLabel.text = [DGUtils formatSurvey:survey item:[self surveyResultItem:survey]];
         cell.accessoryType = UITableViewCellAccessoryNone;
     }
     
