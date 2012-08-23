@@ -19,6 +19,7 @@
 @synthesize scroller = _scroller;
 @synthesize confirmButton = _confirmButton;
 @synthesize declineButton = _declineButton;
+@synthesize editButton = _editButton;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -65,6 +66,11 @@
     [super viewDidLoad];
     
     NSLog(@"viewDidLoad DGEventConfirmController");
+    
+    if ([[DGUtils app] isCurrentEventMyEvent])
+        self.navigationItem.rightBarButtonItem = self.editButton;
+    else
+        self.navigationItem.rightBarButtonItem = nil;
     
     int viewWidth = self.scroller.frame.size.width;
     
@@ -160,6 +166,7 @@
     [self setConfirmButton:nil];
     [self setDeclineButton:nil];
     [self setScroller:nil];
+    [self setEditButton:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;

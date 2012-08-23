@@ -17,6 +17,7 @@
 @property (strong, nonatomic) UILabel *eventDescription;
 @property (strong, nonatomic) UIButton *confirmButton;
 @property (strong, nonatomic) UIButton *declineButton;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *editButton;
 
 - (IBAction)confirm:(id)sender;
 - (IBAction)decline:(id)sender;

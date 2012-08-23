@@ -50,6 +50,7 @@
 		A5AC756214D871820029F065 /* settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A5AC756014D871820029F065 /* settings@2x.png */; };
 		A5AC756514D871D00029F065 /* DGSettingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5AC756414D871D00029F065 /* DGSettingsController.m */; };
 		A5B2D0D514A0648400A4FD6D /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = A5B2D0D414A0648400A4FD6D /* iTunesArtwork */; };
+		A5B737AB15E6BED600DB9AC1 /* DGEventEditController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5B737AA15E6BED600DB9AC1 /* DGEventEditController.m */; };
 		A5B88D7814F15066005773BB /* DGWizardDateTimeController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5B88D7714F15066005773BB /* DGWizardDateTimeController.m */; };
 		A5B88D7C14F1528F005773BB /* DGEventEditParticipantsController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5B88D7B14F1528F005773BB /* DGEventEditParticipantsController.m */; };
 		A5B88D7F14F15EF8005773BB /* DGNonAnimatedPushSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = A5B88D7E14F15EF7005773BB /* DGNonAnimatedPushSegue.m */; };
@@ -149,6 +150,8 @@
 		A5AC756314D871D00029F065 /* DGSettingsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DGSettingsController.h; sourceTree = "<group>"; };
 		A5AC756414D871D00029F065 /* DGSettingsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DGSettingsController.m; sourceTree = "<group>"; };
 		A5B2D0D414A0648400A4FD6D /* iTunesArtwork */ = {isa = PBXFileReference; lastKnownFileType = file; path = iTunesArtwork; sourceTree = "<group>"; };
+		A5B737A915E6BED600DB9AC1 /* DGEventEditController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DGEventEditController.h; sourceTree = "<group>"; };
+		A5B737AA15E6BED600DB9AC1 /* DGEventEditController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DGEventEditController.m; sourceTree = "<group>"; };
 		A5B88D7614F15066005773BB /* DGWizardDateTimeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DGWizardDateTimeController.h; sourceTree = "<group>"; };
 		A5B88D7714F15066005773BB /* DGWizardDateTimeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DGWizardDateTimeController.m; sourceTree = "<group>"; };
 		A5B88D7A14F1528F005773BB /* DGEventEditParticipantsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DGEventEditParticipantsController.h; sourceTree = "<group>"; };
@@ -260,6 +263,8 @@
 				A5B88D7B14F1528F005773BB /* DGEventEditParticipantsController.m */,
 				A5992FD215C55BDC00285ABF /* DGEventEditSurveysController.h */,
 				A5992FD315C55BDC00285ABF /* DGEventEditSurveysController.m */,
+				A5B737A915E6BED600DB9AC1 /* DGEventEditController.h */,
+				A5B737AA15E6BED600DB9AC1 /* DGEventEditController.m */,
 				A5D12515149E545D007B5606 /* DGEventConfirmController.h */,
 				A5D12516149E545D007B5606 /* DGEventConfirmController.m */,
 				A58B323214A4E0E600E6D3E1 /* DGSurveyConfirmController.h */,
@@ -475,6 +480,7 @@
 				A5992FD415C55BDC00285ABF /* DGEventEditSurveysController.m in Sources */,
 				A5992FD815C55F3900285ABF /* DGSurveyEditController.m in Sources */,
 				A54F92C615C85E6600D88935 /* DGSurveyEditBaseController.m in Sources */,
+				A5B737AB15E6BED600DB9AC1 /* DGEventEditController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
