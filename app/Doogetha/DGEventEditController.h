@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface DGEventEditController : UIViewController
+@interface DGEventEditController : UITableViewController
 - (IBAction)cancel:(id)sender;
 - (IBAction)save:(id)sender;
+@property (weak, nonatomic) IBOutlet UITableView *editTableView;
 
 @end

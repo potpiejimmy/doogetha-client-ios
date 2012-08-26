@@ -1216,11 +1216,60 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kj4-ku-iHn" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="w0d-Ye-Px3" customClass="DGEventEditController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Ucf-ab-2Vr">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="72" sectionHeaderHeight="10" sectionFooterHeight="10" id="jeO-nP-NWo">
                         <rect key="frame" x="0.0" y="20" width="320" height="416"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.89818088500000004" green="1" blue="0.89954949819999996" alpha="1" colorSpace="calibratedRGB"/>
-                    </view>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="eventEditCellBasics" textLabel="NnT-VR-AIH" detailTextLabel="Qna-Qc-DEP" rowHeight="94" style="IBUITableViewCellStyleSubtitle" id="6H7-tt-3DQ">
+                                <rect key="frame" x="0.0" y="46" width="320" height="95"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="10" y="1" width="280" height="93"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="NnT-VR-AIH">
+                                            <rect key="frame" x="10" y="28" width="31" height="19"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" text="Detail" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Qna-Qc-DEP">
+                                            <rect key="frame" x="10" y="47" width="36" height="18"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <color key="textColor" red="0.50196078431372548" green="0.50196078431372548" blue="0.50196078431372548" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                            </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="eventEditCell" textLabel="4eP-ic-qVv" rowHeight="42" style="IBUITableViewCellStyleDefault" id="uYU-5f-Bqz">
+                                <rect key="frame" x="0.0" y="141" width="320" height="43"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="10" y="1" width="280" height="41"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="4eP-ic-qVv">
+                                            <rect key="frame" x="10" y="0.0" width="260" height="41"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="w0d-Ye-Px3" id="rE9-d0-uhg"/>
+                            <outlet property="delegate" destination="w0d-Ye-Px3" id="8u9-6z-6fE"/>
+                        </connections>
+                    </tableView>
                     <toolbarItems>
                         <barButtonItem title="OK" id="7Jg-qO-1eY">
                             <connections>
@@ -1235,6 +1284,13 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                         </barButtonItem>
                     </toolbarItems>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="editTableView" destination="jeO-nP-NWo" id="1Jm-Kr-jhv"/>
+                        <segue destination="w5j-R7-aVD" kind="custom" identifier="editBasicsSegue" customClass="DGNonAnimatedPushSegue" id="l1j-01-pNR"/>
+                        <segue destination="5rj-y3-dvc" kind="custom" identifier="editDateTimeSegue" customClass="DGNonAnimatedPushSegue" id="PzK-GQ-mM5"/>
+                        <segue destination="5Cy-g0-aWz" kind="custom" identifier="editParticipantsSegue" customClass="DGNonAnimatedPushSegue" id="BIs-Qs-1Ql"/>
+                        <segue destination="24Q-Xr-dGO" kind="custom" identifier="editSurveysSegue" customClass="DGNonAnimatedPushSegue" id="qWu-gD-Ruf"/>
+                    </connections>
                 </viewController>
             </objects>
             <point key="canvasLocation" x="2274" y="800"/>
@@ -1409,11 +1465,12 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                 <relationship kind="outlet" name="name" candidateClass="UITextField"/>
             </relationships>
         </class>
-        <class className="DGEventEditController" superclassName="UIViewController">
+        <class className="DGEventEditController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/DGEventEditController.h"/>
             <relationships>
                 <relationship kind="action" name="cancel:"/>
                 <relationship kind="action" name="save:"/>
+                <relationship kind="outlet" name="editTableView" candidateClass="UITableView"/>
             </relationships>
         </class>
         <class className="DGEventEditDateTimeController" superclassName="UIViewController">
@@ -1540,5 +1597,9 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
         <segue reference="z2x-Mu-SHA"/>
         <segue reference="bhh-vc-hI2"/>
         <segue reference="ZRm-mJ-TwR"/>
+        <segue reference="l1j-01-pNR"/>
+        <segue reference="PzK-GQ-mM5"/>
+        <segue reference="BIs-Qs-1Ql"/>
+        <segue reference="qWu-gD-Ruf"/>
     </inferredMetricsTieBreakers>
 </document>
