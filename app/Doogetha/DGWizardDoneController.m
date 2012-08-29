@@ -59,30 +59,12 @@
 
 - (IBAction)save:(id)sender
 {
-    TLWebRequest* webRequester = [[DGUtils app] webRequester];
-    webRequester.delegate = self;
-    
-    NSError* error;
-    NSData* jsonData = [NSJSONSerialization dataWithJSONObject:[DGUtils app].currentEvent
-                                                       options:0 error:&error];
-    NSString* result = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-    
-    NSLog(@"Trying to post: %@", result);
-    [DGUtils alertWaitStart:@"Speichern. Bitte warten..."];
-    [webRequester post:[NSString stringWithFormat:@"%@events",DOOGETHA_URL] msg:result reqid:@"save"];
+    [self saveEvent];
 }
 
-- (void)webRequestFail:(NSString*)reqid
+- (void) dismiss
 {
-    [DGUtils alertWaitEnd];
-    [DGUtils alert:[DGUtils app].webRequester.lastError];
-}
-
-- (void) webRequestDone:(NSString*)reqid
-{
-    [DGUtils alertWaitEnd];
-    NSLog(@"Got result: %@", [[[DGUtils app] webRequester] resultString]);
-    [[DGUtils app] refreshActivities];
+    // overrides dismiss in super class, called by superclass
     [DGUtils popViewControllers:self num:5]; // pop all wizard pages
 }
 

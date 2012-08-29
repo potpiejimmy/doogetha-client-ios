@@ -8,7 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface DGWizardDoneController : UIViewController
+#import "DGEventEditBaseController.h"
+
+@interface DGWizardDoneController : DGEventEditBaseController
 - (IBAction)save:(id)sender;
 
 @end

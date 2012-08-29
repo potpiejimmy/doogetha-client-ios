@@ -8,7 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface DGEventConfirmController : UIViewController<UITableViewDelegate,UITableViewDataSource>
+@interface DGEventConfirmController : UIViewController<UITableViewDelegate,UITableViewDataSource> {
+    @private BOOL _isEditing;
+}
 
 @property (weak, nonatomic) IBOutlet UITableView *surveyTable;
 @property (weak, nonatomic) IBOutlet UIScrollView *scroller;
@@ -21,5 +23,6 @@
 
 - (IBAction)confirm:(id)sender;
 - (IBAction)decline:(id)sender;
+- (IBAction)edit:(id)sender;
 
 @end

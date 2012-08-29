@@ -192,6 +192,7 @@
 
 - (void)dismiss
 {
+    // overrides dismiss in super class, called by superclass
     self.navigationController.navigationBarHidden = NO;
     self.navigationController.toolbarHidden = YES;
     [self.navigationController popViewControllerAnimated:NO];
@@ -199,11 +200,19 @@
 
 - (IBAction)cancel:(id)sender
 {
-    [self dismiss];
+    [DGUtils alertYesNo:@"Alle Änderungen an dieser Aktivität wirklich verwerfen?" delegate:self];
 }
 
 - (IBAction)save:(id)sender
 {
-    [self dismiss];
+    [self saveEvent];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0) /* clicked OK */
+    {
+        [self dismiss];
+    }
 }
 @end

@@ -64,6 +64,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    _isEditing = NO;
     
     NSLog(@"viewDidLoad DGEventConfirmController");
     
@@ -177,7 +178,16 @@
     [super viewDidAppear:animated];
     NSLog(@"View did appear: DGEventConfirmController");
     
-    [self.surveyTable reloadData];
+    if (_isEditing) {
+        _isEditing = NO;
+        
+        // just returned from editing - dismiss view and make sure event
+        // is reloaded (even on cancel to revert all modifications)
+        [[DGUtils app] refreshActivities];
+        [self.navigationController popViewControllerAnimated:NO];
+    } else {
+        [self.surveyTable reloadData];
+    }
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -253,6 +263,13 @@
 - (IBAction) decline:(id)sender
 {
     [self doConfirm:2]; /* decline */
+}
+
+- (IBAction)edit:(id)sender
+{
+    //NSLog(@"edit event");
+    _isEditing = YES;
+    [self performSegueWithIdentifier:@"editSegue" sender:self];
 }
 
 - (void)webRequestFail:(NSString*)reqid

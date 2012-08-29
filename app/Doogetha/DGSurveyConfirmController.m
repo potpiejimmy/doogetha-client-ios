@@ -420,12 +420,16 @@ const int HEADER_HEIGHT = 100;
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    // alert: really close survey?
-    if (buttonIndex == 0) /* clicked OK */ {
-        [self closeSurveyWithItem:_closingWithItem];
-        // keep _closingWithItem until saved
+    if (_editingItem) { /* editing an item, handled in super controller */
+        [super alertView:alertView clickedButtonAtIndex:buttonIndex];
     } else {
-        _closingWithItem = nil;
+        // alert: really close survey?
+        if (buttonIndex == 0) /* clicked OK */ {
+            [self closeSurveyWithItem:_closingWithItem];
+            // keep _closingWithItem until saved
+        } else {
+            _closingWithItem = nil;
+        }
     }
 }
 
