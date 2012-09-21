@@ -58,6 +58,8 @@ extern NSString* const DOOGETHA_URL;
 
 -(DGDateTimeSelectController*) dateTimeSelector;
 
+-(void)checkApnsServerSynced;
+
 @end
 
 // Callback protocol:

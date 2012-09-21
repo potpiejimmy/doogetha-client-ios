@@ -166,6 +166,10 @@
             _checkVersionAfterReload = NO;
             [self checkVersion];
         }
+        else
+        {
+            [[DGUtils app] checkApnsServerSynced];
+        }
     }
     else if ([reqid isEqualToString:@"version"])
     {
@@ -178,6 +182,8 @@
         if (![myVersion isEqualToString:serverVersion]) {
             [DGUtils alert:@"Es steht eine neue Version von Doogetha zur Verfügung.\nBitte lade diese herunter\n\nhttp://potpiejimmy.de/doogetha/\n\nund installiere sie über iTunes" withTitle:@"Doogetha Beta Program"];
         }
+
+        [[DGUtils app] checkApnsServerSynced];
     }
     else if ([reqid isEqualToString:@"delete"])
     {

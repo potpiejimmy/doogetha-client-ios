@@ -11,7 +11,7 @@
 #import "TLUtils.h"
 #import "TLKeychain.h"
 
-NSString* const DOOGETHA_URL = @"https://www.potpiejimmy.de/doogetha/res/";
+NSString* const DOOGETHA_URL = @"https://www.doogetha.com/beta/res/";
 
 @implementation DGApp
 
@@ -42,7 +42,44 @@ NSString* const DOOGETHA_URL = @"https://www.potpiejimmy.de/doogetha/res/";
     _inactive = NO;
     _gotSession = NO;
 
+    // Register for Apple Push Notification Services:
+    [application registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
+    
     return YES;
+}
+
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
+{
+    NSString* registrationId = [[deviceToken description] stringByReplacingOccurrencesOfString:@" " withString:@""];
+    NSLog(@"APNS Registration Device Token:%@", registrationId);
+    
+    NSString* oldRegistrationId = [self userDefaultValueForKey:@"apnsDeviceToken"];
+    if (oldRegistrationId == nil || ![oldRegistrationId isEqualToString:registrationId]) {
+        // device token has changed, update it:
+        [self setUserDefaultValue:registrationId forKey:@"apnsDeviceToken"];
+        [self setUserDefaultValue:@"false" forKey:@"apnsServerSynced"];
+    }
+}
+
+- (void)application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError*)error
+{
+    NSLog(@"Failed to register for APNS: %@", [error userInfo]);
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
+{
+    NSLog(@"UserInfo:%@", userInfo);
+    [DGUtils alert:@"Unbekannter Inhalt" withTitle:@"Notification received"];
+}
+
+-(void)checkApnsServerSynced
+{
+    if ([@"false" isEqualToString:[self userDefaultValueForKey:@"apnsServerSynced"]]) {
+        // register device token with Doogetha server:
+        NSLog(@"Device not synced yet, send device token to server.");
+        self.webRequester.delegate = self;
+        [self.webRequester post:[NSString stringWithFormat:@"%@devices/2",DOOGETHA_URL] msg:[self userDefaultValueForKey:@"apnsDeviceToken"] reqid:@"deviceregister"];
+    }
 }
 
 - (void)webRequestFail:(NSString*)reqid 
@@ -60,11 +97,16 @@ NSString* const DOOGETHA_URL = @"https://www.potpiejimmy.de/doogetha/res/";
 
 - (void)webRequestDone:(NSString*)reqid 
 {
-    NSString* sessionKey = [self.webRequester resultString];
-    sessionKey = [sessionKey substringWithRange:NSMakeRange(1, [sessionKey length]-2)];
-    //NSLog(@"Session key: Basic %@",sessionKey);
-    self.sessionKey = [TLUtils encodeBase64WithString:sessionKey];
-    [self.sessionCallback sessionCreated];
+    if ([reqid isEqualToString:@"session"]) {
+        NSString* sessionKey = [self.webRequester resultString];
+        sessionKey = [sessionKey substringWithRange:NSMakeRange(1, [sessionKey length]-2)];
+        //NSLog(@"Session key: Basic %@",sessionKey);
+        self.sessionKey = [TLUtils encodeBase64WithString:sessionKey];
+        [self.sessionCallback sessionCreated];
+    } else if ([reqid isEqualToString:@"deviceregister"]) {
+        NSLog(@"Device %@ successfully registered.", [self userDefaultValueForKey:@"apnsDeviceToken"]);
+        [self setUserDefaultValue:@"true" forKey:@"apnsServerSynced"];
+    }
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
