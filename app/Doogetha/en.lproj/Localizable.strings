@@ -1,0 +1,14 @@
+/* 
+  Localizable.strings
+  Doogetha
+
+  Created by Kerstin Nicklaus on 22.09.12.
+  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+*/
+
+"notification.eventinvitation" = "Du hast eine Einladung erhalten";
+"notification.eventupdate" = "Eine Aktivität wurde aktualisiert";
+"notification.eventconfirm" = "Eine Teilnahme wurde bestätigt";
+"notification.surveyadded" = "Eine neue Umfrage wurde erstellt";
+"notification.surveyconfirm" = "Ein Benutzer hat abgestimmt";
+"notification.surveyclosed" = "Eine Umfrage wurde geschlossen";

@@ -69,7 +69,7 @@ NSString* const DOOGETHA_URL = @"https://www.doogetha.com/beta/res/";
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
     NSLog(@"UserInfo:%@", userInfo);
-    [DGUtils alert:@"Unbekannter Inhalt" withTitle:@"Notification received"];
+    [DGUtils alert:[userInfo description] withTitle:@"Notification"];
 }
 
 -(void)checkApnsServerSynced

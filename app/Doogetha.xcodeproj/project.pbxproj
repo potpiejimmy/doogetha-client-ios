@@ -17,6 +17,7 @@
 		A52230B214F6CC26001CE6E4 /* DGWelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A52230B114F6CC26001CE6E4 /* DGWelcomeViewController.m */; };
 		A52230B614F6D63E001CE6E4 /* DGWizardSurveysController.m in Sources */ = {isa = PBXBuildFile; fileRef = A52230B514F6D63E001CE6E4 /* DGWizardSurveysController.m */; };
 		A526D32415EEA00E00D7B0BC /* DGEventEditBaseController.m in Sources */ = {isa = PBXBuildFile; fileRef = A526D32315EEA00E00D7B0BC /* DGEventEditBaseController.m */; };
+		A5346919160E011D005437DC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A534691B160E011D005437DC /* Localizable.strings */; };
 		A5465B0914E6D02A00886694 /* DGWizardBasicsController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5465B0814E6D02A00886694 /* DGWizardBasicsController.m */; };
 		A5465B0D14E6D11900886694 /* DGEventEditBasicsController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5465B0C14E6D11900886694 /* DGEventEditBasicsController.m */; };
 		A5465B1014E6D5D100886694 /* DGWizardParticipantsController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5465B0F14E6D5D100886694 /* DGWizardParticipantsController.m */; };
@@ -99,6 +100,7 @@
 		A52230B514F6D63E001CE6E4 /* DGWizardSurveysController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DGWizardSurveysController.m; sourceTree = "<group>"; };
 		A526D32215EEA00E00D7B0BC /* DGEventEditBaseController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DGEventEditBaseController.h; sourceTree = "<group>"; };
 		A526D32315EEA00E00D7B0BC /* DGEventEditBaseController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DGEventEditBaseController.m; sourceTree = "<group>"; };
+		A534691A160E011D005437DC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A5465B0714E6D02A00886694 /* DGWizardBasicsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DGWizardBasicsController.h; sourceTree = "<group>"; };
 		A5465B0814E6D02A00886694 /* DGWizardBasicsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DGWizardBasicsController.m; sourceTree = "<group>"; };
 		A5465B0B14E6D11900886694 /* DGEventEditBasicsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DGEventEditBasicsController.h; sourceTree = "<group>"; };
@@ -355,6 +357,7 @@
 				A591DAE1149A6DB20077DF83 /* InfoPlist.strings */,
 				A591DAE4149A6DB20077DF83 /* main.m */,
 				A591DAE6149A6DB20077DF83 /* Doogetha-Prefix.pch */,
+				A534691B160E011D005437DC /* Localizable.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -446,6 +449,7 @@
 				A5BF6C4915DE923E00B72B76 /* close.png in Resources */,
 				A5BF6C4A15DE923E00B72B76 /* close@2x.png in Resources */,
 				A5BF6C4D15DE974F00B72B76 /* add@2x.png in Resources */,
+				A5346919160E011D005437DC /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -493,6 +497,14 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		A534691B160E011D005437DC /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A534691A160E011D005437DC /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		A591DAE1149A6DB20077DF83 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
