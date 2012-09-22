@@ -157,7 +157,7 @@
         self.events = [res objectForKey:@"events"];
         NSLog(@"Got %d events",[self.events count]);
     
-        self.tabBarController.tabBar.selectedItem.badgeValue = [NSString stringWithFormat:@"%d",[self.events count]];
+//        self.tabBarController.tabBar.selectedItem.badgeValue = [NSString stringWithFormat:@"%d",[self.events count]];
     
         [self.eventsTable reloadData];
     
