@@ -7,8 +7,15 @@
 */
 
 "notification.eventinvitation" = "Du hast eine Einladung erhalten";
+"notification.eventinvitation.text" = "%@ hat dich eingeladen.";
 "notification.eventupdate" = "Eine Aktivität wurde aktualisiert";
+"notification.eventupdate.text" = "Die Aktivität wurde von %@ geändert";
 "notification.eventconfirm" = "Eine Teilnahme wurde bestätigt";
+"notification.eventconfirm.text.accepted" = "%@ nimmt teil.";
+"notification.eventconfirm.text.declined" = "%@ hat abgesagt.";
 "notification.surveyadded" = "Eine neue Umfrage wurde erstellt";
+"notification.surveyadded.text" = "%@ hat eine neue Abstimmung erstellt.";
 "notification.surveyconfirm" = "Ein Benutzer hat abgestimmt";
+"notification.surveyconfirm.text" = "%@ hat abgestimmt.";
 "notification.surveyclosed" = "Eine Umfrage wurde geschlossen";
+"notification.surveyclosed.text" = "Die Abstimmung wurde von %@ geschlossen";

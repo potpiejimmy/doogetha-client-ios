@@ -8,6 +8,7 @@
 
 #import "DGApp.h"
 #import "DGUtils.h"
+#import "DGContactsUtils.h"
 #import "TLUtils.h"
 #import "TLKeychain.h"
 
@@ -50,7 +51,11 @@ NSString* const DOOGETHA_URL = @"https://www.doogetha.com/beta/res/";
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
-    NSString* registrationId = [[deviceToken description] stringByReplacingOccurrencesOfString:@" " withString:@""];
+    NSString* registrationId = 
+        [[[[deviceToken description] 
+          stringByReplacingOccurrencesOfString:@" " withString:@""]
+          stringByReplacingOccurrencesOfString:@"<" withString:@""]
+          stringByReplacingOccurrencesOfString:@">" withString:@""];
     NSLog(@"APNS Registration Device Token:%@", registrationId);
     
     NSString* oldRegistrationId = [self userDefaultValueForKey:@"apnsDeviceToken"];
@@ -69,7 +74,23 @@ NSString* const DOOGETHA_URL = @"https://www.doogetha.com/beta/res/";
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
     NSLog(@"UserInfo:%@", userInfo);
-    [DGUtils alert:[userInfo description] withTitle:@"Notification"];
+    NSString* type = [userInfo objectForKey:@"type"];
+    NSString* textKey = [NSString stringWithFormat:@"%@.text",type];
+    if ([@"eventconfirm" isEqualToString:type]) {
+        NSString* accepted = [userInfo objectForKey:@"state"];
+        if ([@"1" isEqualToString:accepted])
+            textKey = [NSString stringWithFormat:@"%@.accepted",textKey];
+        else
+            textKey = [NSString stringWithFormat:@"%@.declined",textKey];
+    }
+    
+    NSString* eventName = [userInfo objectForKey:@"event"];
+    NSString* email = [userInfo objectForKey:@"user"];
+    NSMutableDictionary* userVo = [NSMutableDictionary dictionaryWithObject:email forKey:@"email"];
+    [DGContactsUtils fillUserInfo:userVo];
+    NSString* userDisplayName = [DGContactsUtils userDisplayName:userVo];
+    NSString* text = [NSString stringWithFormat:NSLocalizedString(textKey, nil), userDisplayName];
+    [DGUtils alert:text withTitle:eventName];
 }
 
 -(void)checkApnsServerSynced
@@ -217,6 +238,8 @@ NSString* const DOOGETHA_URL = @"https://www.doogetha.com/beta/res/";
     // also remove current session key
     self.sessionKey = nil;
     _gotSession = NO;
+    // set push server sync false so token is reregistered on next login
+    [self setUserDefaultValue:@"false" forKey:@"apnsServerSynced"];
 }
 
 -(NSString*)userDefaultValueForKey:(NSString*)key
