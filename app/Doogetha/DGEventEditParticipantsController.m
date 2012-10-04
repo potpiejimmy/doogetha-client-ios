@@ -306,6 +306,7 @@
 {
 	ABMultiValueRef mailProperty = ABRecordCopyValue(person,property);
 	NSString *mail = (__bridge_transfer NSString*)ABMultiValueCopyValueAtIndex(mailProperty,identifier);
+    CFRelease(mailProperty);
     [peoplePicker dismissModalViewControllerAnimated:YES];
     // check mail address:
     [self checkNewParticipant:mail];

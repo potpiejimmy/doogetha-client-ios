@@ -26,6 +26,7 @@ NSString* const DOOGETHA_URL = @"https://www.doogetha.com/beta/res/";
 @synthesize currentEvent = _currentEvent;
 @synthesize currentSurvey = _currentSurvey;
 @synthesize gotSession = _gotSession;
+@synthesize pendingEventToOpen = _pendingEventToOpen;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -42,6 +43,7 @@ NSString* const DOOGETHA_URL = @"https://www.doogetha.com/beta/res/";
     [self.window makeKeyAndVisible];
     _inactive = NO;
     _gotSession = NO;
+    _pendingEventToOpen = 0;
 
     // Register for Apple Push Notification Services:
     [application registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
@@ -75,7 +77,7 @@ NSString* const DOOGETHA_URL = @"https://www.doogetha.com/beta/res/";
 {
     NSLog(@"UserInfo:%@", userInfo);
     NSString* type = [userInfo objectForKey:@"type"];
-    NSString* textKey = [NSString stringWithFormat:@"%@.text",type];
+    NSString* textKey = [NSString stringWithFormat:@"notification.%@.text",type];
     if ([@"eventconfirm" isEqualToString:type]) {
         NSString* accepted = [userInfo objectForKey:@"state"];
         if ([@"1" isEqualToString:accepted])
@@ -84,18 +86,42 @@ NSString* const DOOGETHA_URL = @"https://www.doogetha.com/beta/res/";
             textKey = [NSString stringWithFormat:@"%@.declined",textKey];
     }
     
-    NSString* eventName = [userInfo objectForKey:@"event"];
+    NSString* eventName = [userInfo objectForKey:@"eventName"];
+    NSString* eventId = [userInfo objectForKey:@"eventId"];
     NSString* email = [userInfo objectForKey:@"user"];
     NSMutableDictionary* userVo = [NSMutableDictionary dictionaryWithObject:email forKey:@"email"];
     [DGContactsUtils fillUserInfo:userVo];
     NSString* userDisplayName = [DGContactsUtils userDisplayName:userVo];
     NSString* text = [NSString stringWithFormat:NSLocalizedString(textKey, nil), userDisplayName];
     [DGUtils alert:text withTitle:eventName];
+    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+
+    if (eventId) {
+        self.pendingEventToOpen = [eventId intValue];
+        [self handlePendingEventToOpen];
+    }
+}
+
+-(void)handlePendingEventToOpen
+{
+    if (self.pendingEventToOpen > 0) {
+        if (self.mainController && self.gotSession) {
+            if (self.mainController.navigationController.visibleViewController == self.mainController ||
+                self.mainController.navigationController.visibleViewController == self.mainControllerMyActs) {
+                // app currently active and one of the lists open, force a reload:
+                [self.mainController reload];
+            } else {
+                // for now, don't do anything if user is in the middle of something:
+                self.pendingEventToOpen = 0;
+            }
+        }
+    }
 }
 
 -(void)checkApnsServerSynced
 {
-    if ([@"false" isEqualToString:[self userDefaultValueForKey:@"apnsServerSynced"]]) {
+    if ([@"false" isEqualToString:[self userDefaultValueForKey:@"apnsServerSynced"]] &&
+        [self userDefaultValueForKey:@"apnsDeviceToken"]) {
         // register device token with Doogetha server:
         NSLog(@"Device not synced yet, send device token to server.");
         self.webRequester.delegate = self;
@@ -196,6 +222,7 @@ NSString* const DOOGETHA_URL = @"https://www.doogetha.com/beta/res/";
         // entered foreground: trigger a refresh
         if (self.mainController) [self.mainController setCheckVersionAfterReload:YES];
         [self refreshActivities];
+        [self handlePendingEventToOpen];
         _inactive = NO;
     } else {
         // application startup: start a session:
@@ -205,6 +232,14 @@ NSString* const DOOGETHA_URL = @"https://www.doogetha.com/beta/res/";
             [self startSession:self];
         }
     }
+
+// XXX
+//    NSMutableDictionary* userInfo = [NSMutableDictionary dictionaryWithObject:@"eventconfirm" forKey:@"type"];
+//    [userInfo setObject:@"Ganz neue Aktivität mit Abstimmungen" forKey:@"eventName"];
+//    [userInfo setObject:@"226" forKey:@"eventId"];
+//    [userInfo setObject:@"thorsten@potpiejimmy.de" forKey:@"user"];
+//    [userInfo setObject:@"1" forKey:@"state"];
+//    [[DGUtils app] application:[UIApplication sharedApplication] didReceiveRemoteNotification:userInfo];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application

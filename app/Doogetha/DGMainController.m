@@ -113,6 +113,18 @@
     [self setUIEnabled:NO];
 }
 
+- (void) openPendingEvent
+{
+    for (NSMutableDictionary* event in self.events) {
+        if ([[event objectForKey:@"id"] intValue] == [DGUtils app].pendingEventToOpen) {
+            [DGUtils app].currentEvent = event;
+            [self performSegueWithIdentifier:@"eventConfirmSegue" sender:self];
+            break;
+        }
+    }
+    [DGUtils app].pendingEventToOpen = 0; // only try once
+}
+
 - (void)viewWillDisappear:(BOOL)animated
 {
 	[super viewWillDisappear:animated];
@@ -160,15 +172,22 @@
 //        self.tabBarController.tabBar.selectedItem.badgeValue = [NSString stringWithFormat:@"%d",[self.events count]];
     
         [self.eventsTable reloadData];
-    
-        if (_checkVersionAfterReload)
+        
+        if ([DGUtils app].pendingEventToOpen > 0)
         {
-            _checkVersionAfterReload = NO;
-            [self checkVersion];
+            [self openPendingEvent];
         }
         else
         {
-            [[DGUtils app] checkApnsServerSynced];
+            if (_checkVersionAfterReload)
+            {
+                _checkVersionAfterReload = NO;
+                [self checkVersion];
+            }
+            else
+            {
+                [[DGUtils app] checkApnsServerSynced];
+            }
         }
     }
     else if ([reqid isEqualToString:@"version"])

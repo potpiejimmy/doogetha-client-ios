@@ -39,6 +39,8 @@ extern NSString* const DOOGETHA_URL;
 
 @property BOOL gotSession;
 
+@property int pendingEventToOpen;
+
 -(NSString*)authToken;
 -(int)userId;
 -(void)register:(NSString*)authToken;
@@ -59,6 +61,7 @@ extern NSString* const DOOGETHA_URL;
 -(DGDateTimeSelectController*) dateTimeSelector;
 
 -(void)checkApnsServerSynced;
+-(void)handlePendingEventToOpen;
 
 @end
 
