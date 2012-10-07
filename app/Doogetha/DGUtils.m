@@ -7,6 +7,7 @@
 //
 
 #import "DGUtils.h"
+#import "DGContactsUtils.h"
 
 UIAlertView* _currentAlert;
 
@@ -160,6 +161,13 @@ UIAlertView* _currentAlert;
         default:
             return @"";
     }
+}
+
++ (NSString*) formatCommentSubline: (NSDictionary*) comment
+{
+    NSString* userName = [DGContactsUtils userDisplayName: [comment objectForKey:@"user"]];
+    NSString* timeLabel = [self dateTimeStringForMillis:[[comment objectForKey:@"created"] longLongValue]];
+    return [NSString stringWithFormat:@"%@ (%@)", userName, timeLabel];
 }
 
 @end

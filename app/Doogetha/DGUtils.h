@@ -33,4 +33,6 @@
 
 + (NSString*) formatSurvey: (NSDictionary*) survey item: (NSDictionary*) item;
 
++ (NSString*) formatCommentSubline: (NSDictionary*) comment;
+
 @end

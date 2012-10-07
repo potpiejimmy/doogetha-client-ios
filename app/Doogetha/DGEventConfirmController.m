@@ -20,6 +20,7 @@
 @synthesize confirmButton = _confirmButton;
 @synthesize declineButton = _declineButton;
 @synthesize editButton = _editButton;
+@synthesize commentsPreviewer = _commentsPreviewer;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -59,6 +60,10 @@
 }
 */
 
+- (void) updateCommentsPreviewer
+{
+    [self.commentsPreviewer updateWithComments:[[DGUtils app].currentEvent objectForKey:@"comments"]];
+}
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
@@ -155,6 +160,8 @@
     }
 
     self.scroller.contentSize=CGSizeMake(viewWidth,itery);
+
+    [self updateCommentsPreviewer];
 }
 
 - (void)viewDidUnload
@@ -168,6 +175,7 @@
     [self setDeclineButton:nil];
     [self setScroller:nil];
     [self setEditButton:nil];
+    [self setCommentsPreviewer:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -188,6 +196,8 @@
     } else {
         [self.surveyTable reloadData];
     }
+    
+    [self updateCommentsPreviewer];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -270,6 +280,22 @@
     //NSLog(@"edit event");
     _isEditing = YES;
     [self performSegueWithIdentifier:@"editSegue" sender:self];
+}
+
+- (IBAction)commentsPreviewerTouchDown:(id)sender
+{
+    self.commentsPreviewer.backgroundColor = [UIColor lightGrayColor];
+}
+
+- (IBAction)commentsPreviewerTouchUpOutside:(id)sender
+{
+    self.commentsPreviewer.backgroundColor = [UIColor whiteColor];
+}
+
+- (IBAction)commentsPreviewerTouchUpInside:(id)sender
+{
+    self.commentsPreviewer.backgroundColor = [UIColor whiteColor];
+    [self performSegueWithIdentifier:@"commentsSegue" sender:self];
 }
 
 - (void)webRequestFail:(NSString*)reqid
