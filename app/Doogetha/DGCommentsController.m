@@ -166,6 +166,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [self.commentTF resignFirstResponder];
+    [self.commentsTable deselectRowAtIndexPath:indexPath animated:YES];
     // Navigation logic may go here. Create and push another view controller.
     /*
      <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
@@ -224,6 +226,8 @@
 
 - (IBAction)submit:(id)sender
 {
+    [self.commentTF resignFirstResponder];
+    
     TLWebRequest* webRequester = [[DGUtils app] webRequester];
     webRequester.delegate = self;
     

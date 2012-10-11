@@ -199,7 +199,7 @@
         NSString* myVersion = [infoDict objectForKey:@"CFBundleVersion"];
         
         if (![myVersion isEqualToString:serverVersion]) {
-            [DGUtils alert:@"Es steht eine neue Version von Doogetha zur Verfügung.\nBitte lade diese herunter\n\nhttp://potpiejimmy.de/doogetha/\n\nund installiere sie über iTunes" withTitle:@"Doogetha Beta Program"];
+            [DGUtils alert:@"Es steht eine neue Version von Doogetha zur Verfügung.\nBitte lade diese herunter\n\nhttp://doogetha.com/beta/\n\nund installiere sie über iTunes" withTitle:@"Doogetha Beta Program"];
         }
 
         [[DGUtils app] checkApnsServerSynced];

@@ -19,5 +19,7 @@
 "notification.surveyconfirm.text" = "%@ hat abgestimmt.";
 "notification.surveyclosed" = "Eine Umfrage wurde geschlossen";
 "notification.surveyclosed.text" = "Die Abstimmung wurde von %@ geschlossen";
+"notification.eventcommented" = "Ein Kommentar wurde verfasst";
+"notification.eventcommented.text" = "%@ hat die Aktivität kommentiert.";
 "comment_one" = "↑ 1 Kommentar ↑";
 "comments_n" = "↑ %d Kommentare ↑";
