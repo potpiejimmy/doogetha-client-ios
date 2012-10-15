@@ -217,6 +217,7 @@ NSString* const DOOGETHA_URL = @"https://www.doogetha.com/beta/res/";
     /*
      Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
      */
+    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
     
     if (_inactive) {
         // entered foreground: trigger a refresh
