@@ -86,6 +86,8 @@
     if (_refreshNeeded) {
         _checkVersionAfterReload = NO;
         [self reload];
+    } else {
+        [self.eventsTable reloadData];
     }
 }
 
@@ -233,6 +235,10 @@
    }
 }
 
+- (UITableView*) tableView
+{
+    return self.eventsTable;
+}
 
 #pragma mark -
 #pragma mark Table View Data Source Methods

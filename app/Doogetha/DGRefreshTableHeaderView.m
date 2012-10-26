@@ -23,9 +23,10 @@
 - (id)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame])
 	{
-		self.backgroundColor = [UIColor colorWithRed:   14.0/16.0
-                                                 green: 16.0/16.0
-                                                 blue:  14.0/16.0 alpha:1.0];
+//		self.backgroundColor = [UIColor colorWithRed:   14.0/16.0
+//                                                 green: 16.0/16.0
+//                                                 blue:  14.0/16.0 alpha:1.0];
+        self.backgroundColor = [UIColor whiteColor];
         
 		lastUpdatedLabel = [[UILabel alloc] initWithFrame:
                             CGRectMake(0.0f, frame.size.height - 30.0f,

@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "DGRefreshTableHeaderView.h"
 
-@interface DGPullRefreshTableViewController : UITableViewController
+@interface DGPullRefreshTableViewController : UIViewController
 {
 	DGRefreshTableHeaderView *refreshHeaderView;
     
@@ -19,5 +19,9 @@
 
 - (void) dataSourceDidFinishLoadingNewData;
 - (void) showReloadAnimationAnimated:(BOOL)animated;
+
+// Override these methods in subclass:
+- (void) reloadTableViewDataSource;
+- (UITableView*) tableView;
 
 @end

@@ -83,6 +83,17 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+- (UITableView*) tableView
+{
+    return self.commentsTable;
+}
+
+- (void)reloadTableViewDataSource
+{
+    // called by DGPullRefreshTableViewController when pulled
+	[self reload];
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -179,6 +190,8 @@
 
 - (void)reload
 {
+    [self showReloadAnimationAnimated:NO];
+    
     TLWebRequest* webRequester = [[DGUtils app] webRequester];
     webRequester.delegate = self;
 
@@ -188,6 +201,7 @@
 
 - (void)webRequestFail:(NSString*)reqid
 {
+    [self dataSourceDidFinishLoadingNewData]; // DGPullRefreshTableViewController
     if ([reqid isEqualToString:@"save"]) {
         [DGUtils alertWaitEnd];
     }
@@ -196,6 +210,7 @@
 
 - (void) webRequestDone:(NSString*)reqid
 {
+    [self dataSourceDidFinishLoadingNewData]; // DGPullRefreshTableViewController
     if ([reqid isEqualToString:@"save"]) {
         [DGUtils alertWaitEnd];
         self.commentTF.text = @"";

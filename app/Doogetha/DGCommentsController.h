@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DGPullRefreshTableViewController.h"
 
-@interface DGCommentsController : UIViewController<UITableViewDelegate,UITableViewDataSource>
+@interface DGCommentsController : DGPullRefreshTableViewController<UITableViewDelegate,UITableViewDataSource>
 
 @property (strong, nonatomic) NSArray *comments;
 @property (weak, nonatomic) IBOutlet UITextView *commentTF;

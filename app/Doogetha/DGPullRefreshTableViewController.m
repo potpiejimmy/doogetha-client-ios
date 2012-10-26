@@ -109,4 +109,10 @@
 	checkForRefresh = NO;
 }
 
+// Override this method in subclass:
+- (UITableView*) tableView
+{
+    [self doesNotRecognizeSelector:_cmd];
+    return nil;
+}
 @end
