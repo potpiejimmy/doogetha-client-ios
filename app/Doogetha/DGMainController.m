@@ -194,9 +194,15 @@
     }
     else if ([reqid isEqualToString:@"version"])
     {
-        NSString* serverVersion = [[DGUtils app].webRequester resultString];
-        if (serverVersion && [serverVersion length]>2)
-            serverVersion = [serverVersion substringWithRange:NSMakeRange(1, [serverVersion length]-2)];
+        NSData* versionData = [[DGUtils app].webRequester resultData];
+        
+        NSError* error;
+        NSDictionary* res = [NSJSONSerialization 
+                             JSONObjectWithData:versionData
+                             options:NSJSONReadingMutableContainers 
+                             error:&error];
+        
+        NSString* serverVersion = [res objectForKey:@"clientVersionCode"];
         NSDictionary* infoDict = [[NSBundle mainBundle] infoDictionary];
         NSString* myVersion = [infoDict objectForKey:@"CFBundleVersion"];
         
