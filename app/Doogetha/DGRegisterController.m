@@ -10,6 +10,7 @@
 #import "DGApp.h"
 #import "TLUtils.h"
 #import "DGUtils.h"
+#import "TLKeychain.h"
 
 @implementation DGRegisterController
 @synthesize mailTextField=_mailTextField;
@@ -87,13 +88,30 @@
         return;
     }
     
+    [DGUtils alertWaitStart:@"Schlüsselpaar wird generiert. Bitte warten..."];
+    
+    // first, create a new RSA key pair:
+    NSInvocationOperation * genOp = [[NSInvocationOperation alloc] initWithTarget:self selector:@selector(generateKeyPair) object:nil];
+    [[DGUtils app].operationQueue addOperation:genOp];
+}
+
+- (void)generateKeyPair {
+    [TLKeychain generateKeyPair];
+    [self performSelectorOnMainThread:@selector(generateKeyPairDone) withObject:nil waitUntilDone:NO];
+}
+
+- (void)generateKeyPairDone {
+    [DGUtils alertWaitEnd];
+    
+    // now register:
     NSLog(@"Registering...");
     
     [DGUtils alertWaitStart:@"Anfrage wird gesendet. Bitte warten..."];
     
+    NSString* mail = [TLUtils trim:self.mailTextField.text];
     [[DGUtils app] setUserDefaultValue:mail forKey:@"email"];
     [DGUtils app].webRequester.delegate = self;
-    [[DGUtils app].webRequester post:[NSString stringWithFormat:@"%@register",DOOGETHA_URL] msg:mail reqid:@"register"];
+    [[DGUtils app].webRequester post:[NSString stringWithFormat:@"%@register",DOOGETHA_URL] msg:[NSString stringWithFormat:@"%@:%@",mail,[TLUtils bytesToHex:[TLKeychain encodedPublicKey]]] reqid:@"register"];
 }
 
 - (void)webRequestFail:(NSString*)reqid

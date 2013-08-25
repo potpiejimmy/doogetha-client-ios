@@ -15,12 +15,16 @@
 #define WIZARD_PROCEED_NEXT   1
 #define WIZARD_PROCEED_CANCEL 2
 
+#define DOOGETHA_PROTOCOL_VERSION 1
+
 extern NSString* const DOOGETHA_URL;
 
 @interface DGApp : UIResponder <UIApplicationDelegate> {
     @private BOOL _inactive;
     @private DGDateTimeSelectController* _dateTimeSelector;
 }
+
+@property (retain) NSOperationQueue * operationQueue;
 
 @property (strong, nonatomic) UIWindow *window;
 
@@ -41,9 +45,10 @@ extern NSString* const DOOGETHA_URL;
 
 @property int pendingEventToOpen;
 
--(NSString*)authToken;
 -(int)userId;
--(void)register:(NSString*)authToken;
+-(void)setUserId:(int)userId;
+-(void)setRegistered;
+-(BOOL)isRegistered;
 -(void)unregister;
 -(void)startSession:(id)sessionCallback;
 -(void)makeMeFirst:(NSDictionary*) event;

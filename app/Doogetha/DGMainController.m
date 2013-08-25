@@ -203,10 +203,13 @@
                              error:&error];
         
         NSString* serverVersion = [res objectForKey:@"clientVersionCode"];
+        int protocolVersion = [[res objectForKey:@"protocolVersion"] intValue];
         NSDictionary* infoDict = [[NSBundle mainBundle] infoDictionary];
         NSString* myVersion = [infoDict objectForKey:@"CFBundleVersion"];
-        
-        if (![myVersion isEqualToString:serverVersion]) {
+
+        if (protocolVersion != DOOGETHA_PROTOCOL_VERSION) {
+            [DGUtils alert:@"Diese Version von Doogetha ist veraltet und nicht mehr mit dem Server kompatibel. Bitte aktualisiere deine Installation." withTitle:@"Doogetha"];
+        } else if (![myVersion isEqualToString:serverVersion]) {
             [DGUtils alert:@"Es steht eine neue Version von Doogetha zur Verfügung.\nBitte lade diese herunter\n\nhttp://doogetha.com/beta/\n\nund installiere sie über iTunes" withTitle:@"Doogetha Beta Program"];
         }
 

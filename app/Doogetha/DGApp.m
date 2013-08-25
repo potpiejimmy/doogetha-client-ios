@@ -27,6 +27,7 @@ NSString* const DOOGETHA_URL = @"https://www.doogetha.com/beta/res/";
 @synthesize currentSurvey = _currentSurvey;
 @synthesize gotSession = _gotSession;
 @synthesize pendingEventToOpen = _pendingEventToOpen;
+@synthesize operationQueue = _operationQueue;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -34,7 +35,7 @@ NSString* const DOOGETHA_URL = @"https://www.doogetha.com/beta/res/";
     UIStoryboard *board = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.webRequester = [[TLWebRequest alloc] initWithDelegate:self];
-    if ([self authToken]) {
+    if ([self isRegistered]) {
         //NSLog(@"Got auth token: %@", [self authToken]);
         self.window.rootViewController = [board instantiateViewControllerWithIdentifier:@"tabBarController"];
     } else {
@@ -44,7 +45,9 @@ NSString* const DOOGETHA_URL = @"https://www.doogetha.com/beta/res/";
     _inactive = NO;
     _gotSession = NO;
     _pendingEventToOpen = 0;
-
+    
+    self.operationQueue = [[NSOperationQueue alloc] init];
+    
     // Register for Apple Push Notification Services:
     [application registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
     
@@ -176,7 +179,7 @@ NSString* const DOOGETHA_URL = @"https://www.doogetha.com/beta/res/";
     // start session:
     self.sessionCallback = sessionCallback;
     self.webRequester.delegate = self;
-    [self.webRequester post:[NSString stringWithFormat:@"%@login",DOOGETHA_URL] msg:[self authToken] reqid:@"session"];
+    [self.webRequester post:[NSString stringWithFormat:@"%@login",DOOGETHA_URL] msg:[[[self loginToken] componentsSeparatedByString:@":"] objectAtIndex:0] reqid:@"session"];
 }
 
 -(void)sessionCreated
@@ -258,19 +261,20 @@ NSString* const DOOGETHA_URL = @"https://www.doogetha.com/beta/res/";
     if (self.mainControllerMyActs) self.mainControllerMyActs.refreshNeeded = YES;
 }
 
--(void)register:(NSString *)authToken
+-(void)setRegistered
 {
-    [TLKeychain saveString:authToken forKey:@"authToken"];
+    [self setUserDefaultValue:@"true" forKey:@"registered"];
 }
 
--(NSString*)authToken
+-(BOOL)isRegistered
 {
-    return [TLKeychain getStringForKey:@"authToken"];
+    return [self userDefaultValueForKey:@"registered"] != nil;
 }
 
 -(void)unregister
 {
-    [TLKeychain deleteStringForKey:@"authToken"];
+    [self setUserDefaultValue:nil forKey:@"registered"];
+    [self setUserDefaultValue:nil forKey:@"loginToken"];
     // also remove current session key
     self.sessionKey = nil;
     _gotSession = NO;
@@ -306,7 +310,12 @@ NSString* const DOOGETHA_URL = @"https://www.doogetha.com/beta/res/";
 
 -(int)userId
 {
-    return [[[[self authToken] componentsSeparatedByString:@":"] objectAtIndex:0] intValue];
+    return [[self userDefaultValueForKey:@"userId"] intValue];
+}
+
+-(void)setUserId:(int)userId
+{
+    [self setUserDefaultValue:[NSString stringWithFormat:@"%@",userId] forKey:@"userId"];
 }
 
 -(void)makeMeFirst:(NSDictionary*) event

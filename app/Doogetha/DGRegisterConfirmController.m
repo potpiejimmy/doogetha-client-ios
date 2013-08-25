@@ -120,7 +120,7 @@
     credentials = [NSString stringWithFormat:@"%@:%@",id,password];
 //    NSLog(@"Real Credentials: %@", credentials);
         
-    [app register:credentials];
+    [app setRegistered];
     
     // start session:
     [app startSession:app];
