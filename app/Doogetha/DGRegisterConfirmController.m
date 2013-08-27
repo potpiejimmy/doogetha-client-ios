@@ -9,6 +9,7 @@
 #import "DGRegisterConfirmController.h"
 #import "DGUtils.h"
 #import "TLUtils.h"
+#import "TLKeychain.h"
 
 @implementation DGRegisterConfirmController
 
@@ -92,40 +93,40 @@
 
 - (void)webRequestDone:(NSString*)reqid
 {
-    [DGUtils alertWaitEnd];
-    
 	//id notificationSender = [notification object];
     NSLog(@"Received notfication: %@", reqid);
     DGApp* app = [DGUtils app];
     
-    NSString* credentials = [app.webRequester resultString];
-    credentials = [credentials substringWithRange:NSMakeRange(1, [credentials length]-2)];
-//    NSLog(@"Credentials: %@", credentials);
-    
-    if ([credentials length] > 48 ||
-        [credentials rangeOfString:@":"].location <= 0) {
-        [self displayLoginFailed];
-        return;
+    if ([reqid isEqualToString:@"challenge"]) {
+        NSString* challengeData = [app.webRequester resultString];
+        challengeData = [challengeData substringWithRange:NSMakeRange(1, [challengeData length]-2)];
+        NSArray* tok = [challengeData componentsSeparatedByString:@":"];
+        NSString* userId = [tok objectAtIndex:0];
+        NSData* challenge = [TLUtils hexToBytes:[tok objectAtIndex:1]];
+        [app setUserId:[userId intValue]];
+        
+        // sign the challenge and send it back to server:
+        NSData* challengeResponse = [TLKeychain signSHA1withRSA:challenge];
+        [app.webRequester put:[NSString stringWithFormat:@"%@login/%@",DOOGETHA_URL,userId] msg:[TLUtils bytesToHex:challengeResponse] reqid:@"challengeresponse"];
+        
+    } else if ([reqid isEqualToString:@"challengeresponse"]) {
+        [DGUtils alertWaitEnd];
+        NSString* sessionKey = [app.webRequester resultString];
+        sessionKey = [sessionKey substringWithRange:NSMakeRange(1, [sessionKey length]-2)];
+
+        if ([sessionKey length] < 8 ||
+            [sessionKey rangeOfString:@":"].location <= 0) {
+            [self displayLoginFailed];
+            return;
+        }
+        
+        [app setRegistered];
+        
+        // start session:
+        [app startSession:app];
+        
+        [self performSegueWithIdentifier:@"startSegue" sender:self];
     }
-    
-    NSArray* tok = [credentials componentsSeparatedByString:@":"];
-    NSString* id = [tok objectAtIndex:0];
-	NSString* password = [tok objectAtIndex:1];
-        
-	tok = [[app loginToken] componentsSeparatedByString:@":"];
-        
-	password = [TLUtils xorHexString:password with:[tok objectAtIndex:0]];
-	app.loginToken = nil;
-        
-    credentials = [NSString stringWithFormat:@"%@:%@",id,password];
-//    NSLog(@"Real Credentials: %@", credentials);
-        
-    [app setRegistered];
-    
-    // start session:
-    [app startSession:app];
-    
-    [self performSegueWithIdentifier:@"startSegue" sender:self];
 }
 
 
@@ -134,10 +135,11 @@
     DGApp* app = [DGUtils app];
     NSArray* tok = [app.loginToken componentsSeparatedByString:@":"];
     
-    [DGUtils alertWaitStart:@"Bitte warten..."];
+    // Perform a test login to see whether registration was successful
+    [DGUtils alertWaitStart:@"Registrierung wird überprüft. Bitte warten..."];
     
     app.webRequester.delegate = self;
-    [app.webRequester get:[NSString stringWithFormat:@"%@register/%@",DOOGETHA_URL,[tok objectAtIndex:0]] reqid:@"login"];
+    [app.webRequester post:[NSString stringWithFormat:@"%@login",DOOGETHA_URL] msg:[tok objectAtIndex:0] reqid:@"challenge"];
 }
 
 @end

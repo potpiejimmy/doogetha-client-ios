@@ -13,6 +13,7 @@
 #import "TLKeychain.h"
 
 NSString* const DOOGETHA_URL = @"https://www.doogetha.com/beta/res/";
+//NSString* const DOOGETHA_URL = @"http://localhost:8080/beta/res/";
 
 @implementation DGApp
 
@@ -315,7 +316,7 @@ NSString* const DOOGETHA_URL = @"https://www.doogetha.com/beta/res/";
 
 -(void)setUserId:(int)userId
 {
-    [self setUserDefaultValue:[NSString stringWithFormat:@"%@",userId] forKey:@"userId"];
+    [self setUserDefaultValue:[NSString stringWithFormat:@"%d",userId] forKey:@"userId"];
 }
 
 -(void)makeMeFirst:(NSDictionary*) event

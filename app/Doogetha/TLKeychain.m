@@ -8,7 +8,6 @@
 
 #import "TLKeychain.h"
 #import <Security/Security.h>
-#import <Security/SecImportExport.h>
 #import <CommonCrypto/CommonDigest.h>
 
 static const UInt8 publicKeyIdentifier[] = "com.doogetha.client.ios.publickey\0";
@@ -20,15 +19,6 @@ static const unsigned char _encodedRSAEncryptionOID[15] = {
     0x30, 0x0d,
                 0x06, 0x09, 0x2a, 0x86, 0x48, 0x86, 0xf7, 0x0d, 0x01, 0x01, 0x01, /* RSA OID */
                 0x05, 0x00 /* NULL */
-};
-static const unsigned char _encodedSHA1DigestSequence[15] = {
-    
-    /* Sequence of length 0x21 made up of sequence of OID followed by NULL + 0x04 (octet data) of length 20 */
-    0x30, 0x21,
-                0x30, 0x09,
-                            0x06, 0x05, 0x2b, 0x0e, 0x03, 0x02, 0x1a, /* SHA-1 OID */
-                            0x05, 0x00, /* NULL */
-                0x04, 0x14  /* octet data of length 20 */
 };
 
 size_t calculateASN1LengthFieldSize(size_t length) {
@@ -228,13 +218,12 @@ size_t encodeASN1Length(unsigned char * buf, size_t length) {
     if (CC_SHA1([data bytes], [data length], digest)) {
         /* SHA-1 hash has been calculated and stored in 'digest'. */
 
-        // Prefix the SHA-1-value with "3021300906052b0e03021a05000414"
+        // Note: Using kSecPaddingPKCS1SHA1 on SecKeyRawSign will automatically
+        // prefix the SHA-1-value with "3021300906052b0e03021a05000414"
         // to get a complete ASN.1 SEQUENCE with digest algorithm identifier for SHA-1
-        NSMutableData* digestData = [[NSMutableData alloc] init];
-        [digestData appendBytes:_encodedSHA1DigestSequence length:sizeof(_encodedSHA1DigestSequence)];
-        [digestData appendBytes:digest length:sizeof(digest)];
-		
-        // Next, encrypt the digestData with private key with RSA/ECB/PKCS1Padding
+        // so the signature can be verified in Java using "RSAwithSHA1" Signature instance
+        
+        // Sign the digest with private key with kSecPaddingPKCS1SHA1
         OSStatus status = noErr;
 
         size_t cipherBufferSize;
@@ -256,15 +245,15 @@ size_t encodeASN1Length(unsigned char * buf, size_t length) {
         cipherBuffer = malloc(cipherBufferSize);
 
         // Encrypt using private key.
-        status = SecKeyEncrypt(privateKey, kSecPaddingPKCS1, [digestData bytes], (size_t) [digestData length], cipherBuffer, &cipherBufferSize);
-		NSData *encryptedData = [NSData dataWithBytes:cipherBuffer length:cipherBufferSize];
+        status = SecKeyRawSign(privateKey, kSecPaddingPKCS1SHA1, digest, sizeof(digest), cipherBuffer, &cipherBufferSize);
+        NSData *encryptedData = [NSData dataWithBytes:cipherBuffer length:cipherBufferSize];
 
         if (privateKey) CFRelease(privateKey);
         free(cipherBuffer);
 
         return encryptedData;
     }
-	return NULL;
+    return NULL;
 }
 
 @end
