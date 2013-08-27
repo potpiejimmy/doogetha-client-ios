@@ -17,20 +17,36 @@ static const UInt8 privateKeyIdentifier[] = "com.doogetha.client.ios.privatekey\
 static const unsigned char _encodedRSAEncryptionOID[15] = {
     
     /* Sequence of length 0xd made up of OID followed by NULL */
-    0x30, 0x0d, 0x06, 0x09, 0x2a, 0x86, 0x48, 0x86,
-    0xf7, 0x0d, 0x01, 0x01, 0x01, 0x05, 0x00
-    
+    0x30, 0x0d,
+                0x06, 0x09, 0x2a, 0x86, 0x48, 0x86, 0xf7, 0x0d, 0x01, 0x01, 0x01, /* RSA OID */
+                0x05, 0x00 /* NULL */
 };
+static const unsigned char _encodedSHA1DigestSequence[15] = {
+    
+    /* Sequence of length 0x21 made up of sequence of OID followed by NULL + 0x04 (octet data) of length 20 */
+    0x30, 0x21,
+                0x30, 0x09,
+                            0x06, 0x05, 0x2b, 0x0e, 0x03, 0x02, 0x1a, /* SHA-1 OID */
+                            0x05, 0x00, /* NULL */
+                0x04, 0x14  /* octet data of length 20 */
+};
+
+size_t calculateASN1LengthFieldSize(size_t length) {
+	if (length <= 0x7F)       return 1;
+	if (length <= 0xFF)       return 2;
+	if (length <= 0xFFFF)     return 3;
+	if (length <= 0xFFFFFFFF) return 5;
+	return 9;
+}
 
 size_t encodeASN1Length(unsigned char * buf, size_t length) {
     
-    // encode length in ASN.1 DER format
-    if (length < 128) {
+    if (length <= 0x7F) {
         buf[0] = length;
         return 1;
     }
     
-    size_t i = (length / 256) + 1;
+    size_t i = calculateASN1LengthFieldSize(length) - 1; // length of length
     buf[0] = i + 0x80;
     for (size_t j = 0 ; j < i; ++j) {
         buf[i - j] = length & 0xFF;
@@ -159,34 +175,45 @@ size_t encodeASN1Length(unsigned char * buf, size_t length) {
 
     NSData* rawData = (__bridge_transfer NSData*) publicKeyData;
     
-    // OK - that gives us the "BITSTRING component of a full DER
-    // encoded RSA public key - we now need to build the rest
+    // that is the BITSTRING component of a full DER encoded RSA public key
+    // Now build the complete ASN.1 (X509) encoding, that is
+    //
+    // 0x30 [SEQUENCE]
+    // .... [LENGTH OF SEQUENCE]
+    // 0x30 [SEQUENCE]
+    // 0x0D [LENGTH OF SEQUENCE OID+NULL]
+    // 0x06 [OID]
+    // 0x09 [LENGTH OF OID]
+    // 0x2a864886f70d010101 [RSA OID]
+    // 0x0500 [ASN.1 NULL]
+    // 0x03 [BITSTRING]
+    // .... [LENGTH OF BITSTRING]
+    // 0x00 [NO. OF UNUSED BITS]
+    // .... [KEY DATA]
     
     unsigned char builder[15];
     NSMutableData * encKey = [[NSMutableData alloc] init];
-    int bitstringEncLength;
-    
-    // When we get to the bitstring - how will we encode it?
-    if  ([rawData length ] + 1  < 128 )
-        bitstringEncLength = 1 ;
-    else
-        bitstringEncLength = (([rawData length ] +1 ) / 256 ) + 2 ; 
+    int bitstringLengthFieldSize = calculateASN1LengthFieldSize(1/*no. of unused bits*/ + [rawData length]);
     
     // Overall we have a sequence of a certain length
     builder[0] = 0x30;    // ASN.1 encoding representing a SEQUENCE
-    // Build up overall size made up of -
-    // size of OID + size of bitstring encoding + size of actual key
-    size_t i = sizeof(_encodedRSAEncryptionOID) + 2 + bitstringEncLength + [rawData length];
+    // Build up overall size made up of
+    // size of OID +
+    // 1 byte 0x03 +
+    // size of bitstring length field +
+    // 1 byte 0x00 no. of unused bits +
+    // size of actual key
+    size_t i = sizeof(_encodedRSAEncryptionOID) + 1 + bitstringLengthFieldSize + 1 + [rawData length];
     size_t j = encodeASN1Length(&builder[1], i);
-    [encKey appendBytes:builder length:j +1];
+    [encKey appendBytes:builder length:j + 1];
     
     // First part of the sequence is the OID
     [encKey appendBytes:_encodedRSAEncryptionOID length:sizeof(_encodedRSAEncryptionOID)];
     
     // Now add the bitstring
     builder[0] = 0x03;
-    j = encodeASN1Length(&builder[1], [rawData length] + 1);
-    builder[j+1] = 0x00;
+    j = encodeASN1Length(&builder[1], 1 + [rawData length]);
+    builder[j + 1] = 0x00; /*no. of unused bits*/
     [encKey appendBytes:builder length:j + 2];
     
     // Now the actual key
@@ -195,12 +222,49 @@ size_t encodeASN1Length(unsigned char * buf, size_t length) {
     return encKey;
 }
 
-+ (void)sign:(NSData*)data
++ (NSData*)signSHA1withRSA:(NSData*)data
 {
     unsigned char digest[CC_SHA1_DIGEST_LENGTH];
     if (CC_SHA1([data bytes], [data length], digest)) {
         /* SHA-1 hash has been calculated and stored in 'digest'. */
+
+        // Prefix the SHA-1-value with "3021300906052b0e03021a05000414"
+        // to get a complete ASN.1 SEQUENCE with digest algorithm identifier for SHA-1
+        NSMutableData* digestData = [[NSMutableData alloc] init];
+        [digestData appendBytes:_encodedSHA1DigestSequence length:sizeof(_encodedSHA1DigestSequence)];
+        [digestData appendBytes:digest length:sizeof(digest)];
+		
+        // Next, encrypt the digestData with private key with RSA/ECB/PKCS1Padding
+        OSStatus status = noErr;
+
+        size_t cipherBufferSize;
+        uint8_t *cipherBuffer;
+
+        SecKeyRef privateKey = NULL;
+        NSData * privateTag = [NSData dataWithBytes:privateKeyIdentifier length:strlen((const char *)privateKeyIdentifier)];
+
+        NSMutableDictionary *queryPrivateKey = [[NSMutableDictionary alloc] init];
+        [queryPrivateKey setObject:(__bridge id)kSecClassKey forKey:(__bridge id)kSecClass];
+        [queryPrivateKey setObject:privateTag forKey:(__bridge id)kSecAttrApplicationTag];
+        [queryPrivateKey setObject:(__bridge id)kSecAttrKeyTypeRSA forKey:(__bridge id)kSecAttrKeyType];
+        [queryPrivateKey setObject:[NSNumber numberWithBool:YES] forKey:(__bridge id)kSecReturnRef];
+
+        status = SecItemCopyMatching((__bridge CFDictionaryRef)queryPrivateKey, (CFTypeRef *)&privateKey);
+
+        //  Allocate a buffer
+        cipherBufferSize = SecKeyGetBlockSize(privateKey);
+        cipherBuffer = malloc(cipherBufferSize);
+
+        // Encrypt using private key.
+        status = SecKeyEncrypt(privateKey, kSecPaddingPKCS1, [digestData bytes], (size_t) [digestData length], cipherBuffer, &cipherBufferSize);
+		NSData *encryptedData = [NSData dataWithBytes:cipherBuffer length:cipherBufferSize];
+
+        if (privateKey) CFRelease(privateKey);
+        free(cipherBuffer);
+
+        return encryptedData;
     }
+	return NULL;
 }
 
 @end

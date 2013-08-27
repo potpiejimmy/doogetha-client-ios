@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
+size_t calculateASN1LengthFieldSize(size_t length);
 size_t encodeASN1Length(unsigned char * buf, size_t length);
 
 @interface TLKeychain : NSObject {
@@ -19,6 +20,6 @@ size_t encodeASN1Length(unsigned char * buf, size_t length);
 
 + (void)generateKeyPair;
 + (NSData*)encodedPublicKey;
-+ (void)sign:(NSData*)data;
++ (NSData*)signSHA1withRSA:(NSData*)data;
 
 @end
