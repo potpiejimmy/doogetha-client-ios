@@ -88,6 +88,8 @@
 - (void)sessionCreateOk
 {
 	[DGUtils alertWaitEnd];
+    
+    DGApp* app = [DGUtils app];
 		
     // startup
     [app setRegistered];
