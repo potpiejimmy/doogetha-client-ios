@@ -85,61 +85,30 @@
     }
 }
 
-- (void)webRequestFail:(NSString*)reqid
+- (void)sessionCreateOk
+{
+	[DGUtils alertWaitEnd];
+		
+    // startup
+    [app setRegistered];
+	
+    // start real session:
+    [app startSession:app];
+	
+    [self performSegueWithIdentifier:@"startSegue" sender:self];
+}
+
+- (void)sessionCreateFail
 {
     [DGUtils alertWaitEnd];
     [self displayLoginFailed];
 }
 
-- (void)webRequestDone:(NSString*)reqid
-{
-	//id notificationSender = [notification object];
-    NSLog(@"Received notfication: %@", reqid);
-    DGApp* app = [DGUtils app];
-    
-    if ([reqid isEqualToString:@"challenge"]) {
-        NSString* challengeData = [app.webRequester resultString];
-        challengeData = [challengeData substringWithRange:NSMakeRange(1, [challengeData length]-2)];
-        NSArray* tok = [challengeData componentsSeparatedByString:@":"];
-        NSString* userId = [tok objectAtIndex:0];
-        NSData* challenge = [TLUtils hexToBytes:[tok objectAtIndex:1]];
-        [app setUserId:[userId intValue]];
-        
-        // sign the challenge and send it back to server:
-        NSData* challengeResponse = [TLKeychain signSHA1withRSA:challenge];
-        [app.webRequester put:[NSString stringWithFormat:@"%@login/%@",DOOGETHA_URL,userId] msg:[TLUtils bytesToHex:challengeResponse] reqid:@"challengeresponse"];
-        
-    } else if ([reqid isEqualToString:@"challengeresponse"]) {
-        [DGUtils alertWaitEnd];
-        NSString* sessionKey = [app.webRequester resultString];
-        sessionKey = [sessionKey substringWithRange:NSMakeRange(1, [sessionKey length]-2)];
-
-        if ([sessionKey length] < 8 ||
-            [sessionKey rangeOfString:@":"].location <= 0) {
-            [self displayLoginFailed];
-            return;
-        }
-        
-        [app setRegistered];
-        
-        // start session:
-        [app startSession:app];
-        
-        [self performSegueWithIdentifier:@"startSegue" sender:self];
-    }
-}
-
-
-
 - (IBAction)login:(id)sender {
-    DGApp* app = [DGUtils app];
-    NSArray* tok = [app.loginToken componentsSeparatedByString:@":"];
-    
-    // Perform a test login to see whether registration was successful
+    // Perform a session login to see whether registration was successful
     [DGUtils alertWaitStart:@"Registrierung wird überprüft. Bitte warten..."];
-    
-    app.webRequester.delegate = self;
-    [app.webRequester post:[NSString stringWithFormat:@"%@login",DOOGETHA_URL] msg:[tok objectAtIndex:0] reqid:@"challenge"];
+
+    [[DGUtils app] startSession:self];
 }
 
 @end

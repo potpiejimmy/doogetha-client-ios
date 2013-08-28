@@ -72,5 +72,6 @@ extern NSString* const DOOGETHA_URL;
 
 // Callback protocol:
 @interface NSObject(DGAppSessionCallback)
-- (void)sessionCreated;
+- (void)sessionCreateOk;
+- (void)sessionCreateFail;
 @end

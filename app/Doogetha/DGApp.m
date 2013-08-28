@@ -148,15 +148,36 @@ NSString* const DOOGETHA_URL = @"https://www.doogetha.com/beta/res/";
 
 - (void)webRequestDone:(NSString*)reqid 
 {
-    if ([reqid isEqualToString:@"session"]) {
-        NSString* sessionKey = [self.webRequester resultString];
-        sessionKey = [sessionKey substringWithRange:NSMakeRange(1, [sessionKey length]-2)];
-        //NSLog(@"Session key: Basic %@",sessionKey);
-        self.sessionKey = [TLUtils encodeBase64WithString:sessionKey];
-        [self.sessionCallback sessionCreated];
-    } else if ([reqid isEqualToString:@"deviceregister"]) {
+    NSLog(@"Received web request result: %@", reqid);
+    DGApp* app = [DGUtils app];
+	
+    if ([reqid isEqualToString:@"deviceregister"]) {
         NSLog(@"Device %@ successfully registered.", [self userDefaultValueForKey:@"apnsDeviceToken"]);
         [self setUserDefaultValue:@"true" forKey:@"apnsServerSynced"];
+    } else if ([reqid isEqualToString:@"challenge"]) {
+        NSString* challengeData = [app.webRequester resultString];
+        challengeData = [challengeData substringWithRange:NSMakeRange(1, [challengeData length]-2)];
+        NSArray* tok = [challengeData componentsSeparatedByString:@":"];
+        NSString* userId = [tok objectAtIndex:0];
+        NSData* challenge = [TLUtils hexToBytes:[tok objectAtIndex:1]];
+        [app setUserId:[userId intValue]];
+        
+        // sign the challenge and send it back to server:
+        NSData* challengeResponse = [TLKeychain signSHA1withRSA:challenge];
+        [app.webRequester put:[NSString stringWithFormat:@"%@login/%@",DOOGETHA_URL,userId] msg:[TLUtils bytesToHex:challengeResponse] reqid:@"challengeresponse"];
+        
+    } else if ([reqid isEqualToString:@"challengeresponse"]) {
+        NSString* sessionKey = [app.webRequester resultString];
+        sessionKey = [sessionKey substringWithRange:NSMakeRange(1, [sessionKey length]-2)];
+
+        if ([sessionKey length] < 8 ||
+            [sessionKey rangeOfString:@":"].location <= 0) {
+            [self.sessionCallback sessionCreateFail];
+            return;
+        }
+        //NSLog(@"Session key: Basic %@",sessionKey);
+        self.sessionKey = [TLUtils encodeBase64WithString:sessionKey];
+        [self.sessionCallback sessionCreateOk];
     }
 }
 
@@ -180,16 +201,20 @@ NSString* const DOOGETHA_URL = @"https://www.doogetha.com/beta/res/";
     // start session:
     self.sessionCallback = sessionCallback;
     self.webRequester.delegate = self;
-    [self.webRequester post:[NSString stringWithFormat:@"%@login",DOOGETHA_URL] msg:[[[self loginToken] componentsSeparatedByString:@":"] objectAtIndex:0] reqid:@"session"];
+    [self.webRequester post:[NSString stringWithFormat:@"%@login",DOOGETHA_URL] msg:[[[self loginToken] componentsSeparatedByString:@":"] objectAtIndex:0] reqid:@"challenge"];
 }
 
--(void)sessionCreated
+-(void)sessionCreateOk
 {
     _gotSession = YES;
     if (self.mainController) {
         [self.mainController setCheckVersionAfterReload:YES];
         [self.mainController reload];
     }
+}
+
+-(void)sessionCreateFail
+{
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
