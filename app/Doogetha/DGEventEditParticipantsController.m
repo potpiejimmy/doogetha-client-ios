@@ -267,22 +267,22 @@
     }
 }
 
-- (IBAction)addManual:(id)sender
-{
-    UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Teilnehmer hinzufügen" message:@"Bitte gib die E-Mail-Adresse des Teilnehmers ein:" delegate:self cancelButtonTitle:@"Hinzufügen" otherButtonTitles:@"Abbrechen",nil];
-    alert.alertViewStyle = UIAlertViewStylePlainTextInput;
-    [alert textFieldAtIndex:0].keyboardType = UIKeyboardTypeEmailAddress;
-    [alert textFieldAtIndex:0].returnKeyType = UIReturnKeyDone;
-    [alert show];
-}
-
-- (IBAction)addAddressBook:(id)sender
-{
-    ABPeoplePickerNavigationController *picker = [[ABPeoplePickerNavigationController alloc] init];
-    picker.peoplePickerDelegate = self;
-    picker.displayedProperties = [NSArray arrayWithObject:[NSNumber numberWithInt:kABPersonEmailProperty]];
-    [self presentModalViewController:picker animated:YES];
-}
+//- (IBAction)addManual:(id)sender
+//{
+//    UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Teilnehmer hinzufügen" message:@"Bitte gib die E-Mail-Adresse des Teilnehmers ein:" delegate:self cancelButtonTitle:@"Hinzufügen" otherButtonTitles:@"Abbrechen",nil];
+//    alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+//    [alert textFieldAtIndex:0].keyboardType = UIKeyboardTypeEmailAddress;
+//    [alert textFieldAtIndex:0].returnKeyType = UIReturnKeyDone;
+//    [alert show];
+//}
+//
+//- (IBAction)addAddressBook:(id)sender
+//{
+//    ABPeoplePickerNavigationController *picker = [[ABPeoplePickerNavigationController alloc] init];
+//    picker.peoplePickerDelegate = self;
+//    picker.displayedProperties = [NSArray arrayWithObject:[NSNumber numberWithInt:kABPersonEmailProperty]];
+//    [self presentModalViewController:picker animated:YES];
+//}
 
 - (IBAction)save:(id)sender
 {

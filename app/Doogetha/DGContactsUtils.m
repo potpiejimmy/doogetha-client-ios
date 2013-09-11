@@ -48,6 +48,34 @@
     }
 }
 
++ (NSArray*) fetchAllEmails
+{
+    NSMutableArray* result = [[NSMutableArray alloc] init];
+
+    @try {
+        NSArray *all = (__bridge NSArray*)ABAddressBookCopyArrayOfAllPeople(ABAddressBookCreate());
+        
+        for (int i=0; i< [all count]; i++)
+        {
+            ABRecordRef person = (__bridge ABRecordRef) [all objectAtIndex:i];
+            
+            ABMutableMultiValueRef emails = ABRecordCopyValue(person, kABPersonEmailProperty);
+            CFIndex emailsCount = ABMultiValueGetCount(emails);
+            
+            for (int k=0; k<emailsCount; k++)
+            {
+                NSString* emailValue = (__bridge NSString*) ABMultiValueCopyValueAtIndex(emails, k);
+                [result addObject:emailValue];
+            }
+        }
+    }
+    @catch (NSException *exception) {
+    }
+    @finally {
+    }
+    return result;
+}
+
 + (NSString*) userDisplayName: (NSDictionary*) userVo
 {
     if ([[userVo objectForKey:@"id"] intValue] == [[DGUtils app] userId])

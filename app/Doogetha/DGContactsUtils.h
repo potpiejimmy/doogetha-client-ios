@@ -12,5 +12,6 @@
 
 + (void) fillUserInfo: (NSDictionary*) userVo;
 + (NSString*) userDisplayName: (NSDictionary*) userVo;
++ (NSArray*) fetchAllEmails;
 
 @end
