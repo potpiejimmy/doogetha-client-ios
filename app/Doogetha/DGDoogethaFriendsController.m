@@ -244,7 +244,7 @@
 
 - (IBAction)addManual:(id)sender
 {
-    UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Teilnehmer hinzufügen" message:@"Bitte gib die E-Mail-Adresse des Teilnehmers ein:" delegate:self cancelButtonTitle:@"Hinzufügen" otherButtonTitles:@"Abbrechen",nil];
+    UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Freund hinzufügen" message:@"Bitte gib die E-Mail-Adresse deines Freundes ein:" delegate:self cancelButtonTitle:@"Hinzufügen" otherButtonTitles:@"Abbrechen",nil];
     alert.alertViewStyle = UIAlertViewStylePlainTextInput;
     [alert textFieldAtIndex:0].keyboardType = UIKeyboardTypeEmailAddress;
     [alert textFieldAtIndex:0].returnKeyType = UIReturnKeyDone;

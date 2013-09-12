@@ -70,6 +70,16 @@
         [_lookupMap setValue:friend forKey:[friend objectForKey:@"email"]];
 }
 
+-(void)sortFriends
+{
+    // Sort list by display name
+    [_friends sortUsingComparator:^(id a, id b) {
+        NSString* n1 = [DGContactsUtils userDisplayName:a]; 
+        NSString* n2 = [DGContactsUtils userDisplayName:b];
+        return [n1 compare:n2];
+    }];
+}
+
 -(void)addFriend:(NSDictionary*)friend
 {
     if ([[friend objectForKey:@"email"] isEqualToString:[[DGUtils app] userDefaultValueForKey:@"email"]])
@@ -78,9 +88,10 @@
     if ([_lookupMap objectForKey:[friend objectForKey:@"email"]])
         return; // don't add duplicates
     
-    // XXX TODO add in sort order:
     [_friends addObject:friend];
     [_lookupMap setObject:friend forKey:[friend objectForKey:@"email"]];
+    
+    [self sortFriends];
 }
 
 -(void)synchronizeWithServer
@@ -134,12 +145,8 @@
     for (NSDictionary* friend in syncedFriends)
         [DGContactsUtils fillUserInfo:friend];
     
-    // XXX TODO: Sort list by name
-    
-//    UserVo[] sortedFriends = syncedUsers.toArray(new UserVo[syncedUsers.size()]);
-//    Arrays.sort(sortedFriends, new DoogethaFriends.FriendsListComparator(app));
-
     [self setFriends:syncedFriends];
+    [self sortFriends];
     [self save];
     
     [[DGUtils app] startupMainView];

@@ -170,6 +170,14 @@
         NSLog(@"Got %d events",[self.events count]);
     
 //        self.tabBarController.tabBar.selectedItem.badgeValue = [NSString stringWithFormat:@"%d",[self.events count]];
+        
+        // add mail addresses to friends list:
+        for (NSDictionary* event in self.events) {
+            for (NSDictionary* user in [event objectForKey:@"users"]) {
+                [[[DGUtils app] doogethaFriends] addFriend:user];
+            }
+        }
+        [[[DGUtils app] doogethaFriends] save];
     
         [self.eventsTable reloadData];
         
