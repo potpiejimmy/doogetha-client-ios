@@ -37,6 +37,7 @@ extern NSString* const DOOGETHA_URL;
 
 @property (strong, nonatomic) NSMutableDictionary* currentEvent;
 @property (strong, nonatomic) NSMutableDictionary* currentSurvey;
+@property (strong, nonatomic) NSMutableArray* currentUserSelection;
 
 @property (strong, nonatomic) DGMainController *mainController;
 @property (strong, nonatomic) DGMainController *mainControllerMyActs;

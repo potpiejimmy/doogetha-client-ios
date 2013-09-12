@@ -894,6 +894,11 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                 <action selector="save:" destination="yxg-jw-ZQb" id="nse-NC-mK1"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem title="+" id="YwM-vH-Ovj">
+                            <connections>
+                                <action selector="addManual:" destination="yxg-jw-ZQb" id="xt4-Ra-Xgp"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="ufO-jK-smc"/>
                         <barButtonItem title="Abbrechen" id="3hR-aO-Cis">
                             <connections>
@@ -902,6 +907,9 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                         </barButtonItem>
                     </toolbarItems>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="friendsTable" destination="NBA-Pg-WIO" id="rmf-OT-GpA"/>
+                    </connections>
                 </tableViewController>
             </objects>
             <point key="canvasLocation" x="2400" y="-1697"/>

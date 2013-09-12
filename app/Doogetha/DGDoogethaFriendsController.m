@@ -9,8 +9,12 @@
 #import "DGDoogethaFriendsController.h"
 #import "DGUtils.h"
 #import "DGContactsUtils.h"
+#import "TLUtils.h"
 
 @implementation DGDoogethaFriendsController
+@synthesize friendsTable = _friendsTable;
+
+@synthesize checkingMail = _checkingMail;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -35,7 +39,7 @@
 {
     [super viewDidLoad];
     
-    _data = [[NSMutableArray alloc] initWithArray:[[[DGUtils app] doogethaFriends] friends]];
+    _data = [[[DGUtils app] doogethaFriends] friends];
     
     self.tableView.allowsMultipleSelection = YES;
 
@@ -45,9 +49,10 @@
 
 - (void)viewDidUnload
 {
+    [self setFriendsTable:nil];
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
+
+    [self setCheckingMail:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -173,11 +178,87 @@
 
 - (IBAction)save:(id)sender
 {
-    [self dismiss]; 
+    NSMutableArray* selectedUsers = [[NSMutableArray alloc] init];
+    for (NSIndexPath* i in [self.friendsTable indexPathsForSelectedRows])
+        [selectedUsers addObject:[_data objectAtIndex:i.row]];
+    [DGUtils app].currentUserSelection = selectedUsers;
+    [self dismiss];
 }
 
 - (IBAction)cancel:(id)sender
 {
+    [DGUtils app].currentUserSelection = nil;
     [self dismiss]; 
 }
+
+- (void)webRequestFail:(NSString*)reqid
+{
+    [DGUtils alertWaitEnd];
+    [DGUtils alert:@"Sorry, die eingegebene E-Mail-Adresse ist noch nicht bei Doogetha registriert."];
+}
+
+- (void) webRequestDone:(NSString*)reqid
+{
+    [DGUtils alertWaitEnd];
+    NSLog(@"Got result: %@", [[[DGUtils app] webRequester] resultString]);
+    
+    // add new user:
+    DGDoogethaFriends* dgfriends = [[DGUtils app] doogethaFriends];
+    NSMutableDictionary* newUser = [[NSMutableDictionary alloc] init];
+    [newUser setValue:self.checkingMail forKey:@"email"];
+    [dgfriends addFriend:newUser];
+    [dgfriends save];
+    
+    _data = [dgfriends friends];
+    
+    [self.friendsTable reloadData];
+}
+
+- (void)checkMail: (NSString*)mail
+{
+    self.checkingMail = mail;
+    DGApp* app = [DGUtils app];
+    app.webRequester.delegate = self;
+    [app.webRequester get:[NSString stringWithFormat:@"%@users/%@",DOOGETHA_URL,[TLUtils bytesToHex:[TLUtils md5:mail]]] reqid:@"checkuser"];
+    [DGUtils alertWaitStart:@"Adresse wird überprüft..."];
+}
+
+- (void)checkNewParticipant:(NSString*)mail
+{
+    if ([mail length]>0)
+    {
+        NSDictionary* event = [DGUtils app].currentEvent;
+        
+        for (NSDictionary* item in [event objectForKey:@"users"])
+        {
+            if ([[item objectForKey:@"email"] caseInsensitiveCompare:mail] == NSOrderedSame) {
+                [DGUtils alert:@"Der Teilnehmer ist bereits hinzugefügt"];
+                return;
+            }
+        }
+        
+        // check mail address:
+        [self checkMail:mail];
+    }
+}
+
+- (IBAction)addManual:(id)sender
+{
+    UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Teilnehmer hinzufügen" message:@"Bitte gib die E-Mail-Adresse des Teilnehmers ein:" delegate:self cancelButtonTitle:@"Hinzufügen" otherButtonTitles:@"Abbrechen",nil];
+    alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+    [alert textFieldAtIndex:0].keyboardType = UIKeyboardTypeEmailAddress;
+    [alert textFieldAtIndex:0].returnKeyType = UIReturnKeyDone;
+    [alert show];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0) /* clicked OK */
+    {
+        NSString* newItemText = [TLUtils trim:[[alertView textFieldAtIndex:0] text]];
+        NSLog(@"Entered: %@",newItemText);
+        [self checkNewParticipant:newItemText];
+    }
+}
+
 @end

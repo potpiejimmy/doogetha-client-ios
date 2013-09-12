@@ -18,4 +18,5 @@
 -(void)synchronizeWithServer;
 -(NSMutableArray*)friends;
 -(void)setFriends:(NSMutableArray*)friends;
+-(void)addFriend:(NSDictionary*)friend;
 @end

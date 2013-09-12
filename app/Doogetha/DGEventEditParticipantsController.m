@@ -13,7 +13,6 @@
 
 @implementation DGEventEditParticipantsController
 @synthesize participantsTable = _participantsTable;
-@synthesize checkingMail = _checkingMail;
 @synthesize removingUser = _removingUser;
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -58,7 +57,6 @@
 - (void)viewDidUnload
 {
     [self setParticipantsTable:nil];
-    [self setCheckingMail:nil];
     [self setRemovingUser:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
@@ -72,6 +70,22 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
+    // adapt the currently selected users:
+    if ([DGUtils app].currentUserSelection) {
+        NSMutableArray* users = [[[DGUtils app] currentEvent] objectForKey:@"users"];
+        for (NSDictionary* user in [[DGUtils app] currentUserSelection]) {
+            BOOL found = false;
+            for (NSDictionary* u in users)
+                if ([[u objectForKey:@"email"] caseInsensitiveCompare:[user objectForKey:@"email"]] == NSOrderedSame)
+                    found = TRUE;
+
+            if (!found) // just ignore duplicates
+                [users addObject:user];
+        }
+        [DGUtils app].currentUserSelection = nil;
+        [self.participantsTable reloadData];
+    } 
+    
     [super viewDidAppear:animated];
 }
 
@@ -189,62 +203,11 @@
     }
 }
 
-- (void)webRequestFail:(NSString*)reqid
-{
-    [DGUtils alertWaitEnd];
-    [DGUtils alert:@"Sorry, die eingegebene E-Mail-Adresse ist noch nicht bei Doogetha registriert."];
-}
-
-- (void) webRequestDone:(NSString*)reqid
-{
-    [DGUtils alertWaitEnd];
-    NSLog(@"Got result: %@", [[[DGUtils app] webRequester] resultString]);
-
-    // add new user:
-    DGApp* app = [DGUtils app];
-    NSDictionary* event = app.currentEvent;
-    NSMutableArray* users = [event objectForKey:@"users"];
-    NSDictionary* newUser = [[NSMutableDictionary alloc] init];
-    [newUser setValue:self.checkingMail forKey:@"email"];
-    [DGContactsUtils fillUserInfo:newUser];
-    [users addObject:newUser];
-    
-    [self.participantsTable reloadData];
-}
-
 - (void)dismiss
 {
     self.navigationController.navigationBarHidden = NO;
     self.navigationController.toolbarHidden = YES;
     [self.navigationController popViewControllerAnimated:NO];
-}
-
-- (void)checkMail: (NSString*)mail
-{
-    self.checkingMail = mail;
-    DGApp* app = [DGUtils app];
-    app.webRequester.delegate = self;
-    [app.webRequester get:[NSString stringWithFormat:@"%@users/%@",DOOGETHA_URL,mail] reqid:@"checkuser"];
-    [DGUtils alertWaitStart:@"Adresse wird überprüft..."];
-}
-
-- (void)checkNewParticipant:(NSString*)mail
-{
-    if ([mail length]>0)
-    {
-        NSDictionary* event = [DGUtils app].currentEvent;
-        
-        for (NSDictionary* item in [event objectForKey:@"users"])
-        {
-            if ([[item objectForKey:@"email"] caseInsensitiveCompare:mail] == NSOrderedSame) {
-                [DGUtils alert:@"Der Teilnehmer ist bereits hinzugefügt"];
-                return;
-            }
-        }
-        
-        // check mail address:
-        [self checkMail:mail];
-    }
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -255,10 +218,6 @@
             [[[[DGUtils app] currentEvent] objectForKey:@"users"] removeObjectAtIndex:self.removingUser.row];
             self.removingUser = nil;
             [self.participantsTable reloadData];
-        } else {
-            NSString* newItemText = [TLUtils trim:[[alertView textFieldAtIndex:0] text]];
-            NSLog(@"Entered: %@",newItemText);
-            [self checkNewParticipant:newItemText];
         }
     }
     else 
@@ -267,15 +226,14 @@
     }
 }
 
-//- (IBAction)addManual:(id)sender
-//{
-//    UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Teilnehmer hinzufügen" message:@"Bitte gib die E-Mail-Adresse des Teilnehmers ein:" delegate:self cancelButtonTitle:@"Hinzufügen" otherButtonTitles:@"Abbrechen",nil];
-//    alert.alertViewStyle = UIAlertViewStylePlainTextInput;
-//    [alert textFieldAtIndex:0].keyboardType = UIKeyboardTypeEmailAddress;
-//    [alert textFieldAtIndex:0].returnKeyType = UIReturnKeyDone;
-//    [alert show];
-//}
-//
+- (IBAction)save:(id)sender
+{
+    [DGUtils app].wizardHint = WIZARD_PROCEED_NEXT;
+    [self dismiss]; 
+}
+
+// ----- Old select-from-addressbook code ----
+
 //- (IBAction)addAddressBook:(id)sender
 //{
 //    ABPeoplePickerNavigationController *picker = [[ABPeoplePickerNavigationController alloc] init];
@@ -283,14 +241,6 @@
 //    picker.displayedProperties = [NSArray arrayWithObject:[NSNumber numberWithInt:kABPersonEmailProperty]];
 //    [self presentModalViewController:picker animated:YES];
 //}
-
-- (IBAction)save:(id)sender
-{
-    [DGUtils app].wizardHint = WIZARD_PROCEED_NEXT;
-    [self dismiss]; 
-}
-
-// -----
 
 - (void)peoplePickerNavigationControllerDidCancel:(ABPeoplePickerNavigationController *)peoplePicker
 {
@@ -304,12 +254,12 @@
 
 - (BOOL)peoplePickerNavigationController:(ABPeoplePickerNavigationController *)peoplePicker shouldContinueAfterSelectingPerson:(ABRecordRef)person property:(ABPropertyID)property identifier:(ABMultiValueIdentifier)identifier
 {
-	ABMultiValueRef mailProperty = ABRecordCopyValue(person,property);
-	NSString *mail = (__bridge_transfer NSString*)ABMultiValueCopyValueAtIndex(mailProperty,identifier);
-    CFRelease(mailProperty);
-    [peoplePicker dismissModalViewControllerAnimated:YES];
-    // check mail address:
-    [self checkNewParticipant:mail];
+//	ABMultiValueRef mailProperty = ABRecordCopyValue(person,property);
+//	NSString *mail = (__bridge_transfer NSString*)ABMultiValueCopyValueAtIndex(mailProperty,identifier);
+//    CFRelease(mailProperty);
+//    [peoplePicker dismissModalViewControllerAnimated:YES];
+//    // check mail address:
+//    [self checkNewParticipant:mail];
     return NO;
 }
 

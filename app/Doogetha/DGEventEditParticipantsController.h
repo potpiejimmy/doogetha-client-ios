@@ -12,7 +12,6 @@
 @interface DGEventEditParticipantsController : UITableViewController<ABPeoplePickerNavigationControllerDelegate,UIGestureRecognizerDelegate>
 - (IBAction)save:(id)sender;
 @property (weak, nonatomic) IBOutlet UITableView *participantsTable;
-@property (strong, nonatomic) NSString* checkingMail;
 @property (strong, nonatomic) NSIndexPath* removingUser;
 
 @end

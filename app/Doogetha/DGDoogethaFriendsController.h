@@ -11,7 +11,10 @@
 @interface DGDoogethaFriendsController : UITableViewController {
     @private NSArray* _data;
 }
+@property (strong, nonatomic) NSString* checkingMail;
+@property (weak, nonatomic) IBOutlet UITableView *friendsTable;
 - (IBAction)save:(id)sender;
 - (IBAction)cancel:(id)sender;
+- (IBAction)addManual:(id)sender;
 
 @end

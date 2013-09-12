@@ -26,6 +26,7 @@ NSString* const DOOGETHA_URL = @"https://www.doogetha.com/beta/res/";
 @synthesize wizardHint = _wizardHint;
 @synthesize currentEvent = _currentEvent;
 @synthesize currentSurvey = _currentSurvey;
+@synthesize currentUserSelection = _currentUserSelection;
 @synthesize gotSession = _gotSession;
 @synthesize pendingEventToOpen = _pendingEventToOpen;
 @synthesize operationQueue = _operationQueue;

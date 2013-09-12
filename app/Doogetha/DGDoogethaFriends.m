@@ -70,6 +70,19 @@
         [_lookupMap setValue:friend forKey:[friend objectForKey:@"email"]];
 }
 
+-(void)addFriend:(NSDictionary*)friend
+{
+    if ([[friend objectForKey:@"email"] isEqualToString:[[DGUtils app] userDefaultValueForKey:@"email"]])
+        return; // don't add myself
+    
+    if ([_lookupMap objectForKey:[friend objectForKey:@"email"]])
+        return; // don't add duplicates
+    
+    // XXX TODO add in sort order:
+    [_friends addObject:friend];
+    [_lookupMap setObject:friend forKey:[friend objectForKey:@"email"]];
+}
+
 -(void)synchronizeWithServer
 {
     // maps email hash strings to email addresses:
