@@ -7,6 +7,7 @@
 //
 
 #import "TLUtils.h"
+#import <CommonCrypto/CommonDigest.h>
 
 @implementation TLUtils
 
@@ -148,6 +149,20 @@ http://www.accommodationhepburnsprings.com/hepburn-springs-accommodation/
 + (NSString*) trim: (NSString*) string
 {
     return [string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+}
+
++ (NSData*)   md5: (NSString*)string
+{
+    // Create pointer to the string as UTF8
+    const char *ptr = [string UTF8String];
+    
+    // Create byte array of unsigned chars
+    unsigned char md5Buffer[CC_MD5_DIGEST_LENGTH];
+    
+    // Create 16 byte MD5 hash value, store in buffer
+    CC_MD5(ptr, strlen(ptr), md5Buffer);
+    
+    return [NSData dataWithBytes:md5Buffer length:sizeof(md5Buffer)];
 }
 
 @end

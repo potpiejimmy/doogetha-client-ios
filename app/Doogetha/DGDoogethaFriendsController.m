@@ -7,6 +7,7 @@
 //
 
 #import "DGDoogethaFriendsController.h"
+#import "DGUtils.h"
 #import "DGContactsUtils.h"
 
 @implementation DGDoogethaFriendsController
@@ -34,7 +35,7 @@
 {
     [super viewDidLoad];
     
-    _data = [DGContactsUtils fetchAllEmails];
+    _data = [[NSMutableArray alloc] initWithArray:[[[DGUtils app] doogethaFriends] friends]];
     
     self.tableView.allowsMultipleSelection = YES;
 
@@ -97,8 +98,8 @@
     }
     
     // Configure the cell...
-    cell.textLabel.text = [_data objectAtIndex:indexPath.row];
-    cell.detailTextLabel.text = [_data objectAtIndex:indexPath.row];
+    cell.textLabel.text = [DGContactsUtils userDisplayName:[_data objectAtIndex:indexPath.row]];
+    cell.detailTextLabel.text = [[_data objectAtIndex:indexPath.row] objectForKey:@"email"];
     
     return cell;
 }

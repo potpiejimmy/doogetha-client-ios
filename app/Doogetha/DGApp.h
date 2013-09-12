@@ -10,6 +10,7 @@
 #import "TLWebRequest.h"
 #import "DGMainController.h"
 #import "DGDateTimeSelectController.h"
+#import "DGDoogethaFriends.h"
 
 #define WIZARD_PROCEED_STAY   0
 #define WIZARD_PROCEED_NEXT   1
@@ -22,6 +23,7 @@ extern NSString* const DOOGETHA_URL;
 @interface DGApp : UIResponder <UIApplicationDelegate> {
     @private BOOL _inactive;
     @private DGDateTimeSelectController* _dateTimeSelector;
+    @private DGDoogethaFriends* _friends;
 }
 
 @property (retain) NSOperationQueue * operationQueue;
@@ -68,6 +70,9 @@ extern NSString* const DOOGETHA_URL;
 -(void)checkApnsServerSynced;
 -(void)handlePendingEventToOpen;
 
+-(DGDoogethaFriends*)doogethaFriends;
+
+-(void)startupMainView;
 @end
 
 // Callback protocol:

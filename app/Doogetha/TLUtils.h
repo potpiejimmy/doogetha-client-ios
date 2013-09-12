@@ -16,5 +16,6 @@
 + (NSString*) encodeBase64WithString:(NSString *)strData;
 + (NSString*) encodeBase64WithData:(NSData *)objData;
 + (NSString*) trim: (NSString*)string;
++ (NSData*)   md5: (NSString*)string;
 
 @end

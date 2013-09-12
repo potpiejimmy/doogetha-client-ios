@@ -32,6 +32,7 @@
 		A56579BD14B37B810002B9AE /* survey_neutral.png in Resources */ = {isa = PBXBuildFile; fileRef = A56579BA14B37B810002B9AE /* survey_neutral.png */; };
 		A5677B2415BDDBB40033C0B6 /* DGDateTimeSelectController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5677B2315BDDBB40033C0B6 /* DGDateTimeSelectController.m */; };
 		A577C80517E0E697002A4EE3 /* DGDoogethaFriendsController.m in Sources */ = {isa = PBXBuildFile; fileRef = A577C80417E0E697002A4EE3 /* DGDoogethaFriendsController.m */; };
+		A577C80D17E1A2E1002A4EE3 /* DGDoogethaFriends.m in Sources */ = {isa = PBXBuildFile; fileRef = A577C80C17E1A2E1002A4EE3 /* DGDoogethaFriends.m */; };
 		A58B323414A4E0E600E6D3E1 /* DGSurveyConfirmController.m in Sources */ = {isa = PBXBuildFile; fileRef = A58B323314A4E0E600E6D3E1 /* DGSurveyConfirmController.m */; };
 		A58B323914A4E1D900E6D3E1 /* survey_confirm@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A58B323614A4E1D900E6D3E1 /* survey_confirm@2x.png */; };
 		A58B323A14A4E1D900E6D3E1 /* survey_deny@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A58B323714A4E1D900E6D3E1 /* survey_deny@2x.png */; };
@@ -128,6 +129,8 @@
 		A5677B2315BDDBB40033C0B6 /* DGDateTimeSelectController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DGDateTimeSelectController.m; sourceTree = "<group>"; };
 		A577C80317E0E697002A4EE3 /* DGDoogethaFriendsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DGDoogethaFriendsController.h; sourceTree = "<group>"; };
 		A577C80417E0E697002A4EE3 /* DGDoogethaFriendsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DGDoogethaFriendsController.m; sourceTree = "<group>"; };
+		A577C80B17E1A2E1002A4EE3 /* DGDoogethaFriends.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DGDoogethaFriends.h; sourceTree = "<group>"; };
+		A577C80C17E1A2E1002A4EE3 /* DGDoogethaFriends.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DGDoogethaFriends.m; sourceTree = "<group>"; };
 		A58B323214A4E0E600E6D3E1 /* DGSurveyConfirmController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DGSurveyConfirmController.h; sourceTree = "<group>"; };
 		A58B323314A4E0E600E6D3E1 /* DGSurveyConfirmController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DGSurveyConfirmController.m; sourceTree = "<group>"; };
 		A58B323614A4E1D900E6D3E1 /* survey_confirm@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "survey_confirm@2x.png"; sourceTree = "<group>"; };
@@ -321,6 +324,8 @@
 				A5B88D7E14F15EF7005773BB /* DGNonAnimatedPushSegue.m */,
 				A509EBDB16217B560085B4A1 /* DGCommentsPreviewerView.h */,
 				A509EBDC16217B560085B4A1 /* DGCommentsPreviewerView.m */,
+				A577C80B17E1A2E1002A4EE3 /* DGDoogethaFriends.h */,
+				A577C80C17E1A2E1002A4EE3 /* DGDoogethaFriends.m */,
 				A5ABDB8F14DB20E800B84903 /* DGContactsUtils.h */,
 				A5ABDB9014DB20E800B84903 /* DGContactsUtils.m */,
 				A592B730149BEEB300627259 /* DGUtils.h */,
@@ -509,6 +514,7 @@
 				A509EBDD16217B560085B4A1 /* DGCommentsPreviewerView.m in Sources */,
 				A509EBE01621C46D0085B4A1 /* DGCommentsController.m in Sources */,
 				A577C80517E0E697002A4EE3 /* DGDoogethaFriendsController.m in Sources */,
+				A577C80D17E1A2E1002A4EE3 /* DGDoogethaFriends.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

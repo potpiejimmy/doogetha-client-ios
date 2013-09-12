@@ -48,6 +48,7 @@ NSString* const DOOGETHA_URL = @"https://www.doogetha.com/beta/res/";
     _pendingEventToOpen = 0;
     
     self.operationQueue = [[NSOperationQueue alloc] init];
+    _friends = [[DGDoogethaFriends alloc] init];
     
     // Register for Apple Push Notification Services:
     [application registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
@@ -207,14 +208,22 @@ NSString* const DOOGETHA_URL = @"https://www.doogetha.com/beta/res/";
 -(void)sessionCreateOk
 {
     _gotSession = YES;
-    if (self.mainController) {
-        [self.mainController setCheckVersionAfterReload:YES];
-        [self.mainController reload];
-    }
+    self.webRequester.authorization = [NSString stringWithFormat:@"Basic %@",self.sessionKey];
+    
+    // synchronize friends list:
+    [_friends synchronizeWithServer];
 }
 
 -(void)sessionCreateFail
 {
+}
+
+-(void)startupMainView
+{
+    if (self.mainController) {
+        [self.mainController setCheckVersionAfterReload:YES];
+        [self.mainController reload];
+    }
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
@@ -342,6 +351,11 @@ NSString* const DOOGETHA_URL = @"https://www.doogetha.com/beta/res/";
 -(void)setUserId:(int)userId
 {
     [self setUserDefaultValue:[NSString stringWithFormat:@"%d",userId] forKey:@"userId"];
+}
+
+-(DGDoogethaFriends*)doogethaFriends
+{
+    return _friends;
 }
 
 -(void)makeMeFirst:(NSDictionary*) event

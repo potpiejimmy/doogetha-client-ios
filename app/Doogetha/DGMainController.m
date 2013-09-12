@@ -101,8 +101,6 @@
     if (self.tabBarController.tabBar.selectedItem.tag > 2) return;
     
     DGApp* app = [DGUtils app];
-//    NSLog(@"Got session key %@",app.sessionKey);
-    app.webRequester.authorization = [NSString stringWithFormat:@"Basic %@",app.sessionKey];
     app.webRequester.delegate = self;
     [self showReloadAnimationAnimated:NO];
     NSString* url;
