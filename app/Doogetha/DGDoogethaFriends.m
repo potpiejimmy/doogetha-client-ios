@@ -94,6 +94,12 @@
     [self sortFriends];
 }
 
+-(NSMutableDictionary*)resolveUserInfo:(NSMutableDictionary*)user
+{
+    NSMutableDictionary* resolved = [_lookupMap objectForKey:[user objectForKey:@"email"]];
+    return resolved ? resolved : user;
+}
+
 -(void)synchronizeWithServer
 {
     // maps email hash strings to email addresses:

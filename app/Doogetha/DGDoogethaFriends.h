@@ -19,4 +19,5 @@
 -(NSMutableArray*)friends;
 -(void)setFriends:(NSMutableArray*)friends;
 -(void)addFriend:(NSDictionary*)friend;
+-(NSMutableDictionary*)resolveUserInfo:(NSMutableDictionary*)user;
 @end

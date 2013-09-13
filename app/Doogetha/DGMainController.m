@@ -9,6 +9,7 @@
 #import "DGMainController.h"
 #import "DGApp.h"
 #import "DGUtils.h"
+#import "DGContactsUtils.h"
 #import "DGEventConfirmController.h"
 
 #import <Foundation/NSJSONSerialization.h>
@@ -276,26 +277,42 @@
     
     NSDictionary* event = [self.events objectAtIndex:row];
     
-    cell.textLabel.text = [event objectForKey:@"name"];
+    ((UILabel*)[cell viewWithTag:3]).text = [event objectForKey:@"name"];
    
     NSNumber* eventDate = [event objectForKey:@"eventtime"];
     long long eventTime = eventDate.longLongValue;
     
     if (eventTime > 0) {
-        cell.detailTextLabel.text = [DGUtils dateTimeStringForMillis:eventTime];
+        ((UILabel*)[cell viewWithTag:2]).text = [DGUtils dateTimeStringForMillis:eventTime];
     } else {
-        cell.detailTextLabel.text = @"";
+        ((UILabel*)[cell viewWithTag:2]).text = @"";
     }
     
     if ([DGMainController hasOpenSurveys:event])
-        cell.imageView.image = [UIImage imageNamed:@"question_mark.png"];
+        ((UIImageView*)[cell viewWithTag:1]).image = [UIImage imageNamed:@"question_mark.png"];
     else {
         NSDictionary* myConfirmation = [[DGUtils app] findMe:event];
         int myConfirmationState = [[myConfirmation objectForKey:@"state"] intValue];
-        [DGMainController setConfirmImage:cell.imageView forState:myConfirmationState];
+        [DGMainController setConfirmImage:((UIImageView*)[cell viewWithTag:1]) forState:myConfirmationState];
     }
     
+    // participant names:
+    NSMutableString* participantsText = [[NSMutableString alloc] init];
+    NSString* participants = [DGContactsUtils participantNames:event];
+    if (participants) {
+        [participantsText appendString:@"mit "];
+        [participantsText appendString:participants];
+    } else {
+        [participantsText appendString:@"keine Teilnehmer"];
+    }
+    ((UILabel*)[cell viewWithTag:4]).text = participantsText;
+    
     return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 60;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

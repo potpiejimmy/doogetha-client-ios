@@ -13,5 +13,6 @@
 + (void) fillUserInfo: (NSDictionary*) userVo;
 + (NSString*) userDisplayName: (NSDictionary*) userVo;
 + (NSArray*) fetchAllEmails;
++ (NSString*) participantNames: (NSDictionary*) event;
 
 @end

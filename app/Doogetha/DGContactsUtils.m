@@ -94,4 +94,17 @@
         return email;
 }
 
++ (NSString*) participantNames: (NSDictionary*) event
+{
+    NSMutableString* stb = [[NSMutableString alloc] init];
+    for (NSMutableDictionary* user in [event objectForKey:@"users"]) {
+        if ([[user objectForKey:@"email"] caseInsensitiveCompare:[[DGUtils app] userDefaultValueForKey:@"email"]] == NSOrderedSame) continue; // skip myself
+        NSMutableDictionary* resolvedUser = [[[DGUtils app] doogethaFriends] resolveUserInfo:user]; // resolve names from friends list
+        if ([stb length] > 0) [stb appendString:@", "];
+        [stb appendString:[DGContactsUtils userDisplayName:resolvedUser]];
+    }
+    if ([stb length] > 0) return stb;
+    else return nil; // no participants except myself - return nil
+}
+
 @end

@@ -106,6 +106,12 @@
     cell.textLabel.text = [DGContactsUtils userDisplayName:[_data objectAtIndex:indexPath.row]];
     cell.detailTextLabel.text = [[_data objectAtIndex:indexPath.row] objectForKey:@"email"];
     
+    BOOL selected = FALSE;
+    for (NSIndexPath* path in [tableView indexPathsForSelectedRows]) {
+        if (path.row == indexPath.row) selected = TRUE;
+    }
+    cell.imageView.image = [UIImage imageNamed:(selected ? @"checkbox_checked.png" : @"checkbox_unchecked.png")];
+    
     return cell;
 }
 
@@ -159,14 +165,16 @@
 {
     UITableViewCell *tableViewCell = [tableView cellForRowAtIndexPath:indexPath];
     //tableViewCell.accessoryView.hidden = NO; 
-    tableViewCell.accessoryType = UITableViewCellAccessoryCheckmark;
+    //tableViewCell.accessoryType = UITableViewCellAccessoryCheckmark;
+    tableViewCell.imageView.image = [UIImage imageNamed:@"checkbox_checked.png"];
 }
 
 - (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *tableViewCell = [tableView cellForRowAtIndexPath:indexPath];
     //tableViewCell.accessoryView.hidden = YES;
-    tableViewCell.accessoryType = UITableViewCellAccessoryNone;
+    //tableViewCell.accessoryType = UITableViewCellAccessoryNone;
+    tableViewCell.imageView.image = [UIImage imageNamed:@"checkbox_unchecked.png"];
 }
 
 - (void)dismiss
