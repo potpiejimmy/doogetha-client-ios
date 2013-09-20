@@ -97,11 +97,12 @@
 + (NSString*) participantNames: (NSDictionary*) event
 {
     NSMutableString* stb = [[NSMutableString alloc] init];
+    int delimiters = [[event objectForKey:@"users"] count] - 2;
     for (NSMutableDictionary* user in [event objectForKey:@"users"]) {
         if ([[user objectForKey:@"email"] caseInsensitiveCompare:[[DGUtils app] userDefaultValueForKey:@"email"]] == NSOrderedSame) continue; // skip myself
         NSMutableDictionary* resolvedUser = [[[DGUtils app] doogethaFriends] resolveUserInfo:user]; // resolve names from friends list
-        if ([stb length] > 0) [stb appendString:@", "];
-        [stb appendString:[DGContactsUtils userDisplayName:resolvedUser]];
+        if ([stb length] > 0) [stb appendString:--delimiters>0 ? @", " : @" und "];
+        [stb appendString:[[[DGContactsUtils userDisplayName:resolvedUser] componentsSeparatedByString:@" "] objectAtIndex:0]];
     }
     if ([stb length] > 0) return stb;
     else return nil; // no participants except myself - return nil

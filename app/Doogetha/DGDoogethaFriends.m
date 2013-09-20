@@ -97,7 +97,14 @@
 -(NSMutableDictionary*)resolveUserInfo:(NSMutableDictionary*)user
 {
     NSMutableDictionary* resolved = [_lookupMap objectForKey:[user objectForKey:@"email"]];
-    return resolved ? resolved : user;
+    if (resolved) {
+        // adapt the user name from friend list:
+        if ([resolved objectForKey:@"firstname"])
+            [user setObject:[resolved objectForKey:@"firstname"] forKey:@"firstname"];
+        if ([resolved objectForKey:@"lastname"])
+            [user setObject:[resolved objectForKey:@"lastname"] forKey:@"lastname"];
+    }
+    return user;
 }
 
 -(void)synchronizeWithServer
