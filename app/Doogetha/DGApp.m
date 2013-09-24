@@ -159,6 +159,10 @@ NSString* const DOOGETHA_URL = @"https://www.doogetha.com/beta/res/";
     } else if ([reqid isEqualToString:@"challenge"]) {
         NSString* challengeData = [app.webRequester resultString];
         challengeData = [challengeData substringWithRange:NSMakeRange(1, [challengeData length]-2)];
+        if ([challengeData rangeOfString:@":"].location <= 0) {
+            [self.sessionCallback sessionCreateFail];
+            return;
+        }
         NSArray* tok = [challengeData componentsSeparatedByString:@":"];
         NSString* userId = [tok objectAtIndex:0];
         NSData* challenge = [TLUtils hexToBytes:[tok objectAtIndex:1]];
