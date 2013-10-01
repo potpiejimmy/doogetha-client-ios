@@ -612,13 +612,15 @@
 		A591DAF3149A6DB20077DF83 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer: Thorsten Liese (JJ2442D955)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Thorsten Liese (JJ2442D955)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Doogetha/Doogetha-Prefix.pch";
 				INFOPLIST_FILE = "Doogetha/Doogetha-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "3A0404E0-C685-49E7-946F-DD1685E9A5B1";
+				PROVISIONING_PROFILE = "82534057-B527-4101-BAFE-C0FB72DDD5F7";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "82534057-B527-4101-BAFE-C0FB72DDD5F7";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -626,13 +628,12 @@
 		A591DAF4149A6DB20077DF83 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Thorsten Liese (JJ2442D955)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Doogetha/Doogetha-Prefix.pch";
 				INFOPLIST_FILE = "Doogetha/Doogetha-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "3A0404E0-C685-49E7-946F-DD1685E9A5B1";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
