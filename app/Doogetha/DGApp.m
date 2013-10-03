@@ -268,15 +268,8 @@ NSString* const DOOGETHA_URL = @"https://www.doogetha.com/beta/res/";
         [self refreshActivities];
         [self handlePendingEventToOpen];
         _inactive = NO;
-    } else {
-        // application startup: start a session:
-        if (self.mainController) {
-            [self.mainController setUIEnabled:NO];
-            [self.mainController showReloadAnimationAnimated:NO];
-            [self startSession:self];
-        }
     }
-
+    
 // XXX
 //    NSMutableDictionary* userInfo = [NSMutableDictionary dictionaryWithObject:@"eventconfirm" forKey:@"type"];
 //    [userInfo setObject:@"Ganz neue Aktivität mit Abstimmungen" forKey:@"eventName"];

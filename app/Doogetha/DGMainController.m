@@ -62,7 +62,15 @@
     lpgr.delegate = self;
     [self.eventsTable addGestureRecognizer:lpgr];
 
-    _refreshNeeded = [[DGUtils app] gotSession];
+    if ([[DGUtils app] gotSession]) {
+        // session already started - just refresh on viewDidAppear
+        _refreshNeeded = [[DGUtils app] gotSession];
+    } else {
+        // application just started up: start a session:
+        [self setUIEnabled:NO];
+        [self showReloadAnimationAnimated:NO];
+        [[DGUtils app] startSession:[DGUtils app]];
+    }
 }
 
 - (void)viewDidUnload
