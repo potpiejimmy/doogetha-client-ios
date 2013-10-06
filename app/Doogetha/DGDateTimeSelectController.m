@@ -47,7 +47,7 @@
     self.label.font = [UIFont systemFontOfSize:15.0f];
     self.label.textColor = [UIColor whiteColor];
     self.label.backgroundColor = [UIColor clearColor];
-    self.label.textAlignment = UITextAlignmentCenter;
+    self.label.textAlignment = NSTextAlignmentCenter;
     self.label.numberOfLines = 0;
     self.label.text = @"Bitte wähle einen Zeitpunkt:";
     

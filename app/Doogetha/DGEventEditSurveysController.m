@@ -56,10 +56,9 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    self.navigationItem.hidesBackButton = YES;
+    self.navigationItem.title = @"Abstimmungen";
     
-    self.navigationController.navigationBarHidden = YES;
-    self.navigationController.toolbarHidden = NO;
-
     if (_isEditingSurvey) {
         /* user just returned from editing a survey */
         _isEditingSurvey = NO;
@@ -224,8 +223,6 @@
 
 - (void)dismiss
 {
-    self.navigationController.navigationBarHidden = NO;
-    self.navigationController.toolbarHidden = YES;
     [self.navigationController popViewControllerAnimated:NO];
 }
 

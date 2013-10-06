@@ -54,11 +54,6 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
     
     switch ([DGUtils app].wizardHint) {
         case WIZARD_PROCEED_NEXT:
@@ -68,6 +63,11 @@
             [DGUtils popViewControllers:self num:4]; // pop all wizard pages
             break;
     }
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

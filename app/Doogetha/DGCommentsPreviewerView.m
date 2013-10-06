@@ -21,7 +21,7 @@
                                        300.0f, 20.0f)];
 	headlineLabel.font = [UIFont systemFontOfSize:14.0f];
 	headlineLabel.textColor = TEXT_COLOR;
-    headlineLabel.textAlignment = UITextAlignmentCenter;
+    headlineLabel.textAlignment = NSTextAlignmentCenter;
     headlineLabel.text = @"↑ Hello world ↑";
     headlineLabel.opaque = NO;
     headlineLabel.backgroundColor = [UIColor clearColor];
@@ -32,7 +32,7 @@
                300.0f, 30.0f)];
 	label.font = [UIFont systemFontOfSize:12.0f];
 	label.textColor = TEXT_COLOR;
-    label.textAlignment = UITextAlignmentLeft;
+    label.textAlignment = NSTextAlignmentLeft;
     label.numberOfLines = 2;
     label.text = @"Dies ist ein wunderschöner Kommentar der über mehrere Zeilen reicht, wenn er es muss. Muss er aber nicht.";
     label.opaque = NO;
@@ -44,7 +44,7 @@
                         300.0f, 15.0f)];
 	sublabel.font = [UIFont systemFontOfSize:12.0f];
 	sublabel.textColor = TEXT_COLOR_GRAY;
-    sublabel.textAlignment = UITextAlignmentLeft;
+    sublabel.textAlignment = NSTextAlignmentLeft;
     sublabel.numberOfLines = 1;
     sublabel.text = @"Thorsten Liese (14.08.2012 16:32)";
     sublabel.opaque = NO;

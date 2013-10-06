@@ -46,12 +46,6 @@
     [self.participantsTable addGestureRecognizer:lpgr];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    
-    self.navigationController.navigationBarHidden = YES;
-    self.navigationController.toolbarHidden = NO;
 }
 
 - (void)viewDidUnload
@@ -66,6 +60,8 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    self.navigationItem.hidesBackButton = YES;
+    self.navigationItem.title = @"Teilnehmer";
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -205,8 +201,6 @@
 
 - (void)dismiss
 {
-    self.navigationController.navigationBarHidden = NO;
-    self.navigationController.toolbarHidden = YES;
     [self.navigationController popViewControllerAnimated:NO];
 }
 
@@ -244,7 +238,7 @@
 
 - (void)peoplePickerNavigationControllerDidCancel:(ABPeoplePickerNavigationController *)peoplePicker
 {
-    [peoplePicker dismissModalViewControllerAnimated:YES];
+    [peoplePicker dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (BOOL)peoplePickerNavigationController:(ABPeoplePickerNavigationController *)peoplePicker shouldContinueAfterSelectingPerson:(ABRecordRef)person

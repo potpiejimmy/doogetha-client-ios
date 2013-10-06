@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>38543176-F077-4530-BEE5-5E12810D08AE</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Doogetha</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>782134B8-AF78-4CB5-BF85-9C1D41080165</key>
+		<string>https://www.potpiejimmy.de/svn/letsdoo</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>client/ios/trunk/app/Doogetha.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>782134B8-AF78-4CB5-BF85-9C1D41080165</key>
+		<string>../../../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectRepositoryRootDictionary</key>
+	<dict>
+		<key>782134B8-AF78-4CB5-BF85-9C1D41080165</key>
+		<string>https://www.potpiejimmy.de/svn/letsdoo</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://www.potpiejimmy.de/svn/letsdoo/client/ios/trunk/app/Doogetha.xcodeproj</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>782134B8-AF78-4CB5-BF85-9C1D41080165</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.subversion</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>782134B8-AF78-4CB5-BF85-9C1D41080165</string>
+			<key>IDESourceControlWCCName</key>
+			<string>letsdoo_svn</string>
+		</dict>
+	</array>
+</dict>
+</plist>

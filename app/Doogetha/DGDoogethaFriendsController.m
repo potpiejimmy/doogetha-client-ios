@@ -42,9 +42,6 @@
     _data = [[[DGUtils app] doogethaFriends] friends];
     
     self.tableView.allowsMultipleSelection = YES;
-
-    self.navigationController.navigationBarHidden = YES;
-    self.navigationController.toolbarHidden = NO;
 }
 
 - (void)viewDidUnload
@@ -179,8 +176,6 @@
 
 - (void)dismiss
 {
-//    self.navigationController.navigationBarHidden = NO;
-//    self.navigationController.toolbarHidden = YES;
     [self.navigationController popViewControllerAnimated:YES];
 }
 

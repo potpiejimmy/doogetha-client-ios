@@ -195,7 +195,7 @@
     {
         [[DGUtils app] unregister];
         UIViewController* wc = [self.storyboard instantiateViewControllerWithIdentifier:@"welcomeController"];
-        [self presentModalViewController:wc animated:YES];
+        [self presentViewController:wc animated:YES completion:nil];
     }
 }
 

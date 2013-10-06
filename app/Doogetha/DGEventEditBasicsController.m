@@ -65,8 +65,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.navigationController.navigationBarHidden = YES;
-    self.navigationController.toolbarHidden = NO;
 }
 
 - (void)viewDidUnload
@@ -81,6 +79,8 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    self.navigationItem.hidesBackButton = YES;
+    self.navigationItem.title = @"Titel und Beschreibung";
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -101,8 +101,6 @@
 
 - (void)dismiss
 {
-    self.navigationController.navigationBarHidden = NO;
-    self.navigationController.toolbarHidden = YES;
     [self.navigationController popViewControllerAnimated:NO];
 }
 

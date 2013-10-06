@@ -17,7 +17,7 @@
     @try {
         NSString* searchString = [userVo objectForKey:@"email"];
     
-        NSArray *all = (__bridge NSArray*)ABAddressBookCopyArrayOfAllPeople(ABAddressBookCreate());
+        NSArray *all = (__bridge NSArray*)ABAddressBookCopyArrayOfAllPeople(ABAddressBookCreateWithOptions(NULL, NULL));
 
         for (int i=0; i< [all count]; i++)
         {
@@ -53,7 +53,7 @@
     NSMutableArray* result = [[NSMutableArray alloc] init];
 
     @try {
-        NSArray *all = (__bridge NSArray*)ABAddressBookCopyArrayOfAllPeople(ABAddressBookCreate());
+        NSArray *all = (__bridge NSArray*)ABAddressBookCopyArrayOfAllPeople(ABAddressBookCreateWithOptions(NULL, NULL));
         
         for (int i=0; i< [all count]; i++)
         {

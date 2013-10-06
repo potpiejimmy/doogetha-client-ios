@@ -64,15 +64,15 @@ size_t encodeASN1Length(unsigned char * buf, size_t length) {
 																	  forKey:(__bridge id)kSecValueData];
 		
 		error = SecItemUpdate((__bridge CFDictionaryRef)query, (__bridge CFDictionaryRef)attributesToUpdate);
-		NSAssert1(error == errSecSuccess, @"SecItemUpdate failed: %d", error);
+		NSAssert1(error == errSecSuccess, @"SecItemUpdate failed: %d", (int)error);
 	} else if (error == errSecItemNotFound) {
 		// insert
 		[query setObject:[value dataUsingEncoding:NSUTF8StringEncoding] forKey:(__bridge id)kSecValueData];
 		
 		error = SecItemAdd((__bridge CFDictionaryRef)query, NULL);
-		NSAssert1(error == errSecSuccess, @"SecItemAdd failed: %d", error);
+		NSAssert1(error == errSecSuccess, @"SecItemAdd failed: %d", (int)error);
 	} else {
-		NSAssert1(NO, @"SecItemCopyMatching failed: %d", error);
+		NSAssert1(NO, @"SecItemCopyMatching failed: %d", (int)error);
 	}
 }
 

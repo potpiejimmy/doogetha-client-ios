@@ -79,8 +79,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.navigationController.navigationBarHidden = YES;
-    self.navigationController.toolbarHidden = NO;
 
     [self.dateTimeSwitch setTintColor:self.navigationController.toolbar.tintColor];
     
@@ -97,6 +95,13 @@
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.navigationItem.hidesBackButton = YES;
+    self.navigationItem.title = @"Zeitpunkt";
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -123,8 +128,6 @@
 
 - (void)dismiss
 {
-    self.navigationController.navigationBarHidden = NO;
-    self.navigationController.toolbarHidden = YES;
     [self.navigationController popViewControllerAnimated:NO];
 }
 

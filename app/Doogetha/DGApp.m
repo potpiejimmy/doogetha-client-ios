@@ -221,6 +221,8 @@ NSString* const DOOGETHA_URL = @"https://www.doogetha.com/beta/res/";
 
 -(void)sessionCreateFail
 {
+    [self.mainController setUIEnabled:YES];
+    [DGUtils alert:@"Das Starten der Sitzung ist fehlgeschlagen."];
 }
 
 -(void)startupMainView

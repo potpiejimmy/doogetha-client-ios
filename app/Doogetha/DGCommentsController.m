@@ -169,7 +169,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSString* text = [[self.comments objectAtIndex:indexPath.row] objectForKey:@"comment"];
-    CGSize s = [text sizeWithFont:[UIFont systemFontOfSize:14] constrainedToSize:CGSizeMake(280, 500)];
+    CGSize s = [text sizeWithAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14]}];
     return s.height + 32;
 }
 
@@ -236,7 +236,7 @@
 
 - (IBAction)done:(id)sender
 {
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (IBAction)submit:(id)sender

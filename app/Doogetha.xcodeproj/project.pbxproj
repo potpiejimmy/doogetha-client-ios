@@ -52,6 +52,7 @@
 		A592B732149BEEB300627259 /* DGUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = A592B731149BEEB300627259 /* DGUtils.m */; };
 		A5992FD415C55BDC00285ABF /* DGEventEditSurveysController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5992FD315C55BDC00285ABF /* DGEventEditSurveysController.m */; };
 		A5992FD815C55F3900285ABF /* DGSurveyEditController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5992FD715C55F3900285ABF /* DGSurveyEditController.m */; };
+		A5AB603D17FE1EAF00BF8E6F /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A5AB603C17FE1EAF00BF8E6F /* Default-568h@2x.png */; };
 		A5ABDB9114DB20E800B84903 /* DGContactsUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = A5ABDB9014DB20E800B84903 /* DGContactsUtils.m */; };
 		A5ABDB9414DB2BC900B84903 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5ABDB9314DB2BC900B84903 /* AddressBook.framework */; };
 		A5AC755B14D8614A0029F065 /* TLKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = A5AC755A14D8614A0029F065 /* TLKeychain.m */; };
@@ -164,6 +165,7 @@
 		A5992FD315C55BDC00285ABF /* DGEventEditSurveysController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DGEventEditSurveysController.m; sourceTree = "<group>"; };
 		A5992FD615C55F3900285ABF /* DGSurveyEditController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DGSurveyEditController.h; sourceTree = "<group>"; };
 		A5992FD715C55F3900285ABF /* DGSurveyEditController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DGSurveyEditController.m; sourceTree = "<group>"; };
+		A5AB603C17FE1EAF00BF8E6F /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		A5ABDB8F14DB20E800B84903 /* DGContactsUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DGContactsUtils.h; sourceTree = "<group>"; };
 		A5ABDB9014DB20E800B84903 /* DGContactsUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DGContactsUtils.m; sourceTree = "<group>"; };
 		A5ABDB9314DB2BC900B84903 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
@@ -238,6 +240,7 @@
 		A591DAC9149A6DB20077DF83 = {
 			isa = PBXGroup;
 			children = (
+				A5AB603C17FE1EAF00BF8E6F /* Default-568h@2x.png */,
 				A591DADE149A6DB20077DF83 /* Doogetha */,
 				A591DAD7149A6DB20077DF83 /* Frameworks */,
 				A591DAD5149A6DB20077DF83 /* Products */,
@@ -420,7 +423,7 @@
 		A591DACB149A6DB20077DF83 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0420;
+				LastUpgradeCheck = 0500;
 			};
 			buildConfigurationList = A591DACE149A6DB20077DF83 /* Build configuration list for PBXProject "Doogetha" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -450,6 +453,7 @@
 				A5D12513149E3705007B5606 /* button_myactivities.png in Resources */,
 				A5B2D0D514A0648400A4FD6D /* iTunesArtwork in Resources */,
 				A51E279E14A0FB3900F10CAB /* refresh.png in Resources */,
+				A5AB603D17FE1EAF00BF8E6F /* Default-568h@2x.png in Resources */,
 				A50A727314A3CDB800CE4CEB /* title.png in Resources */,
 				A50A727614A3DF8400CE4CEB /* dot-green.png in Resources */,
 				A58B323914A4E1D900E6D3E1 /* survey_confirm@2x.png in Resources */,
@@ -568,8 +572,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -581,10 +590,15 @@
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -593,14 +607,23 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
@@ -617,10 +640,11 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Doogetha/Doogetha-Prefix.pch";
 				INFOPLIST_FILE = "Doogetha/Doogetha-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "82534057-B527-4101-BAFE-C0FB72DDD5F7";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "82534057-B527-4101-BAFE-C0FB72DDD5F7";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -632,8 +656,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Doogetha/Doogetha-Prefix.pch";
 				INFOPLIST_FILE = "Doogetha/Doogetha-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

@@ -56,10 +56,15 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    self.navigationController.navigationBarHidden = YES;
-    self.navigationController.toolbarHidden = NO;
 
     [self.editTableView reloadData];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.navigationItem.hidesBackButton = YES;
+    self.navigationItem.title = @"Aktivität bearbeiten";
 }
 
 #pragma mark - Table view data source
@@ -193,8 +198,6 @@
 - (void)dismiss
 {
     // overrides dismiss in super class, called by superclass
-    self.navigationController.navigationBarHidden = NO;
-    self.navigationController.toolbarHidden = YES;
     [self.navigationController popViewControllerAnimated:NO];
 }
 
