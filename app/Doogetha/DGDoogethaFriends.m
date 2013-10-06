@@ -152,6 +152,7 @@
                          error:&error];
     
     NSMutableArray* syncedFriends = [res objectForKey:@"users"];
+    if (!syncedFriends) syncedFriends = [[NSMutableArray alloc] init];
     NSLog(@"Got %d synced friends.",[syncedFriends count]);
     
     // fetch display names from address book:

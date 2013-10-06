@@ -83,6 +83,8 @@
 		A5D12512149E3705007B5606 /* button_currentactivities.png in Resources */ = {isa = PBXBuildFile; fileRef = A5D12510149E3705007B5606 /* button_currentactivities.png */; };
 		A5D12513149E3705007B5606 /* button_myactivities.png in Resources */ = {isa = PBXBuildFile; fileRef = A5D12511149E3705007B5606 /* button_myactivities.png */; };
 		A5D12517149E545D007B5606 /* DGEventConfirmController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5D12516149E545D007B5606 /* DGEventConfirmController.m */; };
+		A5D312671801E862000101FA /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = A5D312651801E862000101FA /* Default.png */; };
+		A5D312681801E862000101FA /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A5D312661801E862000101FA /* Default@2x.png */; };
 		A5D4577B14D5C1A200526065 /* add.png in Resources */ = {isa = PBXBuildFile; fileRef = A5D4577A14D5C1A200526065 /* add.png */; };
 		A5D4577D14D5E53300526065 /* refresh@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A5D4577C14D5E53300526065 /* refresh@2x.png */; };
 		A5D4578114D5E61C00526065 /* question_mark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A5D4578014D5E61C00526065 /* question_mark@2x.png */; };
@@ -165,7 +167,7 @@
 		A5992FD315C55BDC00285ABF /* DGEventEditSurveysController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DGEventEditSurveysController.m; sourceTree = "<group>"; };
 		A5992FD615C55F3900285ABF /* DGSurveyEditController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DGSurveyEditController.h; sourceTree = "<group>"; };
 		A5992FD715C55F3900285ABF /* DGSurveyEditController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DGSurveyEditController.m; sourceTree = "<group>"; };
-		A5AB603C17FE1EAF00BF8E6F /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		A5AB603C17FE1EAF00BF8E6F /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "../Default-568h@2x.png"; sourceTree = "<group>"; };
 		A5ABDB8F14DB20E800B84903 /* DGContactsUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DGContactsUtils.h; sourceTree = "<group>"; };
 		A5ABDB9014DB20E800B84903 /* DGContactsUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DGContactsUtils.m; sourceTree = "<group>"; };
 		A5ABDB9314DB2BC900B84903 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
@@ -208,6 +210,8 @@
 		A5D12511149E3705007B5606 /* button_myactivities.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_myactivities.png; sourceTree = "<group>"; };
 		A5D12515149E545D007B5606 /* DGEventConfirmController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DGEventConfirmController.h; sourceTree = "<group>"; };
 		A5D12516149E545D007B5606 /* DGEventConfirmController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DGEventConfirmController.m; sourceTree = "<group>"; };
+		A5D312651801E862000101FA /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = ../Default.png; sourceTree = "<group>"; };
+		A5D312661801E862000101FA /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "../Default@2x.png"; sourceTree = "<group>"; };
 		A5D4577A14D5C1A200526065 /* add.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = add.png; sourceTree = "<group>"; };
 		A5D4577C14D5E53300526065 /* refresh@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "refresh@2x.png"; sourceTree = "<group>"; };
 		A5D4578014D5E61C00526065 /* question_mark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "question_mark@2x.png"; sourceTree = "<group>"; };
@@ -240,7 +244,6 @@
 		A591DAC9149A6DB20077DF83 = {
 			isa = PBXGroup;
 			children = (
-				A5AB603C17FE1EAF00BF8E6F /* Default-568h@2x.png */,
 				A591DADE149A6DB20077DF83 /* Doogetha */,
 				A591DAD7149A6DB20077DF83 /* Frameworks */,
 				A591DAD5149A6DB20077DF83 /* Products */,
@@ -352,6 +355,9 @@
 				A5BD39A414D5EEF20061A7C3 /* Icon-72.png */,
 				A5BD39A514D5EEF20061A7C3 /* Icon.png */,
 				A5BD39A614D5EEF20061A7C3 /* Icon@2x.png */,
+				A5AB603C17FE1EAF00BF8E6F /* Default-568h@2x.png */,
+				A5D312651801E862000101FA /* Default.png */,
+				A5D312661801E862000101FA /* Default@2x.png */,
 				A5D4577A14D5C1A200526065 /* add.png */,
 				A5BF6C4C15DE974F00B72B76 /* add@2x.png */,
 				A5767FDB17E354BB00E457C5 /* checkbox_checked.png */,
@@ -459,6 +465,7 @@
 				A58B323914A4E1D900E6D3E1 /* survey_confirm@2x.png in Resources */,
 				A58B323A14A4E1D900E6D3E1 /* survey_deny@2x.png in Resources */,
 				A5FDC2C814B252BF00CF69F4 /* survey_neutral@2x.png in Resources */,
+				A5D312681801E862000101FA /* Default@2x.png in Resources */,
 				A56579BB14B37B810002B9AE /* survey_confirm.png in Resources */,
 				A56579BC14B37B810002B9AE /* survey_deny.png in Resources */,
 				A56579BD14B37B810002B9AE /* survey_neutral.png in Resources */,
@@ -490,6 +497,7 @@
 				A5767FE017E354BB00E457C5 /* checkbox_checked@2x.png in Resources */,
 				A5767FE117E354BB00E457C5 /* checkbox_unchecked.png in Resources */,
 				A5767FE217E354BB00E457C5 /* checkbox_unchecked@2x.png in Resources */,
+				A5D312671801E862000101FA /* Default.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
