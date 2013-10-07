@@ -37,15 +37,18 @@
 {
     NSLog(@"DGDateTimeSelectController.loadView called");
     [super loadView];
+    
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+    
     CGRect screenBounds = [[UIScreen mainScreen] bounds];
     self.view = [[UIView alloc] initWithFrame:screenBounds];
-	self.view.backgroundColor = [UIColor blackColor];
+	self.view.backgroundColor = [UIColor whiteColor];
     
     const int LABELHEIGHT = 40;
 
     self.label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, screenBounds.size.width, LABELHEIGHT)];
     self.label.font = [UIFont systemFontOfSize:15.0f];
-    self.label.textColor = [UIColor whiteColor];
+    self.label.textColor = [UIColor blackColor];
     self.label.backgroundColor = [UIColor clearColor];
     self.label.textAlignment = NSTextAlignmentCenter;
     self.label.numberOfLines = 0;
@@ -58,6 +61,15 @@
     [self.datePicker sizeToFit];
     
     [self.view addSubview:self.datePicker];
+    
+    UIToolbar* toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, screenBounds.size.height - 110, screenBounds.size.width, 40)];
+    
+    UIBarButtonItem* ok     = [[UIBarButtonItem alloc] initWithTitle:@"OK" style:UIBarButtonItemStyleBordered target:self action:@selector(save:)];
+    UIBarButtonItem* cancel = [[UIBarButtonItem alloc] initWithTitle:@"Abbrechen" style:UIBarButtonItemStyleBordered target:self action:@selector(cancel:)];
+    
+    [toolbar setItems:[NSArray arrayWithObjects:ok, [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil], cancel, nil] animated:NO];
+
+    [self.view addSubview:toolbar];
 }
 
 
@@ -77,14 +89,8 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-
-    self.navigationController.navigationBarHidden = YES;
-    self.navigationController.toolbarHidden = NO;
-
-    UIBarButtonItem* ok     = [[UIBarButtonItem alloc] initWithTitle:@"OK" style:UIBarButtonItemStyleBordered target:self action:@selector(save:)];
-    UIBarButtonItem* cancel = [[UIBarButtonItem alloc] initWithTitle:@"Abbrechen" style:UIBarButtonItemStyleBordered target:self action:@selector(cancel:)];
     
-    [self setToolbarItems:[NSArray arrayWithObjects:ok, cancel, nil] animated:NO];
+    self.navigationItem.hidesBackButton = YES;
 }
 
 - (void)viewDidAppear:(BOOL)animated
