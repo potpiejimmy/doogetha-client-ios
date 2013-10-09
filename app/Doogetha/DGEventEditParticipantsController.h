@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <AddressBookUI/AddressBookUI.h>
 
-@interface DGEventEditParticipantsController : UITableViewController<ABPeoplePickerNavigationControllerDelegate,UIGestureRecognizerDelegate>
+@interface DGEventEditParticipantsController : UIViewController<UITableViewDelegate,UITableViewDataSource,ABPeoplePickerNavigationControllerDelegate,UIGestureRecognizerDelegate>
 - (IBAction)save:(id)sender;
 @property (weak, nonatomic) IBOutlet UITableView *participantsTable;
 @property (strong, nonatomic) NSIndexPath* removingUser;

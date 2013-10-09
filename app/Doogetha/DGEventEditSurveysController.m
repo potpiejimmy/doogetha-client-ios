@@ -13,15 +13,6 @@
 @implementation DGEventEditSurveysController
 @synthesize surveysTable = _surveysTable;
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)didReceiveMemoryWarning
 {
     // Releases the view if it doesn't have a superview.

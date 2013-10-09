@@ -16,15 +16,6 @@
 
 @synthesize checkingMail = _checkingMail;
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)didReceiveMemoryWarning
 {
     // Releases the view if it doesn't have a superview.
@@ -41,7 +32,7 @@
     
     _data = [[[DGUtils app] doogethaFriends] friends];
     
-    self.tableView.allowsMultipleSelection = YES;
+    self.friendsTable.allowsMultipleSelection = YES;
 }
 
 - (void)viewDidUnload

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface DGDoogethaFriendsController : UITableViewController {
+@interface DGDoogethaFriendsController : UIViewController<UITableViewDelegate,UITableViewDataSource> {
     @private NSArray* _data;
 }
 @property (strong, nonatomic) NSString* checkingMail;

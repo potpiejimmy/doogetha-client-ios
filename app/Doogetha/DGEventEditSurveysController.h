@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface DGEventEditSurveysController : UITableViewController<UIGestureRecognizerDelegate> {
+@interface DGEventEditSurveysController : UIViewController<UITableViewDelegate,UITableViewDataSource,UIGestureRecognizerDelegate> {
     @private BOOL _isEditingSurvey;
     @private int _editingIndex;
     @private int _deletingIndex;
