@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4510" systemVersion="12F45" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="Zmb-ng-wWl">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="13A3028" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="Zmb-ng-wWl">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
     </dependencies>
     <scenes>
         <!--Register Controller-->
@@ -13,7 +13,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="E-Mail-Adresse" minimumFontSize="17" id="bDa-Qf-6q8">
-                                <rect key="frame" x="20" y="301" width="280" height="31"/>
+                                <rect key="frame" x="20" y="321" width="280" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="done"/>
@@ -22,7 +22,7 @@
                                 </connections>
                             </textField>
                             <view contentMode="scaleToFill" id="dy4-AJ-LuR">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="20" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="logo.png" id="UUL-Kb-W9I">
@@ -33,7 +33,7 @@
                                 <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                             </view>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="wordWrap" numberOfLines="0" minimumFontSize="10" id="BjS-lJ-Ngr" userLabel="Label - Willkommen">
-                                <rect key="frame" x="20" y="65" width="280" height="223"/>
+                                <rect key="frame" x="20" y="85" width="280" height="223"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <string key="text">Damit du Doogetha verwenden kannst, musst du dich einmalig am Doogetha-Server registrieren. Dazu benötigst du nur eine E-Mail-Adresse - mehr nicht.
 
@@ -43,7 +43,7 @@ Bitte beachte aber, dass die E-Mail-Adresse gleichzeitig auch deine Nutzerkennun
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="nKS-Xp-pdP">
-                                <rect key="frame" x="188" y="350" width="112" height="37"/>
+                                <rect key="frame" x="188" y="370" width="112" height="37"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Anmelden">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -58,6 +58,7 @@ Bitte beachte aber, dass die E-Mail-Adresse gleichzeitig auch deine Nutzerkennun
                             <action selector="backgroundTouched:" destination="2" eventType="touchDown" id="DEJ-EZ-n5i"/>
                         </connections>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <connections>
                         <outlet property="loginButton" destination="cYo-Vk-c7g" id="y0m-6z-QEO"/>
                         <outlet property="mailTextField" destination="bDa-Qf-6q8" id="Jh3-nO-wPI"/>
@@ -78,7 +79,7 @@ Bitte beachte aber, dass die E-Mail-Adresse gleichzeitig auch deine Nutzerkennun
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" id="qaD-cE-Df1">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="20" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="logo.png" id="k9j-yE-6xJ">
@@ -89,7 +90,7 @@ Bitte beachte aber, dass die E-Mail-Adresse gleichzeitig auch deine Nutzerkennun
                                 <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="cYo-Vk-c7g">
-                                <rect key="frame" x="228" y="368" width="72" height="37"/>
+                                <rect key="frame" x="228" y="388" width="72" height="37"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Login">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -100,14 +101,14 @@ Bitte beachte aber, dass die E-Mail-Adresse gleichzeitig auch deine Nutzerkennun
                                 </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="PIN: 123" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" id="3Ub-HD-rMR">
-                                <rect key="frame" x="20" y="246" width="243" height="37"/>
+                                <rect key="frame" x="20" y="266" width="243" height="37"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" numberOfLines="0" minimumFontSize="10" id="n2j-cJ-8Ti">
-                                <rect key="frame" x="20" y="77" width="280" height="158"/>
+                                <rect key="frame" x="20" y="97" width="280" height="158"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <string key="text">Vielen Dank. Der Doogetha-Server hat soeben eine E-Mail an deine Adresse versendet. 
 
@@ -117,7 +118,7 @@ Um deine Identität zu bestätigen, klicke bitte auf den Bestätigungslink in de
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Drücke danach den Login-Button, um dich einzuloggen." lineBreakMode="tailTruncation" numberOfLines="0" minimumFontSize="10" id="LMJ-6P-uRB">
-                                <rect key="frame" x="25" y="291" width="275" height="69"/>
+                                <rect key="frame" x="25" y="311" width="275" height="69"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -126,6 +127,7 @@ Um deine Identität zu bestätigen, klicke bitte auf den Bestätigungslink in de
                         </subviews>
                         <color key="backgroundColor" red="0.95294123890000004" green="1" blue="0.91372555489999996" alpha="1" colorSpace="deviceRGB"/>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <connections>
                         <outlet property="pinLabel" destination="3Ub-HD-rMR" id="FsF-G8-gk2"/>
                         <segue destination="fCs-4e-FmE" kind="modal" identifier="startSegue" id="pcb-H4-xco"/>
@@ -145,7 +147,7 @@ Um deine Identität zu bestätigen, klicke bitte auf den Bestätigungslink in de
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" id="6Gt-V7-eRW">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="20" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="logo.png" id="bFy-6c-drL">
@@ -156,7 +158,7 @@ Um deine Identität zu bestätigen, klicke bitte auf den Bestätigungslink in de
                                 <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                             </view>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" numberOfLines="0" minimumFontSize="10" id="EbF-WU-ZlK">
-                                <rect key="frame" x="20" y="124" width="280" height="129"/>
+                                <rect key="frame" x="20" y="144" width="280" height="129"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <string key="text">Doogetha erlaubt es dir, beliebige Aktivitäten mit Freunden, Bekannten und unbekannten Personen zu planen.
 
@@ -166,7 +168,7 @@ Bitte drücke auf Fortfahren, um Doogetha auf diesem Gerät einzurichten.</strin
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="PIY-i4-CzG">
-                                <rect key="frame" x="200" y="353" width="100" height="37"/>
+                                <rect key="frame" x="200" y="373" width="100" height="37"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Fortfahren">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -176,7 +178,7 @@ Bitte drücke auf Fortfahren, um Doogetha auf diesem Gerät einzurichten.</strin
                                 </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Willkommen bei Doogetha" lineBreakMode="tailTruncation" minimumFontSize="10" id="N8T-EQ-pYc">
-                                <rect key="frame" x="20" y="74" width="280" height="40"/>
+                                <rect key="frame" x="20" y="94" width="280" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -185,6 +187,7 @@ Bitte drücke auf Fortfahren, um Doogetha auf diesem Gerät einzurichten.</strin
                         </subviews>
                         <color key="backgroundColor" red="0.95294123890000004" green="1" blue="0.91372555489999996" alpha="1" colorSpace="deviceRGB"/>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <connections>
                         <segue destination="VG5-E9-28n" kind="modal" identifier="proceedToLoginSegue" id="z2x-Mu-SHA"/>
                     </connections>
@@ -1659,8 +1662,8 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
         <segue reference="Reu-pG-r5d"/>
         <segue reference="Jh4-bb-yJ9"/>
         <segue reference="P7v-hf-MCz"/>
-        <segue reference="1rW-P8-SJA"/>
-        <segue reference="aJI-v4-u83"/>
         <segue reference="kCL-qL-HZh"/>
+        <segue reference="aJI-v4-u83"/>
+        <segue reference="1rW-P8-SJA"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -51,7 +51,7 @@
     UIColor* dgColor = [UIColor colorWithRed:.0 green:.2 blue:.0 alpha:1.0];
     [self.navigationController.navigationBar setTintColor:dgColor];
     [self.navigationController.toolbar setTintColor:dgColor];
-    UIImage *logo = [UIImage imageNamed:@"logo.png"];
+    UIImage *logo = [UIImage imageNamed:@"title.png"];
     UIImageView* imageView = [[UIImageView alloc] initWithImage:logo];
     imageView.contentMode = UIViewContentModeScaleAspectFit;
     [self.navigationItem setTitleView:imageView];
