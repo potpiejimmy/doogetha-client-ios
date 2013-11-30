@@ -48,9 +48,11 @@
     else if (self.tabBarController.tabBar.selectedItem.tag == 2)
         [DGUtils app].mainControllerMyActs = self; // set main controller for my activities
     
-    UIColor* dgColor = [UIColor colorWithRed:.0 green:.2 blue:.0 alpha:1.0];
-    [self.navigationController.navigationBar setTintColor:dgColor];
-    [self.navigationController.toolbar setTintColor:dgColor];
+    UIColor* dgColor = [UIColor colorWithRed:.9 green:1.0 blue:.9 alpha:1.0];
+    [self.navigationController.navigationBar setBarTintColor:dgColor];
+    [self.navigationController.toolbar setBarTintColor:dgColor];
+    self.navigationController.navigationBar.translucent = NO;
+    self.navigationController.toolbar.translucent = NO;
     UIImage *logo = [UIImage imageNamed:@"title.png"];
     UIImageView* imageView = [[UIImageView alloc] initWithImage:logo];
     imageView.contentMode = UIViewContentModeScaleAspectFit;

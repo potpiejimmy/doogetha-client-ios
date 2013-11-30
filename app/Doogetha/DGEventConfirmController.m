@@ -106,7 +106,7 @@
     itery += 10;
     
     self.confirmButton = [DGUtils button:CGRectMake(0, itery, 1, 1) withText:@" Ich nehme teil" target:self action:@selector(confirm:)];
-    self.declineButton = [DGUtils button:CGRectMake(self.confirmButton.frame.size.width + 5, itery, 1, 1) withText:@" Ich nehme nicht teil" target:self action:@selector(decline:)];
+    self.declineButton = [DGUtils button:CGRectMake(self.confirmButton.frame.size.width + 3, itery, 1, 1) withText:@" Ich nehme nicht teil" target:self action:@selector(decline:)];
     
     [self.confirmButton setImage:[UIImage imageNamed:@"dot-green.png"] forState:UIControlStateNormal];
     [self.declineButton setImage:[UIImage imageNamed:@"dot-red.png"] forState:UIControlStateNormal];

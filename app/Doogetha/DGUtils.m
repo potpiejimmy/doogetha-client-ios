@@ -36,7 +36,15 @@ UIAlertView* _currentAlert;
     b.titleLabel.font = [UIFont systemFontOfSize:14.0f];
     [b setTitle:label forState:UIControlStateNormal];
     [b setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    b.layer.cornerRadius = 5;
+    b.layer.borderWidth = 1;
+    b.layer.borderColor = [UIColor blackColor].CGColor;
+    b.layer.backgroundColor = [UIColor whiteColor].CGColor;
     [b sizeToFit];
+    rect = b.frame;
+    rect.size.height += 8;
+    rect.size.width += 26;
+    b.frame = rect;
     [b addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
     return b;
 }
