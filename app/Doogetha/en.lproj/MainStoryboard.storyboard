@@ -1134,43 +1134,6 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="qwP-80-ioP">
                                 <rect key="frame" x="20" y="20" width="280" height="298"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <subviews>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="q1l-ZD-sfg">
-                                        <rect key="frame" x="0.0" y="0.0" width="280" height="186"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                        <color key="backgroundColor" red="0.89818088500000004" green="1" blue="0.89954949819999996" alpha="1" colorSpace="calibratedRGB"/>
-                                        <prototypes>
-                                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="surveyItem" textLabel="J3b-da-xeX" detailTextLabel="6xH-NP-1OK" style="IBUITableViewCellStyleValue1" id="3BE-Wx-ayi">
-                                                <rect key="frame" x="0.0" y="22" width="280" height="44"/>
-                                                <autoresizingMask key="autoresizingMask"/>
-                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3BE-Wx-ayi" id="gKz-1C-MjH">
-                                                    <rect key="frame" x="0.0" y="0.0" width="247" height="43"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <subviews>
-                                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="J3b-da-xeX">
-                                                            <rect key="frame" x="15" y="14" width="27" height="16"/>
-                                                            <autoresizingMask key="autoresizingMask"/>
-                                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
-                                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                        </label>
-                                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="6xH-NP-1OK">
-                                                            <rect key="frame" x="215" y="16" width="30" height="14"/>
-                                                            <autoresizingMask key="autoresizingMask"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                                            <color key="textColor" red="0.2196078431372549" green="0.32941176470588235" blue="0.52941176470588236" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                        </label>
-                                                    </subviews>
-                                                </tableViewCellContentView>
-                                            </tableViewCell>
-                                        </prototypes>
-                                        <connections>
-                                            <outlet property="dataSource" destination="xuR-Qe-jIy" id="hif-mS-yLr"/>
-                                            <outlet property="delegate" destination="xuR-Qe-jIy" id="RZQ-Bs-sHJ"/>
-                                        </connections>
-                                    </tableView>
-                                </subviews>
                             </scrollView>
                             <view contentMode="scaleToFill" id="i32-fe-K4X">
                                 <rect key="frame" x="0.0" y="333" width="320" height="3"/>
@@ -1203,7 +1166,6 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                         <outlet property="commentsPreviewer" destination="p69-DZ-AYD" id="kb5-qC-baz"/>
                         <outlet property="editButton" destination="DTi-KH-Pa6" id="IF4-L3-UDd"/>
                         <outlet property="scroller" destination="qwP-80-ioP" id="Ead-BC-SZM"/>
-                        <outlet property="surveyTable" destination="q1l-ZD-sfg" id="Xg6-wf-qNl"/>
                         <segue destination="pCe-P8-Qcd" kind="push" identifier="surveyConfirmSegue" id="3wH-jx-PpF"/>
                         <segue destination="vI6-b4-6qz" kind="modal" identifier="commentsSegue" id="HC2-ep-DMF"/>
                         <segue destination="DE7-as-Ht3" kind="custom" identifier="editSegue" customClass="DGNonAnimatedPushSegue" id="OfK-Mg-dBw"/>

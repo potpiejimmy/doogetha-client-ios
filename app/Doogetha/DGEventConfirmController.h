@@ -14,7 +14,7 @@
     @private BOOL _isEditing;
 }
 
-@property (weak, nonatomic) IBOutlet UITableView *surveyTable;
+@property (strong, nonatomic) UITableView *surveyTable;
 @property (weak, nonatomic) IBOutlet UIScrollView *scroller;
 
 @property (strong, nonatomic) UILabel *eventName;

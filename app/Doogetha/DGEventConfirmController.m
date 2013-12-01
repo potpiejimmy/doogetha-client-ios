@@ -99,8 +99,15 @@
     
     itery += 10;
 
+    self.surveyTable = [[UITableView alloc] init];
+    self.surveyTable.bounces = NO;
+    self.surveyTable.delegate = self;
+    self.surveyTable.dataSource = self;
     self.surveyTable.frame = CGRectMake(0, itery, viewWidth, [[event objectForKey:@"surveys"] count] * 32);
     self.surveyTable.rowHeight = 32;
+
+    [self.scroller addSubview:self.surveyTable];
+    
     itery += self.surveyTable.frame.size.height;
     
     itery += 10;
@@ -221,6 +228,11 @@
 {
     //NSLog(@"cellForRowAtIndexPath called");
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"surveyItem"];
+    if (!cell) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"surveyItem"];
+        cell.textLabel.font = [UIFont systemFontOfSize:13];
+        cell.detailTextLabel.font = [UIFont systemFontOfSize:11];
+    }
     
     NSDictionary* survey = [[[DGUtils app].currentEvent objectForKey:@"surveys"] objectAtIndex:[indexPath row]];
     int surveyState = [[survey objectForKey:@"state"] intValue];
