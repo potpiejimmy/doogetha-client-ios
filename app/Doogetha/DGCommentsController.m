@@ -169,8 +169,9 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSString* text = [[self.comments objectAtIndex:indexPath.row] objectForKey:@"comment"];
-    CGSize s = [text sizeWithAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14]}];
-    return s.height + 32;
+    NSAttributedString* attrText = [[NSAttributedString alloc] initWithString:text attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14]}];
+    CGRect r = [attrText boundingRectWithSize:(CGSize){tableView.frame.size.width, CGFLOAT_MAX} options:NSStringDrawingUsesLineFragmentOrigin context:nil];
+    return r.size.height + 32;
 }
 
 #pragma mark - Table view delegate
