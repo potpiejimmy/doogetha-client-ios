@@ -1081,15 +1081,15 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                                 </connections>
                             </tableView>
                             <switch opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="YAv-oV-yw5">
-                                <rect key="frame" x="221" y="369" width="51" height="31"/>
+                                <rect key="frame" x="251" y="369" width="51" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="31" id="Z1f-Mk-wzZ"/>
                                     <constraint firstAttribute="width" constant="49" id="lh1-bU-bcY"/>
                                 </constraints>
                             </switch>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Teilnehmer können weitere Auswahlmöglichkeiten hinzufügen:" lineBreakMode="tailTruncation" numberOfLines="0" minimumFontSize="10" preferredMaxLayoutWidth="193" translatesAutoresizingMaskIntoConstraints="NO" id="ayo-q4-W8O">
-                                <rect key="frame" x="20" y="369" width="193" height="32"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Teilnehmer können weitere Auswahlmöglichkeiten hinzufügen:" lineBreakMode="tailTruncation" numberOfLines="0" minimumFontSize="10" preferredMaxLayoutWidth="223" translatesAutoresizingMaskIntoConstraints="NO" id="ayo-q4-W8O">
+                                <rect key="frame" x="20" y="369" width="223" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="32" id="2Uz-0b-2rI"/>
@@ -1142,11 +1142,11 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="npH-ag-vMJ" secondAttribute="trailing" constant="20" id="2Ku-XY-4UF"/>
                             <constraint firstItem="ayo-q4-W8O" firstAttribute="leading" secondItem="jRa-pT-6VZ" secondAttribute="leading" constant="20" id="5pv-5T-Fq5"/>
+                            <constraint firstItem="YAv-oV-yw5" firstAttribute="leading" secondItem="ayo-q4-W8O" secondAttribute="trailing" constant="8" id="6N2-80-FnK"/>
                             <constraint firstAttribute="trailing" secondItem="bDW-nl-9Ig" secondAttribute="trailing" id="Iio-Pf-TGe"/>
                             <constraint firstItem="Q0K-Vj-38u" firstAttribute="leading" secondItem="jRa-pT-6VZ" secondAttribute="leading" constant="20" id="JUN-0s-2Gx"/>
                             <constraint firstAttribute="trailing" secondItem="kuh-KL-ipD" secondAttribute="trailing" constant="20" id="Kzk-N7-mLk"/>
                             <constraint firstItem="hOh-J8-C5P" firstAttribute="leading" secondItem="jRa-pT-6VZ" secondAttribute="leading" constant="20" id="LQq-iR-RHM"/>
-                            <constraint firstAttribute="trailing" secondItem="YAv-oV-yw5" secondAttribute="trailing" constant="50" id="Nbg-4R-g6d"/>
                             <constraint firstItem="bDW-nl-9Ig" firstAttribute="top" secondItem="YAv-oV-yw5" secondAttribute="bottom" constant="36" id="OHl-9V-Ytn"/>
                             <constraint firstItem="e3r-Rm-MVT" firstAttribute="leading" secondItem="jRa-pT-6VZ" secondAttribute="leading" constant="20" id="Qyp-Fa-ehR"/>
                             <constraint firstItem="hOh-J8-C5P" firstAttribute="top" secondItem="Q0K-Vj-38u" secondAttribute="bottom" constant="8" id="RDE-aD-GNs"/>
@@ -1163,7 +1163,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                             <constraint firstItem="Q0K-Vj-38u" firstAttribute="top" secondItem="kuh-KL-ipD" secondAttribute="bottom" constant="9" id="g4V-t6-YaF"/>
                             <constraint firstItem="kuh-KL-ipD" firstAttribute="top" secondItem="npH-ag-vMJ" secondAttribute="bottom" constant="8" id="o7m-uK-x3s"/>
                             <constraint firstItem="kuh-KL-ipD" firstAttribute="leading" secondItem="jRa-pT-6VZ" secondAttribute="leading" constant="20" id="rvg-PX-hUc"/>
-                            <constraint firstItem="YAv-oV-yw5" firstAttribute="leading" secondItem="ayo-q4-W8O" secondAttribute="trailing" constant="8" id="ul8-cp-2S4"/>
+                            <constraint firstAttribute="trailing" secondItem="YAv-oV-yw5" secondAttribute="trailing" constant="20" id="vlN-zs-ZHZ"/>
                             <constraint firstAttribute="trailing" secondItem="7Pc-7r-icV" secondAttribute="trailing" constant="20" id="wJu-zT-bvw"/>
                             <constraint firstItem="ayo-q4-W8O" firstAttribute="top" secondItem="e3r-Rm-MVT" secondAttribute="bottom" constant="8" id="wb9-E7-gTH"/>
                         </constraints>

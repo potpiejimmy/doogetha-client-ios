@@ -49,8 +49,11 @@
         [DGUtils app].mainControllerMyActs = self; // set main controller for my activities
     
     UIColor* dgColor = [UIColor colorWithRed:.9 green:1.0 blue:.9 alpha:1.0];
+    [self.navigationController.navigationBar setTintColor:[UIColor blackColor]];
     [self.navigationController.navigationBar setBarTintColor:dgColor];
     [self.navigationController.toolbar setBarTintColor:dgColor];
+    [self.tabBarController.tabBar setTintColor:[UIColor colorWithRed:.0 green:.5 blue:.0 alpha:1.0]];
+    [self.tabBarController.tabBar setBarTintColor:dgColor];
     self.navigationController.navigationBar.translucent = NO;
     self.navigationController.toolbar.translucent = NO;
     UIImage *logo = [UIImage imageNamed:@"title.png"];

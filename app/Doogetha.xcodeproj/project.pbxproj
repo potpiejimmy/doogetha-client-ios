@@ -660,7 +660,7 @@
 		A591DAF4149A6DB20077DF83 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Thorsten Liese (JJ2442D955)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Doogetha/Doogetha-Prefix.pch";
 				INFOPLIST_FILE = "Doogetha/Doogetha-Info.plist";
